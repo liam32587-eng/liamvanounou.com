@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>1-on-1 Online Coaching — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Train 1-on-1 with Liam Vanounou — National Gymnast. Custom programming, weekly check-ins, video form review. Limited to 5 spots.">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #f0ede8; overflow-x: hidden; }
+
+      /* OVERLAY + SIDE MENU */
+      .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+      .overlay.open { opacity: 1; pointer-events: all; }
+      .sidemenu { position: fixed; top: 0; right: -360px; bottom: 0; width: 320px; background: #111; z-index: 300; padding: 60px 40px; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
+      .sidemenu.open { right: 0; }
+      .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #555; font-size: 24px; transition: color 0.2s; }
+      .sidemenu-close:hover { color: white; }
+      .sidemenu-logo { font-size: 16px; font-weight: 700; color: white; margin-bottom: 48px; }
+      .sidemenu-logo span { color: #e63946; }
+      .sidemenu nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+      .sidemenu nav a { color: #555; text-decoration: none; font-size: 32px; font-weight: 700; padding: 10px 0; transition: color 0.2s; border-bottom: 1px solid #1e1e1e; letter-spacing: -1px; }
+      .sidemenu nav a:hover { color: white; }
+      .sidemenu nav a.coaching-link { color: #e63946; }
+      .sidemenu nav a.coaching-link:hover { color: #ff6b75; }
+      .sidemenu-footer { color: #333; font-size: 13px; margin-top: 40px; }
+
+      /* TOP NAV */
+      .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(15,15,15,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e1e; transition: padding 0.3s; }
+      .topnav .logo { font-size: 18px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px; }
+      .topnav .logo span { color: #e63946; }
+      .topnav-links { display: flex; align-items: center; gap: 32px; }
+      .topnav-links a { color: #666; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+      .topnav-links a:hover { color: white; }
+      .topnav-links a.coaching-link { color: #e63946; font-weight: 700; }
+      .topnav-links a.coaching-link:hover { color: #ff6b75; }
+      .menu-btn { background: none; border: 1px solid #2a2a2a; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; transition: border-color 0.2s; }
+      .menu-btn:hover { border-color: #666; }
+      .menu-btn span { width: 18px; height: 1.5px; background: #aaa; border-radius: 2px; display: block; }
+
+      /* HERO */
+      .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 48px 80px; position: relative; overflow: hidden; }
+      .hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 65%); pointer-events: none; }
+      .hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(230,57,70,0.06) 0%, transparent 65%); pointer-events: none; }
+      .hero-inner { display: flex; align-items: flex-start; gap: 80px; max-width: 1200px; width: 100%; }
+      .hero-text { flex: 1; }
+      .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 24px; }
+      .hero-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: #e63946; }
+      .hero-text h1 { font-size: 76px; font-weight: 800; line-height: 0.95; letter-spacing: -4px; margin-bottom: 28px; color: white; }
+      .hero-text h1 em { font-style: normal; color: #e63946; }
+      .hero-text p { font-size: 18px; color: #888; line-height: 1.8; max-width: 500px; margin-bottom: 44px; }
+      .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 48px; }
+      .hero-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #999; padding: 8px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; }
+      .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+      .btn-primary { background: #e63946; color: white; padding: 18px 40px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 700; transition: background 0.2s, transform 0.2s; letter-spacing: 0.2px; display: inline-block; }
+      .btn-primary:hover { background: #c1121f; transform: translateY(-2px); }
+      .btn-ghost-white { color: #aaa; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, gap 0.2s; }
+      .btn-ghost-white:hover { color: white; gap: 14px; }
+      .hero-aside { flex-shrink: 0; }
+
+      /* STICKY BUY BOX */
+      .buy-box { background: #161616; border: 1px solid #2a2a2a; border-radius: 20px; padding: 36px; width: 300px; position: sticky; top: 100px; }
+      .buy-box-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); color: #e63946; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 12px; border-radius: 100px; margin-bottom: 20px; }
+      .buy-box-badge::before { content: ''; width: 6px; height: 6px; background: #e63946; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+      .buy-box-price { margin-bottom: 6px; }
+      .buy-box-price .founding { font-size: 11px; font-weight: 700; color: #e63946; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+      .buy-box-price .amount { font-size: 52px; font-weight: 800; letter-spacing: -3px; color: white; line-height: 1; }
+      .buy-box-price .period { font-size: 14px; color: #555; font-weight: 500; }
+      .buy-box-renewal { color: #555; font-size: 12px; margin-bottom: 28px; line-height: 1.5; }
+      .buy-box-renewal span { color: #888; }
+      .buy-box-btn { display: block; background: #e63946; color: white; text-align: center; padding: 16px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; margin-bottom: 16px; transition: background 0.2s, transform 0.2s; }
+      .buy-box-btn:hover { background: #c1121f; transform: translateY(-2px); }
+      .buy-box-spots { text-align: center; font-size: 12px; color: #666; margin-bottom: 24px; }
+      .buy-box-spots strong { color: #e63946; }
+      .buy-box-divider { border: none; border-top: 1px solid #1e1e1e; margin-bottom: 20px; }
+      .buy-box-includes { display: flex; flex-direction: column; gap: 10px; }
+      .buy-box-includes li { list-style: none; font-size: 13px; color: #888; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
+      .buy-box-includes li::before { content: '✓'; color: #e63946; font-weight: 800; flex-shrink: 0; }
+
+      /* SECTION BASE */
+      .section { padding: 100px 48px; }
+      .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+      .section-label::before { content: ''; display: block; width: 16px; height: 2px; background: #e63946; }
+      .section-heading { font-size: 48px; font-weight: 800; letter-spacing: -2.5px; margin-bottom: 16px; line-height: 1.0; color: white; }
+      .section-sub { color: #777; font-size: 16px; line-height: 1.8; max-width: 520px; }
+
+      /* WHAT'S INCLUDED */
+      .includes-section { background: #111; }
+      .includes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; border: 1px solid #1e1e1e; border-radius: 16px; overflow: hidden; }
+      .include-item { background: #161616; padding: 40px 36px; transition: background 0.2s; }
+      .include-item:hover { background: #1a1a1a; }
+      .include-icon { font-size: 28px; margin-bottom: 16px; display: block; }
+      .include-item h3 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 10px; letter-spacing: -0.3px; }
+      .include-item p { color: #666; font-size: 14px; line-height: 1.65; }
+
+      /* WHO IT'S FOR */
+      .for-section { background: #0f0f0f; }
+      .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 64px; }
+      .for-col h3 { font-size: 20px; font-weight: 700; color: white; margin-bottom: 24px; letter-spacing: -0.5px; }
+      .for-list { display: flex; flex-direction: column; gap: 14px; }
+      .for-item { display: flex; align-items: flex-start; gap: 14px; padding: 20px 24px; background: #111; border: 1px solid #1e1e1e; border-radius: 12px; transition: border-color 0.2s; }
+      .for-item:hover { border-color: #2a2a2a; }
+      .for-check { width: 22px; height: 22px; background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 10px; color: #e63946; font-weight: 800; }
+      .for-item p { color: #888; font-size: 14px; line-height: 1.6; }
+      .not-for-item .for-check { background: rgba(255,255,255,0.04); border-color: #2a2a2a; color: #444; }
+      .not-for-item p { color: #555; }
+
+      /* PRICING */
+      .pricing-section { background: #111; }
+      .pricing-card { background: #161616; border: 1px solid #2a2a2a; border-radius: 24px; padding: 64px; display: flex; gap: 80px; align-items: flex-start; margin-top: 64px; position: relative; overflow: hidden; }
+      .pricing-card::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(230,57,70,0.1) 0%, transparent 65%); pointer-events: none; }
+      .pricing-left { flex: 1; }
+      .pricing-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); color: #e63946; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 7px 14px; border-radius: 100px; margin-bottom: 28px; }
+      .pricing-badge::before { content: ''; width: 6px; height: 6px; background: #e63946; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+      .pricing-left h2 { font-size: 52px; font-weight: 800; letter-spacing: -3px; color: white; line-height: 1; margin-bottom: 8px; }
+      .pricing-left h2 em { font-style: normal; color: #e63946; }
+      .pricing-left .price-period { color: #555; font-size: 16px; margin-bottom: 20px; }
+      .pricing-left .renewal-note { color: #666; font-size: 14px; line-height: 1.7; margin-bottom: 36px; padding: 16px 20px; background: rgba(255,255,255,0.03); border: 1px solid #1e1e1e; border-radius: 10px; }
+      .pricing-left .renewal-note strong { color: #aaa; }
+      .pricing-spots { display: flex; align-items: center; gap: 12px; margin-bottom: 36px; }
+      .spots-dots { display: flex; gap: 6px; }
+      .spot-dot { width: 10px; height: 10px; background: #e63946; border-radius: 50%; }
+      .spot-dot.empty { background: #2a2a2a; }
+      .pricing-spots span { font-size: 13px; color: #666; }
+      .pricing-spots strong { color: #e63946; }
+      .pricing-right { flex-shrink: 0; width: 280px; }
+      .pricing-right h3 { font-size: 14px; font-weight: 700; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
+      .pricing-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+      .pricing-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #888; line-height: 1.5; }
+      .pricing-feature::before { content: '✓'; color: #e63946; font-weight: 800; flex-shrink: 0; }
+      .pricing-cta { display: block; background: #e63946; color: white; text-align: center; padding: 18px; border-radius: 10px; font-size: 15px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-bottom: 12px; }
+      .pricing-cta:hover { background: #c1121f; transform: translateY(-2px); }
+      .pricing-cta-note { text-align: center; font-size: 12px; color: #555; }
+
+      /* APPLICATION FORM */
+      .application-section { background: #0f0f0f; }
+      .form-wrapper { max-width: 680px; margin: 64px auto 0; }
+      .form-intro { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 32px; margin-bottom: 32px; display: flex; gap: 20px; align-items: flex-start; }
+      .form-intro-icon { font-size: 28px; flex-shrink: 0; }
+      .form-intro h3 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 6px; }
+      .form-intro p { color: #666; font-size: 14px; line-height: 1.7; }
+      .application-form { display: flex; flex-direction: column; gap: 16px; }
+      .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+      .form-group { display: flex; flex-direction: column; gap: 6px; }
+      .form-group label { font-size: 12px; font-weight: 700; color: #555; letter-spacing: 0.5px; text-transform: uppercase; }
+      .form-group input,
+      .form-group select,
+      .form-group textarea { border: 1px solid #1e1e1e; border-radius: 10px; padding: 14px 16px; font-size: 14px; font-family: 'Inter', sans-serif; color: white; background: #111; transition: border-color 0.2s; -webkit-appearance: none; }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus { outline: none; border-color: #e63946; background: #161616; }
+      .form-group input::placeholder,
+      .form-group textarea::placeholder { color: #333; }
+      .form-group select option { background: #1a1a1a; color: white; }
+      .form-group textarea { resize: vertical; }
+      .form-radio-group { display: flex; gap: 16px; }
+      .form-radio { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+      .form-radio input[type="radio"] { width: 16px; height: 16px; accent-color: #e63946; cursor: pointer; }
+      .form-radio span { font-size: 14px; color: #888; }
+      .form-submit { background: #e63946; color: white; border: none; padding: 18px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s, transform 0.2s; letter-spacing: 0.2px; margin-top: 8px; }
+      .form-submit:hover { background: #c1121f; transform: translateY(-2px); }
+      .form-note { text-align: center; font-size: 12px; color: #444; margin-top: 8px; }
+
+      /* TESTIMONIALS */
+      .testimonials-section { background: #111; }
+      .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+      .testimonial-card { background: #161616; border-radius: 14px; padding: 32px; border: 1px solid #1e1e1e; transition: border-color 0.2s; }
+      .testimonial-card:hover { border-color: #2a2a2a; }
+      .stars { color: #e63946; font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+      .testimonial-card p { color: #777; font-size: 15px; line-height: 1.75; margin-bottom: 24px; }
+      .testimonial-author { font-size: 13px; font-weight: 700; color: white; }
+      .testimonial-role { font-size: 12px; color: #444; margin-top: 2px; }
+
+      /* FINAL CTA */
+      .final-cta { background: #e63946; padding: 80px 48px; text-align: center; position: relative; overflow: hidden; }
+      .final-cta::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%); pointer-events: none; }
+      .final-cta h2 { font-size: 52px; font-weight: 800; color: white; letter-spacing: -2.5px; line-height: 1.05; margin-bottom: 16px; position: relative; }
+      .final-cta p { color: rgba(255,255,255,0.7); font-size: 17px; line-height: 1.7; max-width: 480px; margin: 0 auto 40px; position: relative; }
+      .btn-white { background: white; color: #e63946; padding: 18px 44px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 700; display: inline-block; transition: transform 0.2s; position: relative; }
+      .btn-white:hover { transform: translateY(-2px); }
+      .final-cta-note { color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 16px; position: relative; }
+
+      /* FOOTER */
+      footer { padding: 32px 48px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; background: #0a0a0a; }
+      .footer-logo { font-size: 16px; font-weight: 800; color: white; letter-spacing: -0.5px; }
+      .footer-logo span { color: #e63946; }
+      .footer-links { display: flex; gap: 24px; }
+      .footer-links a { color: #444; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+      .footer-links a:hover { color: white; }
+      .footer-copy { color: #333; font-size: 13px; }
+
+      /* MOBILE */
+      @media (max-width: 900px) {
+        .topnav { padding: 16px 24px; }
+        .topnav-links .hide-mobile { display: none; }
+        .hero { padding: 100px 24px 60px; }
+        .hero-inner { flex-direction: column; gap: 40px; }
+        .hero-text h1 { font-size: 48px; letter-spacing: -2.5px; }
+        .hero-aside { width: 100%; }
+        .buy-box { width: 100%; position: static; }
+        .section { padding: 60px 24px; }
+        .section-heading { font-size: 34px; letter-spacing: -1.5px; }
+        .includes-grid { grid-template-columns: 1fr; }
+        .for-grid { grid-template-columns: 1fr; }
+        .pricing-card { flex-direction: column; padding: 40px 32px; gap: 40px; }
+        .pricing-left h2 { font-size: 40px; }
+        .pricing-right { width: 100%; }
+        .form-row { grid-template-columns: 1fr; }
+        .testimonials-grid { grid-template-columns: 1fr; }
+        .final-cta { padding: 60px 24px; }
+        .final-cta h2 { font-size: 36px; }
+        footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+    <div class="sidemenu" id="sidemenu">
+      <button class="sidemenu-close" onclick="closeMenu()">✕</button>
+      <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+      <nav>
+        <a href="index.html" onclick="closeMenu()">Home</a>
+        <a href="index.html#about" onclick="closeMenu()">About</a>
+        <a href="programs.html" onclick="closeMenu()">Programs</a>
+        <a href="coaching.html" class="coaching-link" onclick="closeMenu()">Coaching</a>
+        <a href="index.html#contact" onclick="closeMenu()">Contact</a>
+      </nav>
+      <div class="sidemenu-footer">© 2026 Liam Vanounou</div>
+    </div>
+
+    <header class="topnav" id="topnav">
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="topnav-links">
+        <a href="index.html#about" class="hide-mobile">About</a>
+        <a href="programs.html" class="hide-mobile">Programs</a>
+        <a href="coaching.html" class="coaching-link hide-mobile">Coaching</a>
+        <a href="index.html#contact" class="hide-mobile">Contact</a>
+        <button class="menu-btn" onclick="openMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="hero-text">
+          <span class="hero-eyebrow">1-on-1 Online Coaching</span>
+          <h1>Train 1-on-1 With a<br><em>National Gymnast.</em></h1>
+          <p>Learn handstands, ring strength, and calisthenics skills from an elite competitor who has spent 11+ years mastering what your body is capable of.</p>
+          <div class="hero-tags">
+            <span class="hero-tag">Custom Programming</span>
+            <span class="hero-tag">Weekly Check-Ins</span>
+            <span class="hero-tag">Video Form Review</span>
+            <span class="hero-tag">Unlimited Messaging</span>
+          </div>
+          <div class="hero-cta">
+            <a class="btn-primary" href="#apply">Apply for a Spot</a>
+            <a class="btn-ghost-white" href="#whats-included">See what's included →</a>
+          </div>
+        </div>
+        <div class="hero-aside">
+          <div class="buy-box">
+            <div class="buy-box-badge">5 Spots Only — Live</div>
+            <div class="buy-box-price">
+              <div class="founding">Founding Member Rate</div>
+              <div class="amount">$197</div>
+              <div class="period">first month</div>
+            </div>
+            <div class="buy-box-renewal">Then <span>$397/month</span> — cancel anytime.</div>
+            <a class="buy-box-btn" href="#apply">Apply Now — Limited Spots</a>
+            <div class="buy-box-spots"><strong>Only 5 spots</strong> available total.</div>
+            <hr class="buy-box-divider">
+            <ul class="buy-box-includes">
+              <li>Custom monthly training program</li>
+              <li>Weekly check-ins via voice note</li>
+              <li>Video form review with feedback</li>
+              <li>Unlimited messaging access</li>
+              <li>All digital programs included</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT'S INCLUDED -->
+    <section class="section includes-section" id="whats-included">
+      <div class="section-label">What's Included</div>
+      <h2 class="section-heading">Everything you need<br>to actually progress.</h2>
+      <p class="section-sub">No generic plans. No guessing. Every part of this is built around you, your schedule, and your goals.</p>
+      <div class="includes-grid">
+        <div class="include-item">
+          <span class="include-icon">📋</span>
+          <h3>Custom Monthly Program</h3>
+          <p>A full training plan written specifically for your body, your schedule, and your goal. Rebuilt each month as you progress.</p>
+        </div>
+        <div class="include-item">
+          <span class="include-icon">🎙️</span>
+          <h3>Weekly Check-Ins</h3>
+          <p>Every week we check in via voice note. I'll review your progress, adjust the plan, and answer any questions.</p>
+        </div>
+        <div class="include-item">
+          <span class="include-icon">🎥</span>
+          <h3>Video Form Review</h3>
+          <p>Send me video of your training. I'll give you detailed feedback on technique — the same way a gymnastics coach would.</p>
+        </div>
+        <div class="include-item">
+          <span class="include-icon">💬</span>
+          <h3>Unlimited Messaging</h3>
+          <p>You have direct access to me between sessions. Ask questions, share updates, or get clarity whenever you need it.</p>
+        </div>
+        <div class="include-item">
+          <span class="include-icon">📦</span>
+          <h3>All Digital Programs</h3>
+          <p>Immediate access to all 9 programs in the library — handstands, rings, flexibility, core, and more. Yours to keep.</p>
+        </div>
+        <div class="include-item">
+          <span class="include-icon">🏆</span>
+          <h3>Elite-Level Knowledge</h3>
+          <p>11+ years of competitive gymnastics training distilled into a coaching approach that actually transfers to real movement.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHO IT'S FOR -->
+    <section class="section for-section">
+      <div class="section-label">Who This Is For</div>
+      <h2 class="section-heading">Built for serious people.</h2>
+      <p class="section-sub">This isn't a mass program. I work with a small number of people who are genuinely committed to moving better.</p>
+      <div class="for-grid">
+        <div class="for-col">
+          <h3>This is for you if...</h3>
+          <div class="for-list">
+            <div class="for-item">
+              <div class="for-check">✓</div>
+              <p>You're 25–40 and want to learn to move like a gymnast — handstands, rings, real body control.</p>
+            </div>
+            <div class="for-item">
+              <div class="for-check">✓</div>
+              <p>You're serious about training and show up consistently — not someone looking for shortcuts.</p>
+            </div>
+            <div class="for-item">
+              <div class="for-check">✓</div>
+              <p>You've been stuck on the same plateau and need structure, accountability, and expert eyes on your form.</p>
+            </div>
+            <div class="for-item">
+              <div class="for-check">✓</div>
+              <p>You want to build real gymnastic strength — ring dips, L-sits, planche progressions, freestanding handstands.</p>
+            </div>
+            <div class="for-item">
+              <div class="for-check">✓</div>
+              <p>You're willing to invest in yourself and your training — and understand quality takes time.</p>
+            </div>
+          </div>
+        </div>
+        <div class="for-col">
+          <h3>This is NOT for you if...</h3>
+          <div class="for-list">
+            <div class="for-item not-for-item">
+              <div class="for-check">✗</div>
+              <p>You want quick results with no consistency or effort on your end.</p>
+            </div>
+            <div class="for-item not-for-item">
+              <div class="for-check">✗</div>
+              <p>You're looking for a generic cookie-cutter plan you could find for free on YouTube.</p>
+            </div>
+            <div class="for-item not-for-item">
+              <div class="for-check">✗</div>
+              <p>You're not ready to film yourself training and engage with the feedback process.</p>
+            </div>
+            <div class="for-item not-for-item">
+              <div class="for-check">✗</div>
+              <p>You have an injury that prevents you from training — see a physiotherapist first.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING -->
+    <section class="section pricing-section" id="pricing">
+      <div class="section-label">Investment</div>
+      <h2 class="section-heading">Founding Member rate.<br>5 spots only.</h2>
+      <p class="section-sub">Early members get locked in at a discounted rate as long as they stay. This pricing goes away once the 5 spots are filled.</p>
+      <div class="pricing-card">
+        <div class="pricing-left">
+          <div class="pricing-badge">Founding Member — Limited</div>
+          <h2><em>$197</em></h2>
+          <div class="price-period">first month &nbsp;→&nbsp; then $397/month</div>
+          <div class="renewal-note">Your founding rate is <strong>locked in</strong> as long as you stay enrolled. Cancel anytime with 7 days notice — no questions asked.</div>
+          <div class="pricing-spots">
+            <div class="spots-dots">
+              <div class="spot-dot"></div>
+              <div class="spot-dot"></div>
+              <div class="spot-dot empty"></div>
+              <div class="spot-dot empty"></div>
+              <div class="spot-dot empty"></div>
+            </div>
+            <span><strong>2 of 5 spots</strong> filled — 3 remaining</span>
+          </div>
+        </div>
+        <div class="pricing-right">
+          <h3>Everything included</h3>
+          <div class="pricing-features">
+            <div class="pricing-feature">Custom monthly training program</div>
+            <div class="pricing-feature">Weekly voice note check-ins</div>
+            <div class="pricing-feature">Video form review & feedback</div>
+            <div class="pricing-feature">Unlimited direct messaging</div>
+            <div class="pricing-feature">All 9 digital programs</div>
+            <div class="pricing-feature">Cancel anytime, no hassle</div>
+          </div>
+          <a class="pricing-cta" href="#apply">Apply for Coaching</a>
+          <div class="pricing-cta-note">Applications reviewed within 24 hours</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="section testimonials-section">
+      <div class="section-label">Testimonials</div>
+      <h2 class="section-heading">What people say.</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Liam is one of the most dedicated athletes I've ever coached. His work ethic and attention to detail is unmatched."</p>
+          <div class="testimonial-author">Head Coach</div>
+          <div class="testimonial-role">Richmond Hill Gymnastics</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Training with Liam completely changed my approach. He breaks down every skill in a way that actually makes sense."</p>
+          <div class="testimonial-author">Athlete</div>
+          <div class="testimonial-role">Coached by Liam</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The focus and precision Liam brings to competition is on another level. He's the real deal."</p>
+          <div class="testimonial-author">Fellow Competitor</div>
+          <div class="testimonial-role">National Level</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- APPLICATION FORM -->
+    <section class="section application-section" id="apply">
+      <div class="section-label">Apply</div>
+      <h2 class="section-heading">Apply for a spot.</h2>
+      <p class="section-sub">Tell me about yourself. I review every application personally and respond within 24 hours.</p>
+      <div class="form-wrapper">
+        <div class="form-intro">
+          <div class="form-intro-icon">📝</div>
+          <div>
+            <h3>This is an application, not a checkout</h3>
+            <p>I want to make sure we're a good fit before we start working together. Fill this out honestly — there are no wrong answers, and I'm not looking for a specific fitness level.</p>
+          </div>
+        </div>
+        <form class="application-form" action="https://formspree.io/f/xlgonzrq" method="POST">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="your@email.com" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="age">Age</label>
+              <input type="number" id="age" name="age" placeholder="Your age" min="16" max="80" required>
+            </div>
+            <div class="form-group">
+              <label for="level">Current Fitness Level</label>
+              <select id="level" name="fitness_level" required>
+                <option value="" disabled selected>Select your level</option>
+                <option value="beginner">Beginner — little to no training background</option>
+                <option value="intermediate">Intermediate — train regularly, some strength base</option>
+                <option value="advanced">Advanced — serious training history</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="goal">What's your main goal?</label>
+            <input type="text" id="goal" name="main_goal" placeholder="e.g. freestanding handstand, ring muscle up, general strength..." required>
+          </div>
+          <div class="form-group">
+            <label>Have you done any gymnastics or calisthenics before?</label>
+            <div class="form-radio-group">
+              <label class="form-radio">
+                <input type="radio" name="prior_experience" value="yes" required>
+                <span>Yes</span>
+              </label>
+              <label class="form-radio">
+                <input type="radio" name="prior_experience" value="no">
+                <span>No</span>
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="why">Why do you want to work with Liam?</label>
+            <textarea id="why" name="why_liam" rows="5" placeholder="Tell me what brought you here and why you think this is a good fit..." required></textarea>
+          </div>
+          <input type="hidden" name="form_source" value="coaching_page_application">
+          <button type="submit" class="form-submit">Submit Application</button>
+          <div class="form-note">I personally review every application and respond within 24 hours.</div>
+        </form>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <div class="final-cta">
+      <h2>5 spots. That's it.</h2>
+      <p>When they're gone, they're gone. If you're serious about training like a gymnast — this is how you start.</p>
+      <a class="btn-white" href="#apply">Apply Now</a>
+      <div class="final-cta-note">First month $197 · Then $397/month · Cancel anytime</div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Liam <span>Vanounou</span></div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="coaching.html">Coaching</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 Liam Vanounou</div>
+    </footer>
+
+    <script>
+      function openMenu() { document.getElementById('sidemenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+      function closeMenu() { document.getElementById('sidemenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+      // CUSTOM CURSOR
+      const cursor = document.createElement('div');
+      cursor.style.cssText = 'position:fixed;width:12px;height:12px;background:#e63946;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.3s;transform:translate(-50%,-50%);';
+      const cursorRing = document.createElement('div');
+      cursorRing.style.cssText = 'position:fixed;width:36px;height:36px;border:1.5px solid rgba(230,57,70,0.4);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.35s ease,opacity 0.3s;transform:translate(-50%,-50%);';
+      document.body.appendChild(cursor);
+      document.body.appendChild(cursorRing);
+      let mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+      (function animRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px'; requestAnimationFrame(animRing); })();
+      document.querySelectorAll('a,button').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; cursorRing.style.transform='translate(-50%,-50%) scale(1.5)'; });
+        el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; cursorRing.style.transform='translate(-50%,-50%) scale(1)'; });
+      });
+
+      // NAV SHRINK
+      const topnav = document.getElementById('topnav');
+      window.addEventListener('scroll', () => {
+        topnav.style.padding = window.scrollY > 60 ? '12px 48px' : '20px 48px';
+      });
+
+      // SCROLL REVEAL
+      const revealStyle = document.createElement('style');
+      revealStyle.textContent = '.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.75s ease,transform 0.75s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';
+      document.head.appendChild(revealStyle);
+      document.querySelectorAll('.include-item,.for-item,.testimonial-card,.pricing-card,.section-label,.section-heading,.section-sub,.form-intro').forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i % 4) * 0.08 + 's';
+      });
+      new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+      // HERO LOAD ANIMATION
+      const heroEls = [
+        document.querySelector('.hero-eyebrow'),
+        document.querySelector('.hero-text h1'),
+        document.querySelector('.hero-text p'),
+        document.querySelector('.hero-tags'),
+        document.querySelector('.hero-cta'),
+        document.querySelector('.buy-box'),
+      ];
+      heroEls.forEach((el, i) => {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(28px)';
+        el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 150 + i * 110);
+      });
+    </script>
+  </body>
+</html>

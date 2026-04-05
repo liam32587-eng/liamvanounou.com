@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Muscle Up Progression — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#f0f0f0;overflow-x:hidden;}
+      nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #222;transition:padding 0.3s;}
+      nav .logo{font-size:18px;font-weight:800;color:#f0f0f0;text-decoration:none;letter-spacing:-0.5px;}nav .logo span{color:#e63946;}
+      nav .nav-links a{color:#888;text-decoration:none;font-size:14px;font-weight:500;margin-left:32px;transition:color 0.2s;}nav .nav-links a:hover{color:#f0f0f0;}
+      .hero{padding:140px 48px 80px;display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start;border-bottom:1px solid #222;}
+      .breadcrumb{color:#555;font-size:13px;margin-bottom:20px;}.breadcrumb a{color:#e63946;text-decoration:none;}
+      .program-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);color:#e63946;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:6px 12px;border-radius:4px;margin-bottom:20px;}
+      .hero h1{font-size:60px;font-weight:800;letter-spacing:-3px;line-height:0.95;margin-bottom:24px;}.hero h1 em{font-style:normal;color:#e63946;}
+      .hero-sub{font-size:18px;color:#888;line-height:1.7;max-width:520px;margin-bottom:40px;}
+      .hero-stats{display:flex;gap:0;border:1px solid #222;border-radius:12px;overflow:hidden;}
+      .stat{padding:20px 28px;border-right:1px solid #222;flex:1;}.stat:last-child{border-right:none;}
+      .stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:6px;}.stat-val{font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+      .buy-box{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:32px;position:sticky;top:90px;}
+      .buy-box .price{font-size:52px;font-weight:800;letter-spacing:-3px;margin-bottom:4px;}.buy-box .price-sub{color:#555;font-size:13px;margin-bottom:28px;}
+      .buy-btn{display:block;background:#e63946;color:white;text-align:center;padding:18px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:background 0.2s,transform 0.2s;margin-bottom:16px;}
+      .buy-btn:hover{background:#c1121f;transform:translateY(-2px);}
+      .guarantee{text-align:center;color:#555;font-size:12px;margin-bottom:24px;}
+      .includes{border-top:1px solid #222;padding-top:20px;}.includes-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:14px;}
+      .include-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#aaa;margin-bottom:10px;}.include-item::before{content:'✓';color:#4caf50;font-weight:800;flex-shrink:0;}
+      .section{padding:80px 48px;border-bottom:1px solid #222;}
+      .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+      .section-eyebrow::before{content:'';display:block;width:16px;height:2px;background:#e63946;}
+      .section h2{font-size:40px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.05;}.section-sub{color:#888;font-size:16px;line-height:1.8;max-width:540px;}
+      .outcomes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px;}
+      .outcome-card{background:#161616;border:1px solid #222;border-radius:16px;padding:32px;}.outcome-icon{font-size:32px;margin-bottom:16px;}
+      .outcome-card h3{font-size:19px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;}.outcome-card p{color:#777;font-size:14px;line-height:1.7;}
+      .principles{display:flex;flex-direction:column;gap:0;margin-top:48px;border:1px solid #222;border-radius:16px;overflow:hidden;}
+      .principle{display:flex;gap:32px;align-items:flex-start;padding:32px;border-bottom:1px solid #222;}.principle:last-child{border-bottom:none;}
+      .principle-num{font-size:48px;font-weight:800;color:#222;letter-spacing:-3px;flex-shrink:0;line-height:1;}
+      .principle-content h3{font-size:19px;font-weight:700;margin-bottom:8px;}.principle-content p{color:#777;font-size:14px;line-height:1.7;}
+      .preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:48px;}
+      .preview-week{border-radius:12px;overflow:hidden;border:1px solid #222;}.preview-week.unlocked{border-color:#e63946;}
+      .week-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:#161616;cursor:pointer;}
+      .preview-week.unlocked .week-header{background:rgba(230,57,70,0.08);}
+      .week-header-left{display:flex;align-items:center;gap:16px;}.week-num{font-size:11px;font-weight:700;color:#e63946;letter-spacing:1px;}
+      .week-header h3{font-size:16px;font-weight:700;}.week-header .focus{font-size:13px;color:#555;}
+      .lock-badge{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:100px;padding:5px 12px;font-size:12px;color:#555;font-weight:600;}
+      .open-badge{display:flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:#e63946;font-weight:600;}
+      .week-body{padding:24px;background:#111;display:none;}.week-body.open{display:block;}
+      .day{margin-bottom:28px;}.day:last-child{margin-bottom:0;}
+      .day h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:12px;}
+      .ex-card{border:1px solid #222;border-radius:10px;overflow:hidden;margin-bottom:8px;}.ex-card:last-child{margin-bottom:0;}
+      .ex-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#1a1a1a;cursor:pointer;user-select:none;transition:background 0.2s;}
+      .ex-header:hover{background:#202020;}.ex-left{display:flex;flex-direction:column;gap:3px;}
+      .ex-title{font-size:14px;font-weight:600;color:#ddd;}.ex-sets{font-size:12px;color:#e63946;font-weight:700;}
+      .ex-toggle{font-size:22px;color:#444;font-weight:300;line-height:1;transition:transform 0.2s,color 0.2s;flex-shrink:0;}
+      .ex-toggle.open{transform:rotate(45deg);color:#e63946;}
+      .ex-body{padding:20px 18px;background:#131313;display:none;border-top:1px solid #1e1e1e;}.ex-body.open{display:block;}
+      .ex-steps{margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
+      .ex-step{display:flex;gap:12px;font-size:13px;color:#bbb;line-height:1.5;}
+      .ex-step-num{background:#e63946;color:white;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+      .ex-cues{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding-top:12px;border-top:1px solid #1e1e1e;}
+      .ex-cue{font-size:13px;color:#888;padding-left:18px;position:relative;line-height:1.5;}
+      .ex-cue::before{content:'→';position:absolute;left:0;color:#e63946;font-weight:700;}
+      .ex-mistake{font-size:12px;color:#e6a817;background:rgba(230,168,23,0.07);border:1px solid rgba(230,168,23,0.15);border-radius:6px;padding:10px 14px;margin-top:10px;}
+      .ex-mistake::before{content:'⚠ ';font-weight:700;}
+      .locked-body{padding:32px;background:#111;text-align:center;border-top:1px solid #222;}
+      .locked-body p{color:#555;font-size:14px;margin-bottom:16px;}
+      .unlock-btn{display:inline-block;background:#e63946;color:white;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;}
+      .unlock-btn:hover{background:#c1121f;}
+      .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;}
+      .about-img{border-radius:16px;overflow:hidden;height:400px;}.about-img img{width:100%;height:100%;object-fit:cover;}
+      .about-content h3{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;}.about-content p{color:#888;font-size:15px;line-height:1.8;margin-bottom:16px;}
+      .about-cred{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+      .cred-item{display:flex;align-items:center;gap:12px;font-size:14px;color:#aaa;}.cred-item::before{content:'🏅';font-size:16px;}
+      .cta-section{background:#e63946;padding:80px 48px;text-align:center;}
+      .cta-section h2{font-size:48px;font-weight:800;color:white;letter-spacing:-2px;margin-bottom:12px;}
+      .cta-section p{color:rgba(255,255,255,0.7);font-size:17px;margin-bottom:36px;}
+      .btn-white{display:inline-block;background:white;color:#e63946;padding:18px 48px;border-radius:10px;font-size:16px;font-weight:800;text-decoration:none;transition:transform 0.2s;}
+      .btn-white:hover{transform:translateY(-2px);}
+      footer{text-align:center;padding:32px;color:#444;font-size:13px;border-top:1px solid #222;}
+      @media(max-width:900px){nav{padding:16px 24px;}.hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:40px;}.hero h1{font-size:40px;letter-spacing:-2px;}.hero-stats{flex-wrap:wrap;}.stat{min-width:50%;}.section{padding:60px 24px;}.outcomes-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.cta-section{padding:60px 24px;}.cta-section h2{font-size:32px;}}
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a><a href="index.html#contact">Contact</a></div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Muscle Up Progression</div>
+        <div class="program-tag">Pull Up Bar / Rings</div>
+        <h1>Earn your<br><em>first muscle up.</em></h1>
+        <p class="hero-sub">The muscle up isn't just a stronger pull up — it's a completely different skill. This 8-week program teaches the false grip, the transition, and the pressing strength you need to get above the bar from scratch.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-label">Duration</div><div class="stat-val">8 Weeks</div></div>
+          <div class="stat"><div class="stat-label">Level</div><div class="stat-val">Intermediate</div></div>
+          <div class="stat"><div class="stat-label">Per Week</div><div class="stat-val">3 Days</div></div>
+          <div class="stat"><div class="stat-label">Equipment</div><div class="stat-val">Bar or Rings</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$24</div>
+        <div class="price-sub">One-time. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <p class="guarantee">🔒 Secure checkout</p>
+        <div class="includes">
+          <div class="includes-title">What's included</div>
+          <div class="include-item">Full 8-week program (all weeks unlocked)</div>
+          <div class="include-item">Step-by-step guides for every exercise</div>
+          <div class="include-item">False grip training from day one</div>
+          <div class="include-item">Transition mechanics breakdown</div>
+          <div class="include-item">Email support from Liam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">What You'll Achieve</div>
+      <h2>After 8 weeks,<br>here's where you'll be.</h2>
+      <p class="section-sub">Most people try to muscle up by just doing more pull ups. That's why most people never get one. The transition is a skill — and this program teaches it.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><div class="outcome-icon">🤛</div><h3>False grip mastery</h3><p>The false grip is the secret the bar calisthenics world ignores. It's how gymnasts transition without losing momentum. You'll build it from week one.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">⬆️</div><h3>Clean bar muscle up</h3><p>No kip, no swing, no cheat. A strict muscle up from dead hang — the movement gymnasts use as a basic skill — is the goal of this program.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">💪</div><h3>Ring dip strength</h3><p>The top of the muscle up is a deep ring dip. Most people can't do one when they start. This program builds that pressing capacity in parallel.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🔄</div><h3>The transition</h3><p>Getting from below the bar to above it is the hardest part. You'll train it in isolation with transition drills before ever attempting a full rep.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Pull. Transition.<br>Press. In that order.</h2>
+      <p class="section-sub">The muscle up has three distinct phases. This program trains each one separately before combining them — which is exactly how gymnastics coaches teach it.</p>
+      <div class="principles">
+        <div class="principle"><div class="principle-num">01</div><div class="principle-content"><h3>False grip from the start</h3><p>Week 1 begins with false grip dead hangs and scapular work. This grip position feels awkward at first — training it early means it becomes natural by the time the transition drills start.</p></div></div>
+        <div class="principle"><div class="principle-num">02</div><div class="principle-content"><h3>Isolate the transition</h3><p>Mid-program, you'll drill the transition alone using box-assisted transitions and jumping muscle ups. Getting above the bar is a separate skill from pulling — treat it that way.</p></div></div>
+        <div class="principle"><div class="principle-num">03</div><div class="principle-content"><h3>Press strength runs in parallel</h3><p>Ring dips and push-up progressions are trained throughout the program. You need the pressing strength for the top before the full movement is possible.</p></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Inside the Program</div>
+      <h2>Week 1 is on us.<br>The rest is yours.</h2>
+      <p class="section-sub">Tap any exercise to see exactly how to do it. Purchase to unlock all 8 weeks.</p>
+      <div class="preview-grid">
+
+        <div class="preview-week unlocked">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 1 & 2</span><h3>Foundation</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">False grip & pulling strength</span><span class="open-badge">Free Preview</span></div>
+          </div>
+          <div class="week-body open">
+            <div class="day">
+              <h4>Day 1 — False Grip Introduction</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">False Grip Dead Hang</div><div class="ex-sets">4 × 15 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Grip the bar so the bar sits at the base of your palm — not in your fingers like a normal grip.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Your wrist should be bent, with the meaty part of your palm over the top of the bar.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hang in this position for 15 seconds. It will feel uncomfortable at first — that's normal.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The false grip allows you to transition from below to above the bar without re-gripping</div>
+                    <div class="ex-cue">Think of your wrist as being "over" the bar, not "under" it</div>
+                  </div>
+                  <div class="ex-mistake">Don't give up on the false grip because it's uncomfortable — your wrist skin will toughen over 2–3 weeks</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Scapular Pull Up (False Grip)</div><div class="ex-sets">4 × 8</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Take a false grip and hang with arms straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Without bending your elbows, depress and retract your shoulder blades — feel your body rise slightly.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return to full hang. Arms stay completely straight throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This trains the initiation of the pull — every good muscle up starts with scapular engagement</div>
+                    <div class="ex-cue">If the false grip makes this too hard, master this movement with regular grip first</div>
+                  </div>
+                  <div class="ex-mistake">Don't let elbows bend — the moment they do, you've lost the scapular isolation this drill is for</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Regular Dead Hang</div><div class="ex-sets">3 × 30 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Switch to a normal overhand grip (bar in fingers, not palm).</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Hang fully relaxed, shoulders by your ears, for 30 seconds.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Step down carefully. Rest 60 seconds.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This follows false grip work to decompress the wrist and build general hang endurance</div>
+                    <div class="ex-cue">Shake out your hands after each set to restore circulation</div>
+                  </div>
+                  <div class="ex-mistake">Don't use straps — you need to build real grip strength for the muscle up, not compensate for it</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Flexor Stretch</div><div class="ex-sets">2 × 45 sec each</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Extend one arm in front of you, palm facing up.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Use your other hand to gently pull your fingers down and back — stretching the underside of your forearm.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 45 seconds each wrist. Don't force it.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The false grip loads your wrists in a way they're not used to — daily stretching is essential</div>
+                    <div class="ex-cue">Do this after every training session, not just on muscle up days</div>
+                  </div>
+                  <div class="ex-mistake">Don't skip wrist care — wrist inflammation is the most common reason people stall in this program</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Pull Up (Strict)</div><div class="ex-sets">4 × max reps</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hang with an overhand grip, arms fully extended. Pull your shoulder blades down first.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your chest toward the bar, driving your elbows down and back.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower under control to a full hang. That's one rep. Stop when form breaks.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">You need at least 5 strict pull ups before attempting muscle up transitions — this builds that base</div>
+                    <div class="ex-cue">Quality reps only — stop before your form deteriorates into swinging or kipping</div>
+                  </div>
+                  <div class="ex-mistake">Don't count reps where your chin barely clears the bar — only full, clean reps count toward your muscle up readiness</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 2 — Pull Strength</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">False Grip Pull Up</div><div class="ex-sets">4 × 3–5</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Take a false grip. This is harder than a regular pull up — do fewer reps.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your chest high — above the bar if possible. The false grip allows a deeper pull.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower slowly to a full hang. Reset between reps if needed.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Pull your chest as high as possible — clearing the bar high is a prerequisite for the transition</div>
+                    <div class="ex-cue">Think "elbows behind my body" at the top — that's the transition position</div>
+                  </div>
+                  <div class="ex-mistake">Don't sacrifice the grip to get more reps — maintaining the false grip throughout is the whole point</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Row</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Set rings at waist height. Grab with a false grip and walk feet forward until body is inclined.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your chest up to the rings, turning palms toward you at the top.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with control. The more horizontal your body, the harder the exercise.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The rotation at the top mimics the muscle up transition — practise it here</div>
+                    <div class="ex-cue">Keep your body rigid — don't let hips sag</div>
+                  </div>
+                  <div class="ex-mistake">Don't pull with arms only — initiate every rep by depressing your shoulder blades first</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Dip (Bar or Ring)</div><div class="ex-sets">4 × 6</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Support yourself above the bar or rings, arms extended. Keep chest slightly forward.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your body until your upper arms are parallel to the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full extension. That's one rep.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The top of the muscle up is a deep dip — this is exactly the pressing strength you need</div>
+                    <div class="ex-cue">Full lockout at the top — arms completely straight</div>
+                  </div>
+                  <div class="ex-mistake">Don't do half dips — only going down to parallel doesn't build the full range of strength needed</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Band Pull-Apart</div><div class="ex-sets">3 × 15</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hold a resistance band at shoulder height with both hands, arms straight in front of you.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull the band apart until it touches your chest — squeeze your shoulder blades together at the end.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return slowly to the start. Keep arms straight throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This builds the rear shoulder and upper back strength that transfers to the transition</div>
+                    <div class="ex-cue">Squeeze hard at the end position — the peak contraction is the point</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your elbows bend to make it easier — straight arms throughout</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">L-Sit Hold (Floor)</div><div class="ex-sets">3 × 10 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Sit on the floor and place hands beside your hips, fingers pointing forward.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Press down through your hands to lift your hips off the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Extend your legs forward, holding for 10 seconds. Scale to tucked legs if needed.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The support position above the bar requires the same depression and lock-out as an L-sit</div>
+                    <div class="ex-cue">Point your toes and push the floor away as hard as possible</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your shoulders creep up to your ears — actively depress them throughout the hold</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 3 — Pulling Power</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Explosive Pull Up</div><div class="ex-sets">5 × 3</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hang from the bar. Take a breath and brace your core.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull as explosively as possible — aim to get your sternum to the bar, not just your chin.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower under control to a full hang. Rest 2 minutes between sets.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Muscle ups require explosive pulling — train your fast-twitch pulling fibers deliberately</div>
+                    <div class="ex-cue">3 explosive reps is enough — quality and speed matter more than quantity here</div>
+                  </div>
+                  <div class="ex-mistake">Don't kip or swing — explosive means fast, not momentum-assisted. Control the movement completely</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Negative Muscle Up (Box Assisted)</div><div class="ex-sets">4 × 3</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Use a box to jump into the top position of a muscle up — arms extended, body above the bar.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Slowly lower yourself through the transition phase — chest to the bar — over 5 seconds.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Continue lowering to a dead hang. Step back onto the box and reset.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">You can often lower through a movement before you can complete it — this builds the transition strength</div>
+                    <div class="ex-cue">The slow negative is where the real strength is built — don't rush it</div>
+                  </div>
+                  <div class="ex-mistake">Don't drop suddenly through the transition — control every centimetre of the lowering phase</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Push Up</div><div class="ex-sets">3 × 12</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Place hands slightly wider than shoulder-width. Body in a perfect plank — no hips up or down.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your chest to the floor, keeping elbows at about 45° from your body.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full lockout. That's one rep.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Supplementary pressing volume supports dip strength — don't neglect horizontal pushing</div>
+                    <div class="ex-cue">Full lockout at the top every rep — partial reps don't build full pressing strength</div>
+                  </div>
+                  <div class="ex-mistake">Don't let hips pike up or sag — one rigid body line from head to heels</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 3 & 4</span><h3>Build</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Transition drills & ring dips</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>Isolation transition drills, jumping muscle ups, and ring dip progressions. Unlock to access all 8 weeks.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $24</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 5 & 6</span><h3>Combine</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Full movement attempts</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>First full muscle up attempts, technique refinement, and volume building. The breakthrough phase.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $24</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 7 & 8</span><h3>Refine</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Strict reps & consistency</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>Cleaning up the movement, building consecutive reps, and transitioning to ring muscle ups.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $24</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Your Coach</div>
+      <h2>Built by a gymnast.<br>Designed for everyone.</h2>
+      <div class="about-grid">
+        <div class="about-img"><img src="liam-photo.jpg" alt="Liam Vanounou" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+        <div class="about-content">
+          <h3>Hi, I'm Liam.</h3>
+          <p>I've spent 15 years in gymnastics and know exactly why the muscle up stops most people — it's not fitness, it's technique. The false grip and transition are teachable skills that nobody on the internet explains properly.</p>
+          <p>This program is the breakdown I wish I had when I was learning. Every drill is chosen because it directly transfers to the real movement.</p>
+          <div class="about-cred">
+            <div class="cred-item">15+ years of gymnastics training</div>
+            <div class="cred-item">Competed at national level</div>
+            <div class="cred-item">Coached hundreds of athletes at all levels</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Get above the bar.</h2>
+      <p>8 weeks of structured muscle up progressions. One-time payment. Yours forever.</p>
+      <a class="btn-white" href="#">Get the Program — $24</a>
+    </div>
+
+    <footer>© 2025 Liam Vanounou. All rights reserved.</footer>
+
+    <script>
+      function toggleWeek(h){const b=h.nextElementSibling;b.classList.toggle('open');}
+      function toggleEx(h){const b=h.nextElementSibling;const t=h.querySelector('.ex-toggle');b.classList.toggle('open');t.classList.toggle('open');}
+      window.addEventListener('scroll',()=>{const n=document.querySelector('nav');n.style.padding=window.scrollY>50?'12px 48px':'20px 48px';});
+    </script>
+    <script src="visuals.js"></script>
+    </script>
+  </body>
+</html>

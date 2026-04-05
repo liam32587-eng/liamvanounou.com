@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Parallettes & Floor Strength — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#f0f0f0;overflow-x:hidden;}
+      nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #222;transition:padding 0.3s;}
+      nav .logo{font-size:18px;font-weight:800;color:#f0f0f0;text-decoration:none;letter-spacing:-0.5px;}nav .logo span{color:#e63946;}
+      nav .nav-links a{color:#888;text-decoration:none;font-size:14px;font-weight:500;margin-left:32px;transition:color 0.2s;}nav .nav-links a:hover{color:#f0f0f0;}
+      .hero{padding:140px 48px 80px;display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start;border-bottom:1px solid #222;}
+      .breadcrumb{color:#555;font-size:13px;margin-bottom:20px;}.breadcrumb a{color:#e63946;text-decoration:none;}
+      .program-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);color:#e63946;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:6px 12px;border-radius:4px;margin-bottom:20px;}
+      .hero h1{font-size:60px;font-weight:800;letter-spacing:-3px;line-height:0.95;margin-bottom:24px;}.hero h1 em{font-style:normal;color:#e63946;}
+      .hero-sub{font-size:18px;color:#888;line-height:1.7;max-width:520px;margin-bottom:40px;}
+      .hero-stats{display:flex;gap:0;border:1px solid #222;border-radius:12px;overflow:hidden;}
+      .stat{padding:20px 28px;border-right:1px solid #222;flex:1;}.stat:last-child{border-right:none;}
+      .stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:6px;}.stat-val{font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+      .buy-box{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:32px;position:sticky;top:90px;}
+      .buy-box .price{font-size:52px;font-weight:800;letter-spacing:-3px;margin-bottom:4px;}.buy-box .price-sub{color:#555;font-size:13px;margin-bottom:28px;}
+      .buy-btn{display:block;background:#e63946;color:white;text-align:center;padding:18px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:background 0.2s,transform 0.2s;margin-bottom:16px;}
+      .buy-btn:hover{background:#c1121f;transform:translateY(-2px);}
+      .guarantee{text-align:center;color:#555;font-size:12px;margin-bottom:24px;}
+      .includes{border-top:1px solid #222;padding-top:20px;}.includes-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:14px;}
+      .include-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#aaa;margin-bottom:10px;}.include-item::before{content:'✓';color:#4caf50;font-weight:800;flex-shrink:0;}
+      .section{padding:80px 48px;border-bottom:1px solid #222;}
+      .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+      .section-eyebrow::before{content:'';display:block;width:16px;height:2px;background:#e63946;}
+      .section h2{font-size:40px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.05;}.section-sub{color:#888;font-size:16px;line-height:1.8;max-width:540px;}
+      .outcomes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px;}
+      .outcome-card{background:#161616;border:1px solid #222;border-radius:16px;padding:32px;}.outcome-icon{font-size:32px;margin-bottom:16px;}
+      .outcome-card h3{font-size:19px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;}.outcome-card p{color:#777;font-size:14px;line-height:1.7;}
+      .principles{display:flex;flex-direction:column;gap:0;margin-top:48px;border:1px solid #222;border-radius:16px;overflow:hidden;}
+      .principle{display:flex;gap:32px;align-items:flex-start;padding:32px;border-bottom:1px solid #222;}.principle:last-child{border-bottom:none;}
+      .principle-num{font-size:48px;font-weight:800;color:#222;letter-spacing:-3px;flex-shrink:0;line-height:1;}
+      .principle-content h3{font-size:19px;font-weight:700;margin-bottom:8px;}.principle-content p{color:#777;font-size:14px;line-height:1.7;}
+      .preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:48px;}
+      .preview-week{border-radius:12px;overflow:hidden;border:1px solid #222;}.preview-week.unlocked{border-color:#e63946;}
+      .week-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:#161616;cursor:pointer;}
+      .preview-week.unlocked .week-header{background:rgba(230,57,70,0.08);}
+      .week-header-left{display:flex;align-items:center;gap:16px;}.week-num{font-size:11px;font-weight:700;color:#e63946;letter-spacing:1px;}
+      .week-header h3{font-size:16px;font-weight:700;}.week-header .focus{font-size:13px;color:#555;}
+      .lock-badge{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:100px;padding:5px 12px;font-size:12px;color:#555;font-weight:600;}
+      .open-badge{display:flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:#e63946;font-weight:600;}
+      .week-body{padding:24px;background:#111;display:none;}.week-body.open{display:block;}
+      .day{margin-bottom:28px;}.day:last-child{margin-bottom:0;}
+      .day h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:12px;}
+      .ex-card{border:1px solid #222;border-radius:10px;overflow:hidden;margin-bottom:8px;}.ex-card:last-child{margin-bottom:0;}
+      .ex-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#1a1a1a;cursor:pointer;user-select:none;transition:background 0.2s;}
+      .ex-header:hover{background:#202020;}.ex-left{display:flex;flex-direction:column;gap:3px;}
+      .ex-title{font-size:14px;font-weight:600;color:#ddd;}.ex-sets{font-size:12px;color:#e63946;font-weight:700;}
+      .ex-toggle{font-size:22px;color:#444;font-weight:300;line-height:1;transition:transform 0.2s,color 0.2s;flex-shrink:0;}
+      .ex-toggle.open{transform:rotate(45deg);color:#e63946;}
+      .ex-body{padding:20px 18px;background:#131313;display:none;border-top:1px solid #1e1e1e;}.ex-body.open{display:block;}
+      .ex-steps{margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
+      .ex-step{display:flex;gap:12px;font-size:13px;color:#bbb;line-height:1.5;}
+      .ex-step-num{background:#e63946;color:white;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+      .ex-cues{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding-top:12px;border-top:1px solid #1e1e1e;}
+      .ex-cue{font-size:13px;color:#888;padding-left:18px;position:relative;line-height:1.5;}
+      .ex-cue::before{content:'→';position:absolute;left:0;color:#e63946;font-weight:700;}
+      .ex-mistake{font-size:12px;color:#e6a817;background:rgba(230,168,23,0.07);border:1px solid rgba(230,168,23,0.15);border-radius:6px;padding:10px 14px;margin-top:10px;}
+      .ex-mistake::before{content:'⚠ ';font-weight:700;}
+      .locked-body{padding:32px;background:#111;text-align:center;border-top:1px solid #222;}
+      .locked-body p{color:#555;font-size:14px;margin-bottom:16px;}
+      .unlock-btn{display:inline-block;background:#e63946;color:white;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;}
+      .unlock-btn:hover{background:#c1121f;}
+      .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;}
+      .about-img{border-radius:16px;overflow:hidden;height:400px;}.about-img img{width:100%;height:100%;object-fit:cover;}
+      .about-content h3{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;}.about-content p{color:#888;font-size:15px;line-height:1.8;margin-bottom:16px;}
+      .about-cred{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+      .cred-item{display:flex;align-items:center;gap:12px;font-size:14px;color:#aaa;}.cred-item::before{content:'🏅';font-size:16px;}
+      .cta-section{background:#e63946;padding:80px 48px;text-align:center;}
+      .cta-section h2{font-size:48px;font-weight:800;color:white;letter-spacing:-2px;margin-bottom:12px;}
+      .cta-section p{color:rgba(255,255,255,0.7);font-size:17px;margin-bottom:36px;}
+      .btn-white{display:inline-block;background:white;color:#e63946;padding:18px 48px;border-radius:10px;font-size:16px;font-weight:800;text-decoration:none;transition:transform 0.2s;}
+      .btn-white:hover{transform:translateY(-2px);}
+      footer{text-align:center;padding:32px;color:#444;font-size:13px;border-top:1px solid #222;}
+      @media(max-width:900px){nav{padding:16px 24px;}.hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:40px;}.hero h1{font-size:40px;letter-spacing:-2px;}.hero-stats{flex-wrap:wrap;}.stat{min-width:50%;}.section{padding:60px 24px;}.outcomes-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.cta-section{padding:60px 24px;}.cta-section h2{font-size:32px;}}
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a><a href="index.html#contact">Contact</a></div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Parallettes & Floor Strength</div>
+        <div class="program-tag">Parallettes / Floor</div>
+        <h1>Master the<br><em>L-sit & beyond.</em></h1>
+        <p class="hero-sub">Parallettes unlock a whole category of gymnastics floor skills — L-sits, V-sits, push-up variations, and press progressions. This 8-week program takes you from your first supported hold to a clean L-sit and the strength to build beyond it.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-label">Duration</div><div class="stat-val">8 Weeks</div></div>
+          <div class="stat"><div class="stat-label">Level</div><div class="stat-val">Beginner</div></div>
+          <div class="stat"><div class="stat-label">Per Week</div><div class="stat-val">3 Days</div></div>
+          <div class="stat"><div class="stat-label">Equipment</div><div class="stat-val">Parallettes</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$19</div>
+        <div class="price-sub">One-time. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <p class="guarantee">🔒 Secure checkout</p>
+        <div class="includes">
+          <div class="includes-title">What's included</div>
+          <div class="include-item">Full 8-week program (all weeks unlocked)</div>
+          <div class="include-item">Step-by-step guides for every exercise</div>
+          <div class="include-item">L-sit progressions from tucked to full</div>
+          <div class="include-item">Parallette push up & dip variations</div>
+          <div class="include-item">Email support from Liam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">What You'll Achieve</div>
+      <h2>After 8 weeks,<br>here's where you'll be.</h2>
+      <p class="section-sub">The L-sit looks simple. It's not. It requires simultaneous hip flexor strength, tricep pressing power, and tight core tension — all things this program builds directly.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><div class="outcome-icon">🅻</div><h3>Full L-sit hold</h3><p>From tucked L-sit to full L-sit with straight legs — this is the signature parallettes skill and a genuine measure of your floor strength and compression.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🔽</div><h3>Deep parallette push ups</h3><p>Parallettes allow a deeper range of motion than floor push ups — your chest drops below your hands. This builds more pressing strength and shoulder flexibility simultaneously.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🤸</div><h3>Compression strength</h3><p>Pike compression — the ability to actively fold your hips — is fundamental to gymnastics floor work. This program builds it systematically through seated pike holds and V-sit progressions.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">📐</div><h3>V-sit foundation</h3><p>The V-sit is the advanced evolution of the L-sit. The final weeks introduce the hip flexor and compression work needed to start building toward it.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Support. Compress.<br>Elevate.</h2>
+      <p class="section-sub">The L-sit has three prerequisites: the strength to hold yourself up, the compression to raise your legs, and the flexibility to extend them. Each gets trained directly.</p>
+      <div class="principles">
+        <div class="principle"><div class="principle-num">01</div><div class="principle-content"><h3>Support first</h3><p>Before your legs go up, you need to support your bodyweight on your arms. Week 1 starts with support holds, parallette push ups, and shoulder depression — the press strength that makes everything else possible.</p></div></div>
+        <div class="principle"><div class="principle-num">02</div><div class="principle-content"><h3>Compression is a skill</h3><p>Pulling your legs up while supporting your bodyweight is a specific skill — not just core strength. Seated pike compression and hollow body work train exactly that, progressively throughout the program.</p></div></div>
+        <div class="principle"><div class="principle-num">03</div><div class="principle-content"><h3>Progressions, not plateus</h3><p>Tucked L-sit → one leg extended → full L-sit → straddle L → V-sit. There's always a next step. This program takes you from the beginning and shows you the full progression path.</p></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Inside the Program</div>
+      <h2>Week 1 is on us.<br>The rest is yours.</h2>
+      <p class="section-sub">Tap any exercise to see exactly how to do it. Purchase to unlock all 8 weeks.</p>
+      <div class="preview-grid">
+
+        <div class="preview-week unlocked">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 1 & 2</span><h3>Foundation</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Support hold & L-sit entry</span><span class="open-badge">Free Preview</span></div>
+          </div>
+          <div class="week-body open">
+            <div class="day">
+              <h4>Day 1 — Support & Press</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Parallette Support Hold</div><div class="ex-sets">5 × 15 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Grip the parallettes and push down to lift your body above them. Arms locked out.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Depress your shoulders — push them down away from your ears. Hold this position.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Keep your legs together and pointed down. Hold for 15 seconds.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Shoulders must stay depressed throughout — if they creep up, your triceps and lats can't engage properly</div>
+                    <div class="ex-cue">Think "push the floor away through the parallettes" — active pressing, not passive hanging</div>
+                  </div>
+                  <div class="ex-mistake">Don't support with bent elbows — full lockout is mandatory, both for safety and for the correct muscle engagement</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">L-Sit — One Leg</div><div class="ex-sets">4 × 5 sec each leg</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a support hold. Extend one leg forward at 90° — parallel to the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Keep the other foot resting lightly on the floor for balance.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 5 seconds. Switch legs. This is your first taste of the L-sit position.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Point your toes — it engages the whole leg and makes the position easier to hold</div>
+                    <div class="ex-cue">Keep your hips pushed forward — don't let them slide back</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your supporting shoulder creep up when you lift the leg — stay depressed throughout</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Seated Pike Compression</div><div class="ex-sets">3 × 10 reps</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Sit on the floor with legs straight in front of you. Place your hands beside your hips.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Actively pull your legs off the floor by flexing your hip flexors — even 1–2cm is a start.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower back down and repeat. Focus on the hip flexor contraction, not just the legs moving.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This trains the active hip flexion that raises your legs in the L-sit — it's often the hardest part</div>
+                    <div class="ex-cue">Point your toes and keep legs perfectly straight — no bent knees</div>
+                  </div>
+                  <div class="ex-mistake">Don't use momentum to swing your legs up — slow, deliberate contractions only. The control is the training</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Parallette Push Up</div><div class="ex-sets">4 × 8</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Set up in a push-up position with hands gripping the parallettes. Body in a straight plank.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your chest below the tops of the parallettes — get a full range of motion.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full lockout. That's one rep.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The extra depth compared to floor push ups dramatically increases the range — you'll feel it in your chest and shoulders</div>
+                    <div class="ex-cue">Keep elbows at 45° from your body — not flared wide, not tucked in tight</div>
+                  </div>
+                  <div class="ex-mistake">Don't stop at floor level — the whole point of parallettes is going deeper. Get the full range</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Hollow Body Hold</div><div class="ex-sets">3 × 25 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back. Press your lower back firmly into the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift legs to 45° and extend arms overhead. Pull your ribs down toward your hips.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 25 seconds. Breathe steadily — don't hold your breath.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The hollow body trains the same core tension you need when holding the L-sit position</div>
+                    <div class="ex-cue">Imagine trying to make your body as thin as possible front-to-back</div>
+                  </div>
+                  <div class="ex-mistake">If your lower back arches away from the floor, raise your legs higher or bend your knees — don't train with poor position</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 2 — Compression & L-sit</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Tucked L-Sit</div><div class="ex-sets">5 × 5 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a support hold. Tuck both knees to your chest — feet off the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Hold the tucked position for 5 seconds. Keep shoulders depressed.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower feet to the floor and rest. This is the gateway to the full L-sit.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The tuck position is much easier than the full L-sit — build your hold time here before extending the legs</div>
+                    <div class="ex-cue">Focus on shoulder depression and arm lockout even in the tucked position</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your hips slide back — they should stay stacked directly above your hands, not behind them</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">V-Up (Bent Knee)</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back, arms extended overhead. Knees bent, feet flat.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Simultaneously lift your torso and bring your knees toward your chest — meeting in the middle.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower back down with control. That's one rep.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Both halves lift simultaneously — this is what makes it a V-up, not just a crunch or a leg raise</div>
+                    <div class="ex-cue">Touch your shins with your hands at the top for full compression</div>
+                  </div>
+                  <div class="ex-mistake">Don't throw your arms forward — the power should come from your core contracting, not momentum</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Parallette L-Sit Attempt</div><div class="ex-sets">5 × max time</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a support hold. Extend both legs forward — aim for parallel to the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Hold for as long as possible with quality position. Toes pointed, legs straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>If you can't get both legs up yet, do one leg extended and one tucked — this still counts.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Note your best time each session — even 2–3 seconds is a real L-sit. Progress is week-to-week, not day-to-day</div>
+                    <div class="ex-cue">If your legs start to drop, try to fight for every extra second before releasing</div>
+                  </div>
+                  <div class="ex-mistake">Don't count holds where legs are below horizontal — that's a compression deficit, not an L-sit. Work the pike compression to fix it</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Parallette Dip</div><div class="ex-sets">4 × 6</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Support yourself above the parallettes, arms extended. Lean slightly forward.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower until your upper arms are parallel to the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full lockout. That's one rep.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Parallettes allow a deeper dip than regular bars — use the full range</div>
+                    <div class="ex-cue">Keep elbows tracking back, not flaring out to the sides</div>
+                  </div>
+                  <div class="ex-mistake">Don't dip with straight-down shoulders — a slight forward lean keeps the stress on your triceps, not your shoulder joints</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Extension Stretch</div><div class="ex-sets">2 × 45 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Kneel on the floor. Place palms flat with fingers pointing back toward your knees.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Gently rock your weight forward to increase the wrist extension stretch.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold 45 seconds. Do this after every session — parallettes load your wrists significantly.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Consistent wrist stretching is non-negotiable in parallette training — it prevents pain and builds the range you need</div>
+                    <div class="ex-cue">Build the depth gradually over weeks — don't force range</div>
+                  </div>
+                  <div class="ex-mistake">Don't train through wrist pain — if your wrists ache during exercises, add more daily stretching and reduce volume temporarily</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 3 — Integration</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Parallette Support Hold (Max)</div><div class="ex-sets">3 × max time</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into the support hold with full arm lockout and shoulder depression.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Hold as long as you can maintain quality position. Stop when form breaks.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Note your time. Benchmark this each week — you're aiming for 30+ seconds.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This tracks your raw support strength — the base that determines when you can progress to full L-sit work</div>
+                    <div class="ex-cue">Focus on the quality of position, not just duration</div>
+                  </div>
+                  <div class="ex-mistake">Don't count time where your arms are bent or shoulders shrugged — locked out, depressed position only</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Seated Pike Compression (Weighted)</div><div class="ex-sets">3 × 8</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Sit with legs straight. Hold a light weight (book, water bottle) against your shins if available.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Actively lift your legs off the floor — even with the added resistance — and hold for 2 seconds.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower and repeat. If no weight, do the bodyweight version with maximum focus on contraction.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Hip flexor strength is the limiting factor in most people's L-sit — train it deliberately</div>
+                    <div class="ex-cue">Squeeze at the top of each rep — that peak contraction is what transfers to the L-sit hold</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your torso fall back to help lift your legs — stay upright and use only your hip flexors</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Parallette Push Up (Deep)</div><div class="ex-sets">3 × 8</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Set up in parallette push-up position. Lower your chest as far below the parallettes as your shoulder flexibility allows.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pause 1 second at the bottom. Feel the stretch through your chest and shoulders.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full lockout. Prioritise depth over speed.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The deeper you go, the more shoulder flexibility you build — this transfers to press handstand work later</div>
+                    <div class="ex-cue">If shoulder flexibility limits your depth, add shoulder stretching between sessions</div>
+                  </div>
+                  <div class="ex-mistake">Don't let hips pike up to get more depth — only go as deep as your body can go with a flat back</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 3 & 4</span><h3>Build</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Full L-sit & straddle entry</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>Full L-sit holds, straddle L-sit entries, and advanced compression work. Unlock to continue.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $19</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 5 & 6</span><h3>Strength</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">V-sit prep & press work</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>V-sit hip flexor work, press to handstand foundations, and advanced parallette push ups. The strength phase.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $19</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 7 & 8</span><h3>Master</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">V-sit attempts & skill practice</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>V-sit attempts, press progressions, and advanced floor skills. The final phase of the program.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $19</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Your Coach</div>
+      <h2>Built by a gymnast.<br>Designed for everyone.</h2>
+      <div class="about-grid">
+        <div class="about-img"><img src="liam-photo.jpg" alt="Liam Vanounou" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+        <div class="about-content">
+          <h3>Hi, I'm Liam.</h3>
+          <p>Floor strength is where gymnastics begins. I've spent years on parallettes and the floor, and the L-sit was one of the skills that took me the longest — until I understood that compression strength is a separate quality that needs to be trained directly.</p>
+          <p>This program teaches that. Everything is progressive, deliberate, and explained so you know exactly why you're doing each drill.</p>
+          <div class="about-cred">
+            <div class="cred-item">15+ years of gymnastics training</div>
+            <div class="cred-item">Competed at national level</div>
+            <div class="cred-item">Coached hundreds of athletes at all levels</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Own the L-sit.</h2>
+      <p>8 weeks of structured parallettes progressions. One-time payment. Yours forever.</p>
+      <a class="btn-white" href="#">Get the Program — $19</a>
+    </div>
+
+    <footer>© 2025 Liam Vanounou. All rights reserved.</footer>
+
+    <script>
+      function toggleWeek(h){const b=h.nextElementSibling;b.classList.toggle('open');}
+      function toggleEx(h){const b=h.nextElementSibling;const t=h.querySelector('.ex-toggle');b.classList.toggle('open');t.classList.toggle('open');}
+      window.addEventListener('scroll',()=>{const n=document.querySelector('nav');n.style.padding=window.scrollY>50?'12px 48px':'20px 48px';});
+    </script>
+    <script src="visuals.js"></script>
+    </script>
+  </body>
+</html>

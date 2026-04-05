@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Pull Up Progression — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#f0f0f0;overflow-x:hidden;}
+      nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #222;transition:padding 0.3s;}
+      nav .logo{font-size:18px;font-weight:800;color:#f0f0f0;text-decoration:none;letter-spacing:-0.5px;}nav .logo span{color:#e63946;}
+      nav .nav-links a{color:#888;text-decoration:none;font-size:14px;font-weight:500;margin-left:32px;transition:color 0.2s;}nav .nav-links a:hover{color:#f0f0f0;}
+      .hero{padding:140px 48px 80px;display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start;border-bottom:1px solid #222;}
+      .breadcrumb{color:#555;font-size:13px;margin-bottom:20px;}.breadcrumb a{color:#e63946;text-decoration:none;}
+      .program-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);color:#e63946;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:6px 12px;border-radius:4px;margin-bottom:20px;}
+      .hero h1{font-size:60px;font-weight:800;letter-spacing:-3px;line-height:0.95;margin-bottom:24px;}.hero h1 em{font-style:normal;color:#e63946;}
+      .hero-sub{font-size:18px;color:#888;line-height:1.7;max-width:520px;margin-bottom:40px;}
+      .hero-stats{display:flex;gap:0;border:1px solid #222;border-radius:12px;overflow:hidden;}
+      .stat{padding:20px 28px;border-right:1px solid #222;flex:1;}.stat:last-child{border-right:none;}
+      .stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:6px;}.stat-val{font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+      .buy-box{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:32px;position:sticky;top:90px;}
+      .buy-box .price{font-size:52px;font-weight:800;letter-spacing:-3px;margin-bottom:4px;}.buy-box .price-sub{color:#555;font-size:13px;margin-bottom:28px;}
+      .buy-btn{display:block;background:#e63946;color:white;text-align:center;padding:18px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:background 0.2s,transform 0.2s;margin-bottom:16px;}
+      .buy-btn:hover{background:#c1121f;transform:translateY(-2px);}
+      .guarantee{text-align:center;color:#555;font-size:12px;margin-bottom:24px;}
+      .includes{border-top:1px solid #222;padding-top:20px;}.includes-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:14px;}
+      .include-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#aaa;margin-bottom:10px;}.include-item::before{content:'✓';color:#4caf50;font-weight:800;flex-shrink:0;}
+      .section{padding:80px 48px;border-bottom:1px solid #222;}
+      .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+      .section-eyebrow::before{content:'';display:block;width:16px;height:2px;background:#e63946;}
+      .section h2{font-size:40px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.05;}.section-sub{color:#888;font-size:16px;line-height:1.8;max-width:540px;}
+      .outcomes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px;}
+      .outcome-card{background:#161616;border:1px solid #222;border-radius:16px;padding:32px;}.outcome-icon{font-size:32px;margin-bottom:16px;}
+      .outcome-card h3{font-size:19px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;}.outcome-card p{color:#777;font-size:14px;line-height:1.7;}
+      .principles{display:flex;flex-direction:column;gap:0;margin-top:48px;border:1px solid #222;border-radius:16px;overflow:hidden;}
+      .principle{display:flex;gap:32px;align-items:flex-start;padding:32px;border-bottom:1px solid #222;}.principle:last-child{border-bottom:none;}
+      .principle-num{font-size:48px;font-weight:800;color:#222;letter-spacing:-3px;flex-shrink:0;line-height:1;}
+      .principle-content h3{font-size:19px;font-weight:700;margin-bottom:8px;}.principle-content p{color:#777;font-size:14px;line-height:1.7;}
+      .preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:48px;}
+      .preview-week{border-radius:12px;overflow:hidden;border:1px solid #222;}.preview-week.unlocked{border-color:#e63946;}
+      .week-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:#161616;cursor:pointer;}
+      .preview-week.unlocked .week-header{background:rgba(230,57,70,0.08);}
+      .week-header-left{display:flex;align-items:center;gap:16px;}.week-num{font-size:11px;font-weight:700;color:#e63946;letter-spacing:1px;}
+      .week-header h3{font-size:16px;font-weight:700;}.week-header .focus{font-size:13px;color:#555;}
+      .lock-badge{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:100px;padding:5px 12px;font-size:12px;color:#555;font-weight:600;}
+      .open-badge{display:flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:#e63946;font-weight:600;}
+      .week-body{padding:24px;background:#111;display:none;}.week-body.open{display:block;}
+      .day{margin-bottom:28px;}.day:last-child{margin-bottom:0;}
+      .day h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:12px;}
+      .ex-card{border:1px solid #222;border-radius:10px;overflow:hidden;margin-bottom:8px;}.ex-card:last-child{margin-bottom:0;}
+      .ex-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#1a1a1a;cursor:pointer;user-select:none;transition:background 0.2s;}
+      .ex-header:hover{background:#202020;}.ex-left{display:flex;flex-direction:column;gap:3px;}
+      .ex-title{font-size:14px;font-weight:600;color:#ddd;}.ex-sets{font-size:12px;color:#e63946;font-weight:700;}
+      .ex-toggle{font-size:22px;color:#444;font-weight:300;line-height:1;transition:transform 0.2s,color 0.2s;flex-shrink:0;}
+      .ex-toggle.open{transform:rotate(45deg);color:#e63946;}
+      .ex-body{padding:20px 18px;background:#131313;display:none;border-top:1px solid #1e1e1e;}.ex-body.open{display:block;}
+      .ex-steps{margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
+      .ex-step{display:flex;gap:12px;font-size:13px;color:#bbb;line-height:1.5;}
+      .ex-step-num{background:#e63946;color:white;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+      .ex-cues{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding-top:12px;border-top:1px solid #1e1e1e;}
+      .ex-cue{font-size:13px;color:#888;padding-left:18px;position:relative;line-height:1.5;}
+      .ex-cue::before{content:'→';position:absolute;left:0;color:#e63946;font-weight:700;}
+      .ex-mistake{font-size:12px;color:#e6a817;background:rgba(230,168,23,0.07);border:1px solid rgba(230,168,23,0.15);border-radius:6px;padding:10px 14px;margin-top:10px;}
+      .ex-mistake::before{content:'⚠ ';font-weight:700;}
+      .locked-body{padding:32px;background:#111;text-align:center;border-top:1px solid #222;}
+      .locked-body p{color:#555;font-size:14px;margin-bottom:16px;}
+      .unlock-btn{display:inline-block;background:#e63946;color:white;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;}
+      .unlock-btn:hover{background:#c1121f;}
+      .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;}
+      .about-img{border-radius:16px;overflow:hidden;height:400px;}.about-img img{width:100%;height:100%;object-fit:cover;}
+      .about-content h3{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;}.about-content p{color:#888;font-size:15px;line-height:1.8;margin-bottom:16px;}
+      .about-cred{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+      .cred-item{display:flex;align-items:center;gap:12px;font-size:14px;color:#aaa;}.cred-item::before{content:'🏅';font-size:16px;}
+      .cta-section{background:#e63946;padding:80px 48px;text-align:center;}
+      .cta-section h2{font-size:48px;font-weight:800;color:white;letter-spacing:-2px;margin-bottom:12px;}
+      .cta-section p{color:rgba(255,255,255,0.7);font-size:17px;margin-bottom:36px;}
+      .btn-white{display:inline-block;background:white;color:#e63946;padding:18px 48px;border-radius:10px;font-size:16px;font-weight:800;text-decoration:none;transition:transform 0.2s;}
+      .btn-white:hover{transform:translateY(-2px);}
+      footer{text-align:center;padding:32px;color:#444;font-size:13px;border-top:1px solid #222;}
+      @media(max-width:900px){nav{padding:16px 24px;}.hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:40px;}.hero h1{font-size:40px;letter-spacing:-2px;}.hero-stats{flex-wrap:wrap;}.stat{min-width:50%;}.section{padding:60px 24px;}.outcomes-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.cta-section{padding:60px 24px;}.cta-section h2{font-size:32px;}}
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a><a href="index.html#contact">Contact</a></div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Pull Up Progression</div>
+        <div class="program-tag">Pull Up Bar</div>
+        <h1>From zero to<br><em>10 pull ups.</em></h1>
+        <p class="hero-sub">Can't do a single pull up yet? That's the exact starting point. This 6-week program takes you from dead hang to 10 clean, strict pull ups using the same scapular mechanics gymnasts are trained on.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-label">Duration</div><div class="stat-val">6 Weeks</div></div>
+          <div class="stat"><div class="stat-label">Level</div><div class="stat-val">Beginner</div></div>
+          <div class="stat"><div class="stat-label">Per Week</div><div class="stat-val">3 Days</div></div>
+          <div class="stat"><div class="stat-label">Equipment</div><div class="stat-val">Pull Up Bar</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$19</div>
+        <div class="price-sub">One-time. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <p class="guarantee">🔒 Secure checkout</p>
+        <div class="includes">
+          <div class="includes-title">What's included</div>
+          <div class="include-item">Full 6-week program (all weeks unlocked)</div>
+          <div class="include-item">Step-by-step guides for every exercise</div>
+          <div class="include-item">Scapular control & negative progressions</div>
+          <div class="include-item">Email support from Liam</div>
+          <div class="include-item">Lifetime access — train it again anytime</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">What You'll Achieve</div>
+      <h2>After 6 weeks,<br>here's where you'll be.</h2>
+      <p class="section-sub">The pull up is one of the most useful strength tests there is. But it starts with stuff most people skip — and that's exactly why most people never get there.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><div class="outcome-icon">🧲</div><h3>Full scapular control</h3><p>Before you pull, you need to control your shoulder blades. This is the foundation gymnasts build first — and it separates real strength from just hanging.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">💪</div><h3>Your first strict pull up</h3><p>No kip, no band, no momentum. A real dead-hang pull up from zero is a milestone. By week 3, most people get their first one.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🔟</div><h3>10 clean reps</h3><p>The program peaks at 10 strict pull ups — a genuine measure of relative upper body strength. From there, everything else opens up.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🪝</div><h3>Grip & hang endurance</h3><p>Dead hangs build grip strength, decompress the spine, and prepare your shoulders for everything that comes next.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>The gymnast's<br>method. Step by step.</h2>
+      <p class="section-sub">This isn't random lat pulldowns and band work. It's the exact progression gymnasts use to build foundational pulling strength from scratch.</p>
+      <div class="principles">
+        <div class="principle"><div class="principle-num">01</div><div class="principle-content"><h3>Scapula first</h3><p>Week 1 is entirely about the shoulder blade. Scapular pull ups, dead hangs, and active hanging teach your body how to engage correctly before any full rep is attempted.</p></div></div>
+        <div class="principle"><div class="principle-num">02</div><div class="principle-content"><h3>Negatives build real strength</h3><p>Slow, controlled lowering is how gymnasts build pulling strength fast. You can often lower yourself before you can pull up — and negatives turn that into your first rep.</p></div></div>
+        <div class="principle"><div class="principle-num">03</div><div class="principle-content"><h3>Three days a week is enough</h3><p>Rest is where you get stronger. Each session is targeted and focused. You won't be training every day — you'll be making real progress 3 times a week.</p></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Inside the Program</div>
+      <h2>Week 1 is on us.<br>The rest is yours.</h2>
+      <p class="section-sub">Tap any exercise to see exactly how to do it. Purchase to unlock all 6 weeks.</p>
+      <div class="preview-grid">
+
+        <div class="preview-week unlocked">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 1 & 2</span><h3>Foundation</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Scapular control & dead hang</span><span class="open-badge">Free Preview</span></div>
+          </div>
+          <div class="week-body open">
+            <div class="day">
+              <h4>Day 1 — Scapular Activation</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Dead Hang</div><div class="ex-sets">4 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Grip the bar with an overhand grip, slightly wider than shoulder-width.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Let your body hang fully — allow your shoulders to rise to your ears. Full relaxation.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 20 seconds. Step down carefully and rest before the next set.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This decompresses your spine and builds the grip endurance you need for every exercise ahead</div>
+                    <div class="ex-cue">Let your shoulders fully rise — don't fight it. That's what a passive hang feels like.</div>
+                  </div>
+                  <div class="ex-mistake">Don't try to hold your shoulders down — that's the active hang, which comes next. This one is passive.</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Scapular Pull Up</div><div class="ex-sets">4 × 8</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Start from a dead hang — shoulders fully relaxed, arms straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Without bending your arms AT ALL, depress and retract your shoulder blades — feel your body rise slightly.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return to full hang and repeat. Arms stay completely straight the whole time.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This is a shoulder blade movement only — arms are completely passive</div>
+                    <div class="ex-cue">Think "shoulders away from ears and together" as you pull</div>
+                  </div>
+                  <div class="ex-mistake">Don't bend your elbows — the moment your elbows bend, you've turned it into a pull up and lost the drill</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Active Hang</div><div class="ex-sets">3 × 15 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hang from the bar as in a dead hang.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your shoulders down and back — "pack" them away from your ears.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold this "packed" position for 15 seconds. Arms stay straight.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This is the correct starting position for every real pull up — learn to feel it</div>
+                    <div class="ex-cue">Think "shoulders away from ears and slightly back"</div>
+                  </div>
+                  <div class="ex-mistake">Don't shrug your shoulders up — the active hang is the opposite of shrugging</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Banded Pull Down</div><div class="ex-sets">3 × 12</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Anchor a resistance band overhead. Grip it at face level with an overhand grip.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull the band down to your chest — drive your elbows down and back toward your hips.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Control the return. Repeat for 12 reps.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Think "elbows to hips" — not "hands to shoulders"</div>
+                    <div class="ex-cue">Squeeze shoulder blades together at the bottom of each rep</div>
+                  </div>
+                  <div class="ex-mistake">Don't use momentum — controlled reps in both directions</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Table Row</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie under a sturdy table. Grip the edge with an overhand grip.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Keep your body completely straight — like a reverse plank. Pull your chest up to the table.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with full control. Keep your body rigid throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Squeeze shoulder blades hard at the top — 1 second hold</div>
+                    <div class="ex-cue">The straighter your body, the harder it is — elevate feet to increase difficulty</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your hips sag — a sagging body means your core isn't contributing</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 2 — Negatives</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Jumping Negative (5 sec lower)</div><div class="ex-sets">5 × 3</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Jump up to the top position of a pull up — chin over the bar.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Slowly lower yourself over exactly 5 seconds. Count out loud: "one, two, three, four, five."</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Drop from the bar at the bottom. Shake out your arms. Repeat.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This builds more pulling strength than assisted pull ups — it's the single most effective drill</div>
+                    <div class="ex-cue">Count out loud — it forces you to control the pace</div>
+                  </div>
+                  <div class="ex-mistake">Don't drop fast — the entire value of this exercise is in the slow, controlled lowering</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Dead Hang</div><div class="ex-sets">3 × 25 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Full dead hang, overhand grip. Shoulders fully relaxed and elevated.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Hold for the full 25 seconds. Breathe steadily.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Switch to alternating grip for the last set if your hands are failing.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Your grip will fatigue before your arms — that's normal and what we're training</div>
+                    <div class="ex-cue">Longer hangs on Day 2 than Day 1 — progress is intentional</div>
+                  </div>
+                  <div class="ex-mistake">Don't drop early — the last few seconds of a hang are where the grip strength gets built</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Scapular Pull Up</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Dead hang, arms fully straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull shoulder blades down without bending your elbows — body rises slightly.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 1 second at the top. Lower back to full hang. Repeat.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">These get easier fast — a sign that your shoulders are learning to engage</div>
+                    <div class="ex-cue">Slow and deliberate beats fast and sloppy every time</div>
+                  </div>
+                  <div class="ex-mistake">Don't turn it into a pull up — the moment elbows bend, you've left the drill</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Table Row</div><div class="ex-sets">3 × 12</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie under a table, body straight. Grip the edge overhand.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your chest up — elbows tight to your body, shoulder blades squeezing.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with full control. 12 reps this session vs 10 on Day 1.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Elevated feet = harder. Do it if Day 1 felt easy.</div>
+                    <div class="ex-cue">Drive your elbows back and down — not just pulling your hands to your chest</div>
+                  </div>
+                  <div class="ex-mistake">Don't pull with your biceps only — engage the back by thinking about elbows</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Band Pull-Apart</div><div class="ex-sets">3 × 15</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hold a resistance band with both hands at chest height. Arms straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull the band apart until your arms are fully extended to your sides.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Squeeze your shoulder blades together at the end. Control the return.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The squeeze at full stretch is the whole point — hold it for 1 second</div>
+                    <div class="ex-cue">Light band — this is shoulder health work, not a strength exercise</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your elbows bend — arms must stay straight throughout</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 3 — Attempt Day</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Warm-up Dead Hang</div><div class="ex-sets">2 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hang fully relaxed. Focus on your breathing.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Let all tension go. Shake out between the two sets.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>This is your warm-up — don't fatigue your grip before your attempts.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Day 3 is attempt day — save energy for the pull up attempts that come next</div>
+                    <div class="ex-cue">Shake your hands out between sets to keep circulation going</div>
+                  </div>
+                  <div class="ex-mistake">Don't hang to fatigue here — this is a warm-up, not a workout set</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Pull Up Attempts</div><div class="ex-sets">3 × max reps</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Start from a dead hang with shoulders actively packed down and back.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your elbows down and back toward your hips — think "elbows to pockets."</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Get your chin over the bar, lower with control. Record how many you get each set.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Record your reps every week — the progress is the feedback</div>
+                    <div class="ex-cue">Even 0 reps is useful data — the negatives are building strength for next week</div>
+                  </div>
+                  <div class="ex-mistake">Don't kip or use momentum — strict reps only. Bad reps don't count toward your goal.</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Jumping Negative (slow)</div><div class="ex-sets">3 × 3</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Jump to the top of a pull up — chin over bar.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower over 6–8 seconds this session — slower than Day 2.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Full range of motion on every rep. Drop and repeat.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Slower than Day 2 — this builds strength specifically at the bottom of the movement</div>
+                    <div class="ex-cue">If you can't slow down, that's information — you need more strength. Keep training.</div>
+                  </div>
+                  <div class="ex-mistake">Don't skip these after your attempts — they're building the strength for next week's reps</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Dead Hang (to fatigue)</div><div class="ex-sets">2 sets × max time</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hang from the bar as long as physically possible.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>When your grip fails, drop safely. Rest 2 minutes.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Repeat for a second set. Write down your times.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Track your max hang time every week — the improvement here mirrors your pull up progress</div>
+                    <div class="ex-cue">Chalk or a hook grip can extend your hang time significantly</div>
+                  </div>
+                  <div class="ex-mistake">Don't hold your breath to extend the time — breathe and hang as long as grip allows</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header"><div class="week-header-left"><span class="week-num">WEEK 3 & 4</span><h3>First Reps</h3></div><div style="display:flex;align-items:center;gap:12px;"><span class="focus">Building the rep count</span><span class="lock-badge">🔒 Locked</span></div></div>
+          <div class="locked-body"><p>Purchase to unlock all 6 weeks of programming.</p><a class="unlock-btn" href="#">Get Access — $19</a></div>
+        </div>
+        <div class="preview-week">
+          <div class="week-header"><div class="week-header-left"><span class="week-num">WEEK 5 & 6</span><h3>10 Reps</h3></div><div style="display:flex;align-items:center;gap:12px;"><span class="focus">Volume & peak performance</span><span class="lock-badge">🔒 Locked</span></div></div>
+          <div class="locked-body"><p>Purchase to unlock all 6 weeks of programming.</p><a class="unlock-btn" href="#">Get Access — $19</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Your Coach</div>
+      <div class="about-grid">
+        <div class="about-img"><img src="photo-coaching.jpeg" alt="Liam coaching"></div>
+        <div class="about-content">
+          <h3>Why trust a 18-year-old gymnast?</h3>
+          <p>Because I started exactly where you are. I know what it's like to have zero strength, zero flexibility, and zero idea what you're doing.</p>
+          <p>I've been training gymnastics since I was 7 years old, coached kids and adults of all levels at my local club, and competed at the national level in Canada.</p>
+          <p>This program is built the way my coaches built me. Progressive, intentional, and designed to actually work.</p>
+          <div class="about-cred">
+            <div class="cred-item">2nd Place — Canadian National Championships</div>
+            <div class="cred-item">Elite Canada Champion (Junior)</div>
+            <div class="cred-item">Coached athletes from age 6 to 50+</div>
+            <div class="cred-item">11+ years of competitive gymnastics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Get your first pull up.</h2>
+      <p>6 weeks, 3 days a week. The gymnastic method that actually works.</p>
+      <a class="btn-white" href="#">Get This Program — $19</a>
+    </div>
+
+    <footer>© 2026 Liam Vanounou. All rights reserved.</footer>
+
+    <script>
+      function toggleWeek(h){h.nextElementSibling.classList.toggle('open');}
+      function toggleEx(h){const b=h.nextElementSibling,t=h.querySelector('.ex-toggle');b.classList.toggle('open');t.classList.toggle('open');}
+      window.addEventListener('scroll',()=>{document.querySelector('nav').style.padding=window.scrollY>60?'12px 48px':'20px 48px';});
+    </script>
+    <script src="visuals.js"></script>
+      const s=document.createElement('style');s.textContent='.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';document.head.appendChild(s);
+      document.querySelectorAll('.outcome-card,.principle,.preview-week,.about-grid,.cta-section').forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(i%3)*0.08+'s';});
+      const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08});
+      document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+      const cursor=document.createElement('div');cursor.style.cssText='position:fixed;width:12px;height:12px;background:#e63946;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease;transform:translate(-50%,-50%);';
+      const ring=document.createElement('div');ring.style.cssText='position:fixed;width:36px;height:36px;border:1.5px solid rgba(230,57,70,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);';
+      document.body.appendChild(cursor);document.body.appendChild(ring);
+      let mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+      (function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+      document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.style.transform='translate(-50%,-50%) scale(2)');el.addEventListener('mouseleave',()=>cursor.style.transform='translate(-50%,-50%) scale(1)');});
+    </script>
+  </body>
+</html>

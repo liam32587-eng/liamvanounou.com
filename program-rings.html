@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Rings Strength Foundation — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#f0f0f0;overflow-x:hidden;}
+      nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #222;transition:padding 0.3s;}
+      nav .logo{font-size:18px;font-weight:800;color:#f0f0f0;text-decoration:none;letter-spacing:-0.5px;}nav .logo span{color:#e63946;}
+      nav .nav-links a{color:#888;text-decoration:none;font-size:14px;font-weight:500;margin-left:32px;transition:color 0.2s;}nav .nav-links a:hover{color:#f0f0f0;}
+      .hero{padding:140px 48px 80px;display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start;border-bottom:1px solid #222;}
+      .breadcrumb{color:#555;font-size:13px;margin-bottom:20px;}.breadcrumb a{color:#e63946;text-decoration:none;}
+      .program-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);color:#e63946;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:6px 12px;border-radius:4px;margin-bottom:20px;}
+      .hero h1{font-size:60px;font-weight:800;letter-spacing:-3px;line-height:0.95;margin-bottom:24px;}.hero h1 em{font-style:normal;color:#e63946;}
+      .hero-sub{font-size:18px;color:#888;line-height:1.7;max-width:520px;margin-bottom:40px;}
+      .hero-stats{display:flex;gap:0;border:1px solid #222;border-radius:12px;overflow:hidden;}
+      .stat{padding:20px 28px;border-right:1px solid #222;flex:1;}.stat:last-child{border-right:none;}
+      .stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:6px;}.stat-val{font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+      .buy-box{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:32px;position:sticky;top:90px;}
+      .buy-box .price{font-size:52px;font-weight:800;letter-spacing:-3px;margin-bottom:4px;}.buy-box .price-sub{color:#555;font-size:13px;margin-bottom:28px;}
+      .buy-btn{display:block;background:#e63946;color:white;text-align:center;padding:18px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:background 0.2s,transform 0.2s;margin-bottom:16px;}
+      .buy-btn:hover{background:#c1121f;transform:translateY(-2px);}
+      .guarantee{text-align:center;color:#555;font-size:12px;margin-bottom:24px;}
+      .includes{border-top:1px solid #222;padding-top:20px;}.includes-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:14px;}
+      .include-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#aaa;margin-bottom:10px;}.include-item::before{content:'✓';color:#4caf50;font-weight:800;flex-shrink:0;}
+      .section{padding:80px 48px;border-bottom:1px solid #222;}
+      .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+      .section-eyebrow::before{content:'';display:block;width:16px;height:2px;background:#e63946;}
+      .section h2{font-size:40px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.05;}.section-sub{color:#888;font-size:16px;line-height:1.8;max-width:540px;}
+      .outcomes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px;}
+      .outcome-card{background:#161616;border:1px solid #222;border-radius:16px;padding:32px;}.outcome-icon{font-size:32px;margin-bottom:16px;}
+      .outcome-card h3{font-size:19px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;}.outcome-card p{color:#777;font-size:14px;line-height:1.7;}
+      .principles{display:flex;flex-direction:column;gap:0;margin-top:48px;border:1px solid #222;border-radius:16px;overflow:hidden;}
+      .principle{display:flex;gap:32px;align-items:flex-start;padding:32px;border-bottom:1px solid #222;}.principle:last-child{border-bottom:none;}
+      .principle-num{font-size:48px;font-weight:800;color:#222;letter-spacing:-3px;flex-shrink:0;line-height:1;}
+      .principle-content h3{font-size:19px;font-weight:700;margin-bottom:8px;}.principle-content p{color:#777;font-size:14px;line-height:1.7;}
+      .preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:48px;}
+      .preview-week{border-radius:12px;overflow:hidden;border:1px solid #222;}.preview-week.unlocked{border-color:#e63946;}
+      .week-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:#161616;cursor:pointer;}
+      .preview-week.unlocked .week-header{background:rgba(230,57,70,0.08);}
+      .week-header-left{display:flex;align-items:center;gap:16px;}.week-num{font-size:11px;font-weight:700;color:#e63946;letter-spacing:1px;}
+      .week-header h3{font-size:16px;font-weight:700;}.week-header .focus{font-size:13px;color:#555;}
+      .lock-badge{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:100px;padding:5px 12px;font-size:12px;color:#555;font-weight:600;}
+      .open-badge{display:flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:#e63946;font-weight:600;}
+      .week-body{padding:24px;background:#111;display:none;}.week-body.open{display:block;}
+      .day{margin-bottom:28px;}.day:last-child{margin-bottom:0;}
+      .day h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:12px;}
+      .ex-card{border:1px solid #222;border-radius:10px;overflow:hidden;margin-bottom:8px;}.ex-card:last-child{margin-bottom:0;}
+      .ex-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#1a1a1a;cursor:pointer;user-select:none;transition:background 0.2s;}
+      .ex-header:hover{background:#202020;}.ex-left{display:flex;flex-direction:column;gap:3px;}
+      .ex-title{font-size:14px;font-weight:600;color:#ddd;}.ex-sets{font-size:12px;color:#e63946;font-weight:700;}
+      .ex-toggle{font-size:22px;color:#444;font-weight:300;line-height:1;transition:transform 0.2s,color 0.2s;flex-shrink:0;}
+      .ex-toggle.open{transform:rotate(45deg);color:#e63946;}
+      .ex-body{padding:20px 18px;background:#131313;display:none;border-top:1px solid #1e1e1e;}.ex-body.open{display:block;}
+      .ex-steps{margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
+      .ex-step{display:flex;gap:12px;font-size:13px;color:#bbb;line-height:1.5;}
+      .ex-step-num{background:#e63946;color:white;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+      .ex-cues{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding-top:12px;border-top:1px solid #1e1e1e;}
+      .ex-cue{font-size:13px;color:#888;padding-left:18px;position:relative;line-height:1.5;}
+      .ex-cue::before{content:'→';position:absolute;left:0;color:#e63946;font-weight:700;}
+      .ex-mistake{font-size:12px;color:#e6a817;background:rgba(230,168,23,0.07);border:1px solid rgba(230,168,23,0.15);border-radius:6px;padding:10px 14px;margin-top:10px;}
+      .ex-mistake::before{content:'⚠ ';font-weight:700;}
+      .locked-body{padding:32px;background:#111;text-align:center;border-top:1px solid #222;}
+      .locked-body p{color:#555;font-size:14px;margin-bottom:16px;}
+      .unlock-btn{display:inline-block;background:#e63946;color:white;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;}
+      .unlock-btn:hover{background:#c1121f;}
+      .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;}
+      .about-img{border-radius:16px;overflow:hidden;height:400px;}.about-img img{width:100%;height:100%;object-fit:cover;}
+      .about-content h3{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;}.about-content p{color:#888;font-size:15px;line-height:1.8;margin-bottom:16px;}
+      .about-cred{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+      .cred-item{display:flex;align-items:center;gap:12px;font-size:14px;color:#aaa;}.cred-item::before{content:'🏅';font-size:16px;}
+      .cta-section{background:#e63946;padding:80px 48px;text-align:center;}
+      .cta-section h2{font-size:48px;font-weight:800;color:white;letter-spacing:-2px;margin-bottom:12px;}
+      .cta-section p{color:rgba(255,255,255,0.7);font-size:17px;margin-bottom:36px;}
+      .btn-white{display:inline-block;background:white;color:#e63946;padding:18px 48px;border-radius:10px;font-size:16px;font-weight:800;text-decoration:none;transition:transform 0.2s;}
+      .btn-white:hover{transform:translateY(-2px);}
+      footer{text-align:center;padding:32px;color:#444;font-size:13px;border-top:1px solid #222;}
+      @media(max-width:900px){nav{padding:16px 24px;}.hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:40px;}.hero h1{font-size:40px;letter-spacing:-2px;}.hero-stats{flex-wrap:wrap;}.stat{min-width:50%;}.section{padding:60px 24px;}.outcomes-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.cta-section{padding:60px 24px;}.cta-section h2{font-size:32px;}}
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a><a href="index.html#contact">Contact</a></div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Rings Strength Foundation</div>
+        <div class="program-tag">Gymnastics Rings</div>
+        <h1>Build real strength<br><em>on the rings.</em></h1>
+        <p class="hero-sub">Rings expose every weakness in your shoulder stability and pressing strength. This 8-week program takes you from your first wobbly support hold to confident ring push ups, dips, and rows — the foundation for everything the rings can teach you.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-label">Duration</div><div class="stat-val">8 Weeks</div></div>
+          <div class="stat"><div class="stat-label">Level</div><div class="stat-val">Beginner</div></div>
+          <div class="stat"><div class="stat-label">Per Week</div><div class="stat-val">3 Days</div></div>
+          <div class="stat"><div class="stat-label">Equipment</div><div class="stat-val">Rings</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$24</div>
+        <div class="price-sub">One-time. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <p class="guarantee">🔒 Secure checkout</p>
+        <div class="includes">
+          <div class="includes-title">What's included</div>
+          <div class="include-item">Full 8-week program (all weeks unlocked)</div>
+          <div class="include-item">Step-by-step guides for every exercise</div>
+          <div class="include-item">Support hold to ring dip progressions</div>
+          <div class="include-item">Ring turn-out technique coaching</div>
+          <div class="include-item">Email support from Liam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">What You'll Achieve</div>
+      <h2>After 8 weeks,<br>here's where you'll be.</h2>
+      <p class="section-sub">The rings are humbling at first. But the strength and stability you build on them transfers to everything else — it's why gymnasts are some of the strongest athletes on the planet.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><div class="outcome-icon">⭕</div><h3>Stable ring support hold</h3><p>Being able to hold yourself above the rings with turned-out hands is a genuine strength achievement. It's the gateway to every other ring skill.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">💪</div><h3>Ring push ups & dips</h3><p>These are harder than their floor equivalents because the rings demand shoulder stability at every point. Completing them cleanly is real strength.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🏋️</div><h3>Ring rows (horizontal pull)</h3><p>Ring rows are some of the best pulling work you can do. Adjustable by angle, they build the back and bicep strength that transfers to every pulling skill.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🔄</div><h3>Ring turn-out</h3><p>The turn-out (RTO) is the rings' signature — hands rotated outward in the support position. It builds the external rotation strength gymnasts are famous for.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Support. Push. Pull.<br>In that order.</h2>
+      <p class="section-sub">Ring training has a clear hierarchy. You can't do ring dips before you can hold the support. This program respects that order and builds each layer properly.</p>
+      <div class="principles">
+        <div class="principle"><div class="principle-num">01</div><div class="principle-content"><h3>Support hold first</h3><p>Everything on the rings starts from the support hold. Week 1 is entirely about getting comfortable above the rings — still, stable, and turned out. You can't build on an unstable base.</p></div></div>
+        <div class="principle"><div class="principle-num">02</div><div class="principle-content"><h3>Push and pull in balance</h3><p>Every session pairs a pushing exercise with a pulling exercise. Imbalanced training — too much push, too little pull — is how shoulders get injured. This program keeps it even.</p></div></div>
+        <div class="principle"><div class="principle-num">03</div><div class="principle-content"><h3>Progress through angle</h3><p>The rings make it easy to progress: move your feet further forward to make rows harder, or use a lower ring position for push-up variations. No extra equipment needed.</p></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Inside the Program</div>
+      <h2>Week 1 is on us.<br>The rest is yours.</h2>
+      <p class="section-sub">Tap any exercise to see exactly how to do it. Purchase to unlock all 8 weeks.</p>
+      <div class="preview-grid">
+
+        <div class="preview-week unlocked">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 1 & 2</span><h3>Foundation</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Support hold & ring row</span><span class="open-badge">Free Preview</span></div>
+          </div>
+          <div class="week-body open">
+            <div class="day">
+              <h4>Day 1 — Support Hold & Pulling</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Support Hold</div><div class="ex-sets">5 × 10 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Jump or step up so you're above the rings, arms extended, gripping the rings at your sides.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Press down hard through the rings. Depress your shoulders — away from your ears.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 10 seconds. Step down carefully. Rest 60 seconds.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The rings will shake — that's normal and exactly what's building your stabiliser muscles</div>
+                    <div class="ex-cue">Try to turn your hands outward (ring turn-out) — even 5° is progress</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your shoulders shrug up — actively push down through the rings throughout the hold</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Push Up</div><div class="ex-sets">4 × 5</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Set rings at shoulder height when kneeling. Grip rings and get into a push-up position (feet on floor, body inclined).</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your chest between the rings slowly. Keep elbows at 45° from your body.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full lockout. The more horizontal your body, the harder it is.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Rings are significantly harder than floor push ups — start at a steep incline and progress the angle over weeks</div>
+                    <div class="ex-cue">Full lockout at the top — arms completely straight, rings turned out</div>
+                  </div>
+                  <div class="ex-mistake">Don't let rings splay out wide — keep them tight to your body throughout the movement</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Row</div><div class="ex-sets">4 × 8</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Set rings at waist height. Walk feet forward and hang below the rings, body inclined.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your chest up to the rings, rotating your palms toward you at the top.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with full control to arm extension. That's one rep.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Walk feet further forward to increase difficulty — your body angle determines the load</div>
+                    <div class="ex-cue">Initiate every rep with your shoulder blades — depress them before your elbows bend</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your hips sag — maintain a rigid body line from head to heels throughout</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Turn-Out Hold</div><div class="ex-sets">3 × 10 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a ring support hold — above the rings, arms locked out.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Rotate your hands outward so fingers point away from your body (RTO position).</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold this position for 10 seconds. This is harder than a regular support hold.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">External rotation here trains the same muscles used in iron cross and planche — it's foundational</div>
+                    <div class="ex-cue">Even if you can only reach 45° turn-out, that's the right starting point</div>
+                  </div>
+                  <div class="ex-mistake">Don't force 90° turn-out on day one — the external rotator muscles need time to adapt</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Dead Hang from Rings</div><div class="ex-sets">3 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hang from the rings with a relaxed, overhand grip. Feet off the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Let your shoulders fully rise. Keep your body still — no swinging.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 20 seconds. The rings should remain still.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Rings hang differently than a bar — even a dead hang requires shoulder stability</div>
+                    <div class="ex-cue">Focus on keeping the rings parallel to each other, not splaying out</div>
+                  </div>
+                  <div class="ex-mistake">Don't let the rings swing forward and back — control them from the start of the hang</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 2 — Pressing & Stability</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Dip (Assisted)</div><div class="ex-sets">4 × 5</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a ring support hold. Have a box or chair ready to touch with your feet if needed.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Bend your elbows and lower yourself until upper arms are parallel to the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full lockout. Use foot support only as much as you need.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Ring dips are much harder than bar dips — use minimal assistance and progress weekly</div>
+                    <div class="ex-cue">Keep rings close to your body — the wider they splay, the harder it is to press</div>
+                  </div>
+                  <div class="ex-mistake">Don't go too deep too soon — your shoulder joints need time to adapt to the extreme range</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Row (Slow Lower)</div><div class="ex-sets">3 × 6 (3 sec lower)</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Set rings at waist height and take a ring row position.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull up to the rings quickly, then lower over 3 full seconds back to the start.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>The slow lowering is the training stimulus — don't rush it.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Eccentric (lowering) work builds more strength than the pull-up phase alone</div>
+                    <div class="ex-cue">Count aloud as you lower — it forces you to keep the pace</div>
+                  </div>
+                  <div class="ex-mistake">Don't drop suddenly at the end of the lower — maintain control all the way to full arm extension</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Support Hold (RTO)</div><div class="ex-sets">4 × 15 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a ring support hold — above the rings, arms locked.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Rotate hands outward as far as comfortable — aim for 45–90° turn-out.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 15 seconds. Focus on keeping the rings still.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">More time in RTO = faster external rotation adaptation — accumulate total time each week</div>
+                    <div class="ex-cue">Try to increase the turn-out angle by a few degrees each session</div>
+                  </div>
+                  <div class="ex-mistake">Don't sacrifice shoulder depression for turn-out — shoulders down first, then rotate</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Hollow Body Hold</div><div class="ex-sets">3 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back. Press your lower back into the floor — no gap.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift your legs to about 45° and extend your arms overhead. Pull your ribs down.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 20 seconds. Breathe normally.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Core tension transfers directly to ring work — a tight midline makes every ring exercise more stable</div>
+                    <div class="ex-cue">If your lower back lifts, raise your legs higher until it stays flat</div>
+                  </div>
+                  <div class="ex-mistake">Letting your lower back arch off the floor completely removes the training stimulus — reset if this happens</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Band Pull-Apart</div><div class="ex-sets">3 × 15</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hold a resistance band at shoulder height, arms straight in front.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull the band apart until it touches your chest — arms stay straight throughout.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return slowly to the start. Repeat for 15 controlled reps.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This works the same external rotators used in the ring turn-out — perfect complement to ring work</div>
+                    <div class="ex-cue">Squeeze at the end of each rep — the peak contraction matters</div>
+                  </div>
+                  <div class="ex-mistake">Don't let elbows bend to get the band further back — arms must stay straight</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 3 — Pulling & Integration</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Row (Feet Elevated)</div><div class="ex-sets">4 × 6</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Place your feet on a box or chair and set rings at hip height. Take a ring row position below.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull your chest up to the rings with feet elevated — this is significantly harder than feet-on-floor rows.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with full control. Reset and repeat.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Elevating your feet increases the load substantially — this is the progression toward ring pull-ups</div>
+                    <div class="ex-cue">The rotation at the top is important — palms face you at chest level</div>
+                  </div>
+                  <div class="ex-mistake">Don't pike your hips when feet are elevated — maintain the same rigid body line as regular rows</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Push Up (Feet on Box)</div><div class="ex-sets">3 × 5</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Elevate your feet on a box (30–45cm). Grip rings at floor level. Get into an inclined plank.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your chest toward the rings slowly, keeping elbows at 45°.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to full lockout. Maintain tight body position throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">More horizontal body angle = more load on the rings = harder. Progress this over weeks.</div>
+                    <div class="ex-cue">Turn the rings out at the top of each rep — it trains the RTO position under light load</div>
+                  </div>
+                  <div class="ex-mistake">Don't let rings swing out to the sides as you lower — keep them tracking straight throughout</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Ring Support Hold (Max)</div><div class="ex-sets">3 × max time</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a ring support hold with full RTO. No timer — just hold as long as you can maintain quality.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>When the rings start shaking uncontrollably or your form breaks down, step down.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Note your time. Try to beat it each week.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This is your benchmark — you want to reach 30+ seconds before progressing to ring dips</div>
+                    <div class="ex-cue">Track your time each week — progress here is often the most motivating metric in this program</div>
+                  </div>
+                  <div class="ex-mistake">Don't count holds where your form has completely broken down — only quality time above the rings counts</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 3 & 4</span><h3>Build</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Ring dips & pull-up progressions</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>Unassisted ring dips, ring pull-up progressions, and L-sit on rings. Unlock to access all 8 weeks.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $24</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 5 & 6</span><h3>Strength</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Ring pull ups & muscle up prep</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>Ring pull ups, Bulgarian ring dips, and muscle up preparation work. The strength phase.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $24</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 7 & 8</span><h3>Master</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Iron cross prep & advanced holds</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>Advanced ring strength, iron cross progressions, and consecutive ring dip work. The final phase.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $24</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Your Coach</div>
+      <h2>Built by a gymnast.<br>Designed for everyone.</h2>
+      <div class="about-grid">
+        <div class="about-img"><img src="liam-photo.jpg" alt="Liam Vanounou" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+        <div class="about-content">
+          <h3>Hi, I'm Liam.</h3>
+          <p>Rings are where gymnastics strength is built. I've spent 15 years on them — and the thing I wish someone had told me earlier is that the support hold is everything. Get that right, and everything else follows.</p>
+          <p>This program teaches the rings the way gymnastics coaches do: stable foundation first, skill second. No shortcuts.</p>
+          <div class="about-cred">
+            <div class="cred-item">15+ years of gymnastics training</div>
+            <div class="cred-item">Competed at national level</div>
+            <div class="cred-item">Coached hundreds of athletes at all levels</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Get on the rings.</h2>
+      <p>8 weeks of structured ring strength. One-time payment. Yours forever.</p>
+      <a class="btn-white" href="#">Get the Program — $24</a>
+    </div>
+
+    <footer>© 2025 Liam Vanounou. All rights reserved.</footer>
+
+    <script>
+      function toggleWeek(h){const b=h.nextElementSibling;b.classList.toggle('open');}
+      function toggleEx(h){const b=h.nextElementSibling;const t=h.querySelector('.ex-toggle');b.classList.toggle('open');t.classList.toggle('open');}
+      window.addEventListener('scroll',()=>{const n=document.querySelector('nav');n.style.padding=window.scrollY>50?'12px 48px':'20px 48px';});
+    </script>
+    <script src="visuals.js"></script>
+    </script>
+  </body>
+</html>

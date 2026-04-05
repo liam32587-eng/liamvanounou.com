@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Competition Prep — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
+      nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #f0f0f0; }
+      nav .logo { font-size: 18px; font-weight: 800; color: #111; text-decoration: none; }
+      nav .logo span { color: #e63946; }
+      nav a { color: #666; text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 32px; }
+      .hero { padding: 140px 48px 64px; display: flex; justify-content: space-between; gap: 60px; border-bottom: 1px solid #f0f0f0; }
+      .hero-left { flex: 1; }
+      .breadcrumb { color: #bbb; font-size: 13px; margin-bottom: 20px; }
+      .breadcrumb a { color: #e63946; text-decoration: none; }
+      .tag { display: inline-block; background: #fff5f5; color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 4px; margin-bottom: 16px; }
+      .hero h1 { font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; line-height: 1.05; }
+      .hero p { color: #777; font-size: 16px; line-height: 1.8; max-width: 520px; margin-bottom: 32px; }
+      .meta { display: flex; gap: 40px; flex-wrap: wrap; }
+      .meta-item .label { color: #bbb; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+      .meta-item .value { font-size: 15px; font-weight: 700; }
+      .buy-box { background: #fafafa; border: 1px solid #efefef; border-radius: 16px; padding: 32px; width: 280px; flex-shrink: 0; }
+      .price { font-size: 44px; font-weight: 800; letter-spacing: -2px; margin-bottom: 4px; }
+      .price-sub { color: #aaa; font-size: 13px; margin-bottom: 24px; }
+      .buy-btn { display: block; background: #111; color: white; text-align: center; padding: 16px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; margin-bottom: 20px; }
+      .includes p { color: #777; font-size: 13px; margin-bottom: 8px; }
+      .includes p::before { content: '✓ '; color: #4caf50; font-weight: 800; }
+      section { padding: 60px 48px; border-bottom: 1px solid #f0f0f0; }
+      h2 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 32px; }
+      .eq-list { display: flex; gap: 12px; flex-wrap: wrap; }
+      .eq-item { background: #f5f5f5; border-radius: 8px; padding: 12px 20px; font-size: 14px; font-weight: 500; }
+      .timeline { display: flex; flex-direction: column; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; }
+      .timeline-item { display: flex; gap: 28px; padding: 28px; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
+      .timeline-item:last-child { border-bottom: none; }
+      .t-week { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #e63946; flex-shrink: 0; width: 80px; padding-top: 3px; }
+      .t-content h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+      .t-content p { color: #777; font-size: 14px; line-height: 1.6; }
+      .week-block { border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+      .week-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 28px; cursor: pointer; background: #fff; transition: background 0.2s; }
+      .week-header:hover { background: #fafafa; }
+      .week-header h3 { font-size: 16px; font-weight: 700; }
+      .week-header .toggle { color: #e63946; font-size: 20px; font-weight: 700; line-height: 1; }
+      .week-body { display: none; padding: 0 28px 24px; }
+      .week-body.open { display: block; }
+      .day { margin-bottom: 20px; }
+      .day h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 12px; }
+      .ex-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f8f8f8; }
+      .ex-row:last-child { border-bottom: none; }
+      .ex-name { font-size: 14px; font-weight: 600; }
+      .ex-sets { font-size: 13px; color: #999; }
+      .mindset-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .mindset-card { border: 1px solid #f0f0f0; border-radius: 12px; padding: 28px; }
+      .mindset-card .label { color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+      .mindset-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+      .mindset-card p { color: #777; font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+      .tips ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+      .tips h4 { font-size: 12px; font-weight: 700; color: #999; margin-bottom: 10px; text-transform: uppercase; }
+      .tips ul li { font-size: 13px; color: #666; padding-left: 16px; position: relative; line-height: 1.5; }
+      .tips ul li::before { content: '→'; position: absolute; left: 0; color: #e63946; font-weight: 700; }
+      .comp-day-box { background: #111; color: white; border-radius: 12px; padding: 36px; margin-top: 0; }
+      .comp-day-box h3 { font-size: 20px; font-weight: 800; margin-bottom: 20px; }
+      .comp-day-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .comp-day-item .cd-label { color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+      .comp-day-item p { color: #ccc; font-size: 14px; line-height: 1.6; }
+      .cta { text-align: center; padding: 80px 48px; border-bottom: none; }
+      footer { text-align: center; padding: 32px; color: #ccc; font-size: 13px; border-top: 1px solid #f0f0f0; }
+      @media (max-width: 768px) { nav { padding: 16px 24px; } .hero { flex-direction: column; padding: 100px 24px 48px; } .hero h1 { font-size: 36px; } .buy-box { width: 100%; } section { padding: 40px 24px; } .mindset-grid { grid-template-columns: 1fr; } .comp-day-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <div class="hero-left">
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Competition Prep</div>
+        <span class="tag">Sport Specific</span>
+        <h1>Competition Prep</h1>
+        <p>The 8 weeks before your competition matter more than anything else you do all year. This program manages training load, sharpens skills, builds competition mindset, and gets you to the floor in peak condition — physically and mentally ready to perform.</p>
+        <div class="meta">
+          <div class="meta-item"><div class="label">Duration</div><div class="value">8 Weeks</div></div>
+          <div class="meta-item"><div class="label">Level</div><div class="value">Competitive</div></div>
+          <div class="meta-item"><div class="label">Days/Week</div><div class="value">5 Days</div></div>
+          <div class="meta-item"><div class="label">For</div><div class="value">MAG Athletes</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$35</div>
+        <div class="price-sub">One-time purchase. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <div class="includes">
+          <p>8-week competition peaking plan</p>
+          <p>Weekly training load structure</p>
+          <p>Competition day protocol</p>
+          <p>Mental performance strategies</p>
+          <p>Email support from Liam</p>
+        </div>
+      </div>
+    </div>
+    <section>
+      <h2>Who This Is For</h2>
+      <div class="eq-list">
+        <div class="eq-item">Competitive gymnasts</div>
+        <div class="eq-item">Club-level MAG athletes</div>
+        <div class="eq-item">8 weeks out from competition</div>
+        <div class="eq-item">Already training routines</div>
+      </div>
+    </section>
+    <section>
+      <h2>The 8-Week Structure</h2>
+      <p style="color:#777; font-size:15px; margin-bottom:32px; line-height:1.7;">Competition prep is about managing what you already have — not trying to add new skills. This is about sharpening, stabilizing, and peaking at the right time.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="t-week">Week 1–2</div>
+          <div class="t-content">
+            <h3>Baseline & Stabilization</h3>
+            <p>Assess current skill consistency. Identify weaknesses in routines. Lock in what's already clean before adding anything. High volume, moderate intensity.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-week">Week 3–4</div>
+          <div class="t-content">
+            <h3>Intensity Block</h3>
+            <p>Highest intensity of the 8 weeks. Full routines with connection, difficulty, and artistry. This is where you push hardest — when there's still time to recover.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-week">Week 5–6</div>
+          <div class="t-content">
+            <h3>Sharpening</h3>
+            <p>Begin reducing volume. Focus on execution quality — every detail, every form element. Start competition simulation: full sets with judging eye.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-week">Week 7</div>
+          <div class="t-content">
+            <h3>Taper</h3>
+            <p>Volume drops significantly. Intensity stays high in short bursts. No new skills. The goal is to feel fresh, confident, and sharp — not tired and worked.</p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="t-week">Week 8</div>
+          <div class="t-content">
+            <h3>Competition Week</h3>
+            <p>Light training only. Full rest days built in. Mental preparation, visualization, and competition day protocol. Arrive ready — not worn down.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Sample Training Week (Week 3)</h2>
+      <p style="color:#777; font-size:15px; margin-bottom:32px; line-height:1.7;">This is what the intensity block looks like in practice. All six apparatus, two per day, full routine work.</p>
+
+      <div class="week-block">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <h3>Week 3 — Full Schedule</h3><span class="toggle">+</span>
+        </div>
+        <div class="week-body">
+          <div class="day"><h4>Monday — Floor + High Bar</h4>
+            <div class="ex-row"><span class="ex-name">Warm-up & conditioning</span><span class="ex-sets">30 min</span></div>
+            <div class="ex-row"><span class="ex-name">Floor: individual passes × 3</span><span class="ex-sets">All tumbling elements</span></div>
+            <div class="ex-row"><span class="ex-name">Floor: full routine × 3</span><span class="ex-sets">With music, full artistry</span></div>
+            <div class="ex-row"><span class="ex-name">High bar: skills + connections</span><span class="ex-sets">Full routine × 3</span></div>
+            <div class="ex-row"><span class="ex-name">Prehab & cool down</span><span class="ex-sets">20 min</span></div>
+          </div>
+          <div class="day"><h4>Tuesday — Pommel + Parallel Bars</h4>
+            <div class="ex-row"><span class="ex-name">Warm-up</span><span class="ex-sets">20 min</span></div>
+            <div class="ex-row"><span class="ex-name">Pommel: section drills</span><span class="ex-sets">Each section × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Pommel: full routine</span><span class="ex-sets">× 4 attempts</span></div>
+            <div class="ex-row"><span class="ex-name">P-bars: full routine</span><span class="ex-sets">× 4 attempts</span></div>
+            <div class="ex-row"><span class="ex-name">Conditioning block</span><span class="ex-sets">20 min</span></div>
+          </div>
+          <div class="day"><h4>Wednesday — Rings + Vault</h4>
+            <div class="ex-row"><span class="ex-name">Warm-up</span><span class="ex-sets">20 min</span></div>
+            <div class="ex-row"><span class="ex-name">Rings: skill elements</span><span class="ex-sets">Each element × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Rings: full routine</span><span class="ex-sets">× 4 attempts</span></div>
+            <div class="ex-row"><span class="ex-name">Vault: approach runs</span><span class="ex-sets">× 10</span></div>
+            <div class="ex-row"><span class="ex-name">Vault: full attempts</span><span class="ex-sets">× 6</span></div>
+          </div>
+          <div class="day"><h4>Thursday — Weak Events Focus</h4>
+            <div class="ex-row"><span class="ex-name">Identify bottom 2 events</span><span class="ex-sets">Extra volume here</span></div>
+            <div class="ex-row"><span class="ex-name">Problem element drills</span><span class="ex-sets">× 10 each</span></div>
+            <div class="ex-row"><span class="ex-name">Full routines on weak events</span><span class="ex-sets">× 5 each</span></div>
+            <div class="ex-row"><span class="ex-name">Conditioning</span><span class="ex-sets">20 min</span></div>
+          </div>
+          <div class="day"><h4>Friday — Full Competition Simulation</h4>
+            <div class="ex-row"><span class="ex-name">Competition warm-up protocol</span><span class="ex-sets">Exactly as on comp day</span></div>
+            <div class="ex-row"><span class="ex-name">All 6 apparatus in order</span><span class="ex-sets">1 full routine each</span></div>
+            <div class="ex-row"><span class="ex-name">Score each routine mentally</span><span class="ex-sets">Deduction tracking</span></div>
+            <div class="ex-row"><span class="ex-name">Post-sim review</span><span class="ex-sets">Notes on each event</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Competition Mindset</h2>
+      <div class="mindset-grid">
+        <div class="mindset-card">
+          <div class="label">Mental Performance</div>
+          <h3>Visualization</h3>
+          <p>Every elite gymnast visualizes. Not as a vague hope — as a specific, detailed, sensory rehearsal of every element in every routine.</p>
+          <div class="tips"><h4>How to Do It</h4><ul>
+            <li>10 min per day in the final 3 weeks before competition</li>
+            <li>Close eyes, visualize every routine start to finish</li>
+            <li>Include the feeling of each skill — not just the image</li>
+            <li>Visualize the crowd, the judges, the chalk, the sounds</li>
+            <li>Always end with a perfect landing — program success</li>
+          </ul></div>
+        </div>
+        <div class="mindset-card">
+          <div class="label">Mental Performance</div>
+          <h3>Arousal Control</h3>
+          <p>Competition nerves are energy. The goal is not to eliminate them — it's to channel them. The right arousal level makes you sharper, not worse.</p>
+          <div class="tips"><h4>How to Do It</h4><ul>
+            <li>If too anxious: box breathing (4 in, 4 hold, 4 out, 4 hold)</li>
+            <li>If too flat: power poses, music, aggressive self-talk</li>
+            <li>Find your optimal zone in training simulations</li>
+            <li>Pre-routine routine: same every time, builds confidence</li>
+            <li>Nervousness = readiness. Reframe it before you walk on</li>
+          </ul></div>
+        </div>
+        <div class="mindset-card">
+          <div class="label">Focus</div>
+          <h3>Process Over Outcome</h3>
+          <p>Thinking about your score mid-routine destroys performance. Your only focus during competition is the next skill — nothing else exists.</p>
+          <div class="tips"><h4>How to Do It</h4><ul>
+            <li>Define 2–3 key cues per routine — not 20</li>
+            <li>Practice cue-based focus in every training run</li>
+            <li>After a mistake: reset, do not ruminate</li>
+            <li>Score doesn't matter until you've finished all 6</li>
+            <li>The routine in front of you is the only one that exists</li>
+          </ul></div>
+        </div>
+        <div class="mindset-card">
+          <div class="label">Consistency</div>
+          <h3>Routine Consistency</h3>
+          <p>A D-score 0.2 higher means nothing if you fall twice. Consistent, clean execution beats ambitious difficulty every time at most levels.</p>
+          <div class="tips"><h4>How to Do It</h4><ul>
+            <li>Know your hit rate on every element over 10 attempts</li>
+            <li>If below 80% hit rate — simplify for competition</li>
+            <li>Count your successful runs in training, not just attempts</li>
+            <li>Target: 8/10 full routines clean in the final 2 weeks</li>
+            <li>If you're not hitting it in training, you won't hit it on the floor</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="comp-day-box">
+        <h3>Competition Day Protocol</h3>
+        <div class="comp-day-grid">
+          <div class="comp-day-item">
+            <div class="cd-label">Morning</div>
+            <p>Wake up at your normal time. Light breakfast — nothing heavy. 20 min of visualization. Review your 2–3 cues per routine. No new information today.</p>
+          </div>
+          <div class="comp-day-item">
+            <div class="cd-label">Warm-Up</div>
+            <p>Same warm-up as always — no surprises. Consistent heart rate elevation, then apparatus-specific prep. Light skills only — save energy for the competition floor.</p>
+          </div>
+          <div class="comp-day-item">
+            <div class="cd-label">Between Events</div>
+            <p>Breathe. Eat light carbs. Stay warm. Don't analyze the last routine — it's done. Reset to the next event. Talk to your coach, not your competitors.</p>
+          </div>
+          <div class="comp-day-item">
+            <div class="cd-label">After Competition</div>
+            <p>Regardless of result: protein and carbs within 30 minutes. Light mobility work. Write down what you'll work on — then let the result go. One competition is one data point.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <div class="cta">
+      <h2>Compete at your best.</h2>
+      <p style="color:#777; margin-bottom:32px;">8 weeks out. This is how you peak.</p>
+      <a class="buy-btn" href="#" style="display:inline-block; max-width:300px; margin:0 auto;">Get This Program — $35</a>
+    </div>
+    <footer>© 2026 Liam Vanounou. All rights reserved.</footer>
+    <script>
+      function toggleWeek(el) {
+        const body = el.nextElementSibling;
+        const toggle = el.querySelector('.toggle');
+        body.classList.toggle('open');
+        toggle.textContent = body.classList.contains('open') ? '−' : '+';
+      }
+    </script>
+  </body>
+</html>

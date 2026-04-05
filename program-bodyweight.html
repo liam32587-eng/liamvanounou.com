@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Beginner Bodyweight Strength — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #f0f0f0; overflow-x: hidden; }
+      nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(15,15,15,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #222; transition: padding 0.3s; }
+      nav .logo { font-size: 18px; font-weight: 800; color: #f0f0f0; text-decoration: none; letter-spacing: -0.5px; }
+      nav .logo span { color: #e63946; }
+      nav .nav-links a { color: #888; text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 32px; transition: color 0.2s; }
+      nav .nav-links a:hover { color: #f0f0f0; }
+      .hero { padding: 140px 48px 80px; display: grid; grid-template-columns: 1fr 320px; gap: 80px; align-items: start; border-bottom: 1px solid #222; }
+      .breadcrumb { color: #555; font-size: 13px; margin-bottom: 20px; }
+      .breadcrumb a { color: #e63946; text-decoration: none; }
+      .program-tag { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,57,70,0.12); color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 6px 12px; border-radius: 4px; margin-bottom: 20px; }
+      .hero h1 { font-size: 60px; font-weight: 800; letter-spacing: -3px; line-height: 0.95; margin-bottom: 24px; }
+      .hero h1 em { font-style: normal; color: #e63946; }
+      .hero-sub { font-size: 18px; color: #888; line-height: 1.7; max-width: 520px; margin-bottom: 40px; }
+      .hero-stats { display: flex; gap: 0; border: 1px solid #222; border-radius: 12px; overflow: hidden; }
+      .stat { padding: 20px 28px; border-right: 1px solid #222; flex: 1; }
+      .stat:last-child { border-right: none; }
+      .stat-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #555; margin-bottom: 6px; }
+      .stat-val { font-size: 18px; font-weight: 800; letter-spacing: -0.5px; }
+      .buy-box { background: #161616; border: 1px solid #2a2a2a; border-radius: 20px; padding: 32px; position: sticky; top: 90px; }
+      .buy-box .price { font-size: 52px; font-weight: 800; letter-spacing: -3px; margin-bottom: 4px; }
+      .buy-box .price-sub { color: #555; font-size: 13px; margin-bottom: 28px; }
+      .buy-btn { display: block; background: #e63946; color: white; text-align: center; padding: 18px; border-radius: 10px; font-size: 16px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-bottom: 16px; letter-spacing: 0.2px; }
+      .buy-btn:hover { background: #c1121f; transform: translateY(-2px); }
+      .guarantee { text-align: center; color: #555; font-size: 12px; margin-bottom: 24px; }
+      .includes { border-top: 1px solid #222; padding-top: 20px; }
+      .includes-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #555; margin-bottom: 14px; }
+      .include-item { display: flex; align-items: center; gap: 10px; font-size: 13px; color: #aaa; margin-bottom: 10px; }
+      .include-item::before { content: '✓'; color: #4caf50; font-weight: 800; flex-shrink: 0; }
+      .section { padding: 80px 48px; border-bottom: 1px solid #222; }
+      .section-eyebrow { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+      .section-eyebrow::before { content: ''; display: block; width: 16px; height: 2px; background: #e63946; }
+      .section h2 { font-size: 40px; font-weight: 800; letter-spacing: -2px; margin-bottom: 16px; line-height: 1.05; }
+      .section-sub { color: #888; font-size: 16px; line-height: 1.8; max-width: 540px; }
+      .outcomes-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+      .outcome-card { background: #161616; border: 1px solid #222; border-radius: 16px; padding: 32px; }
+      .outcome-icon { font-size: 32px; margin-bottom: 16px; }
+      .outcome-card h3 { font-size: 19px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; }
+      .outcome-card p { color: #777; font-size: 14px; line-height: 1.7; }
+      .principles { display: flex; flex-direction: column; gap: 0; margin-top: 48px; border: 1px solid #222; border-radius: 16px; overflow: hidden; }
+      .principle { display: flex; gap: 32px; align-items: flex-start; padding: 32px; border-bottom: 1px solid #222; }
+      .principle:last-child { border-bottom: none; }
+      .principle-num { font-size: 48px; font-weight: 800; color: #222; letter-spacing: -3px; flex-shrink: 0; line-height: 1; }
+      .principle-content h3 { font-size: 19px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+      .principle-content p { color: #777; font-size: 14px; line-height: 1.7; }
+      /* WEEK PREVIEW */
+      .preview-grid { display: flex; flex-direction: column; gap: 12px; margin-top: 48px; }
+      .preview-week { border-radius: 12px; overflow: hidden; border: 1px solid #222; }
+      .preview-week.unlocked { border-color: #e63946; }
+      .week-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 24px; background: #161616; cursor: pointer; }
+      .preview-week.unlocked .week-header { background: rgba(230,57,70,0.08); }
+      .week-header-left { display: flex; align-items: center; gap: 16px; }
+      .week-num { font-size: 11px; font-weight: 700; color: #e63946; letter-spacing: 1px; }
+      .week-header h3 { font-size: 16px; font-weight: 700; }
+      .week-header .focus { font-size: 13px; color: #555; }
+      .lock-badge { display: flex; align-items: center; gap: 6px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 100px; padding: 5px 12px; font-size: 12px; color: #555; font-weight: 600; }
+      .open-badge { display: flex; align-items: center; gap: 6px; background: rgba(230,57,70,0.12); border: 1px solid rgba(230,57,70,0.2); border-radius: 100px; padding: 5px 12px; font-size: 12px; color: #e63946; font-weight: 600; }
+      .week-body { padding: 24px; background: #111; display: none; }
+      .week-body.open { display: block; }
+      .day { margin-bottom: 28px; }
+      .day:last-child { margin-bottom: 0; }
+      .day h4 { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #555; margin-bottom: 12px; }
+      /* EXERCISE CARDS */
+      .ex-card { border: 1px solid #222; border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+      .ex-card:last-child { margin-bottom: 0; }
+      .ex-header { display: flex; justify-content: space-between; align-items: center; padding: 14px 18px; background: #1a1a1a; cursor: pointer; user-select: none; transition: background 0.2s; }
+      .ex-header:hover { background: #202020; }
+      .ex-left { display: flex; flex-direction: column; gap: 3px; }
+      .ex-title { font-size: 14px; font-weight: 600; color: #ddd; }
+      .ex-sets { font-size: 12px; color: #e63946; font-weight: 700; }
+      .ex-toggle { font-size: 22px; color: #444; font-weight: 300; line-height: 1; transition: transform 0.2s, color 0.2s; flex-shrink: 0; }
+      .ex-toggle.open { transform: rotate(45deg); color: #e63946; }
+      .ex-body { padding: 20px 18px; background: #131313; display: none; border-top: 1px solid #1e1e1e; }
+      .ex-body.open { display: block; }
+      .ex-steps { margin-bottom: 14px; display: flex; flex-direction: column; gap: 8px; }
+      .ex-step { display: flex; gap: 12px; font-size: 13px; color: #bbb; line-height: 1.5; }
+      .ex-step-num { background: #e63946; color: white; min-width: 20px; height: 20px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+      .ex-cues { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; padding-top: 12px; border-top: 1px solid #1e1e1e; }
+      .ex-cue { font-size: 13px; color: #888; padding-left: 18px; position: relative; line-height: 1.5; }
+      .ex-cue::before { content: '→'; position: absolute; left: 0; color: #e63946; font-weight: 700; }
+      .ex-mistake { font-size: 12px; color: #e6a817; background: rgba(230,168,23,0.07); border: 1px solid rgba(230,168,23,0.15); border-radius: 6px; padding: 10px 14px; margin-top: 10px; }
+      .ex-mistake::before { content: '⚠ '; font-weight: 700; }
+      /* LOCKED */
+      .locked-body { padding: 32px; background: #111; text-align: center; border-top: 1px solid #222; }
+      .locked-body p { color: #555; font-size: 14px; margin-bottom: 16px; }
+      .unlock-btn { display: inline-block; background: #e63946; color: white; padding: 12px 28px; border-radius: 8px; font-size: 14px; font-weight: 700; text-decoration: none; transition: background 0.2s; }
+      .unlock-btn:hover { background: #c1121f; }
+      /* ABOUT */
+      .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-top: 48px; }
+      .about-img { border-radius: 16px; overflow: hidden; height: 400px; }
+      .about-img img { width: 100%; height: 100%; object-fit: cover; }
+      .about-content h3 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; }
+      .about-content p { color: #888; font-size: 15px; line-height: 1.8; margin-bottom: 16px; }
+      .about-cred { display: flex; flex-direction: column; gap: 10px; margin-top: 24px; }
+      .cred-item { display: flex; align-items: center; gap: 12px; font-size: 14px; color: #aaa; }
+      .cred-item::before { content: '🏅'; font-size: 16px; }
+      .cta-section { background: #e63946; padding: 80px 48px; text-align: center; }
+      .cta-section h2 { font-size: 48px; font-weight: 800; color: white; letter-spacing: -2px; margin-bottom: 12px; }
+      .cta-section p { color: rgba(255,255,255,0.7); font-size: 17px; margin-bottom: 36px; }
+      .btn-white { display: inline-block; background: white; color: #e63946; padding: 18px 48px; border-radius: 10px; font-size: 16px; font-weight: 800; text-decoration: none; transition: transform 0.2s; }
+      .btn-white:hover { transform: translateY(-2px); }
+      footer { text-align: center; padding: 32px; color: #444; font-size: 13px; border-top: 1px solid #222; }
+      @media (max-width: 900px) {
+        nav { padding: 16px 24px; }
+        .hero { grid-template-columns: 1fr; padding: 120px 24px 60px; gap: 40px; }
+        .hero h1 { font-size: 40px; letter-spacing: -2px; }
+        .hero-stats { flex-wrap: wrap; }
+        .stat { min-width: 50%; }
+        .section { padding: 60px 24px; }
+        .outcomes-grid { grid-template-columns: 1fr; }
+        .about-grid { grid-template-columns: 1fr; }
+        .cta-section { padding: 60px 24px; }
+        .cta-section h2 { font-size: 32px; }
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Beginner Bodyweight Strength</div>
+        <div class="program-tag">No Equipment</div>
+        <h1>Zero to <em>strong.</em><br>In 8 weeks.</h1>
+        <p class="hero-sub">Build real, functional strength using the same movement patterns elite gymnasts are built on — no gym, no equipment, just your bodyweight and a commitment to show up.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-label">Duration</div><div class="stat-val">8 Weeks</div></div>
+          <div class="stat"><div class="stat-label">Level</div><div class="stat-val">Beginner</div></div>
+          <div class="stat"><div class="stat-label">Per Week</div><div class="stat-val">3 Days</div></div>
+          <div class="stat"><div class="stat-label">Equipment</div><div class="stat-val">None</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$19</div>
+        <div class="price-sub">One-time. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <p class="guarantee">🔒 Secure checkout</p>
+        <div class="includes">
+          <div class="includes-title">What's included</div>
+          <div class="include-item">Full 8-week program (all weeks unlocked)</div>
+          <div class="include-item">Step-by-step exercise guides with form cues</div>
+          <div class="include-item">Progress tracking sheets</div>
+          <div class="include-item">Email support from Liam</div>
+          <div class="include-item">Lifetime access — train it again anytime</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">What You'll Achieve</div>
+      <h2>After 8 weeks,<br>here's where you'll be.</h2>
+      <p class="section-sub">This isn't about looking a certain way. It's about what your body can actually do.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card">
+          <div class="outcome-icon">💪</div>
+          <h3>Real pushing strength</h3>
+          <p>From incline push ups to archer push ups, one-arm progressions, and pike push ups — your upper body will be unrecognizable by week 8.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon">🎯</div>
+          <h3>Bulletproof core control</h3>
+          <p>The hollow body, arch hold, and L-sit are the foundation of gymnastics. You'll own them — and feel the difference in everything else you do.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon">🦵</div>
+          <h3>Single-leg strength</h3>
+          <p>Pistol squats, Nordic curls, Bulgarian split squats. The kind of leg strength most gym-goers never develop — built with zero equipment.</p>
+        </div>
+        <div class="outcome-card">
+          <div class="outcome-icon">🧠</div>
+          <h3>Body awareness</h3>
+          <p>Gymnastics teaches you to feel every position. You'll move better, stand taller, and understand your body in a way most people never do.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Built different.<br>Because it is.</h2>
+      <p class="section-sub">This isn't random exercises thrown together. It's structured the way gymnasts train — with purpose behind every movement.</p>
+      <div class="principles">
+        <div class="principle">
+          <div class="principle-num">01</div>
+          <div class="principle-content">
+            <h3>Progressive overload, gymnastic style</h3>
+            <p>Each week builds on the last. Not by adding weight — by advancing the movement. Incline push ups become full push ups become archer push ups. The progression is the program.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">02</div>
+          <div class="principle-content">
+            <h3>Three focused training days</h3>
+            <p>Push & Core. Squat & Hinge. Pull & Shoulders. Each day has a clear purpose, nothing is wasted, and 45–60 minutes is all you need.</p>
+          </div>
+        </div>
+        <div class="principle">
+          <div class="principle-num">03</div>
+          <div class="principle-content">
+            <h3>Form first, always</h3>
+            <p>Every exercise has step-by-step instructions and the exact form cues used in elite gymnastics coaching. You'll know exactly what to do and why.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Inside the Program</div>
+      <h2>Week 1 is on us.<br>The rest is yours.</h2>
+      <p class="section-sub">Tap any exercise to see exactly how to do it — steps, cues, and what to avoid. Purchase to unlock all 8 weeks.</p>
+      <div class="preview-grid">
+
+        <div class="preview-week unlocked">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left">
+              <span class="week-num">WEEK 1 & 2</span>
+              <h3>Foundation</h3>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="focus">Building the base</span>
+              <span class="open-badge">Free Preview</span>
+            </div>
+          </div>
+          <div class="week-body open">
+            <div class="day">
+              <h4>Day 1 — Push & Core</h4>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Incline Push Up</div><div class="ex-sets">3 × 10</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Place hands on an elevated surface (chair, step, wall). Wider than shoulder-width.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your chest toward the surface with elbows at roughly 45°.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Push back to start with full arm extension. Keep your body in a straight line the whole time.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Keep your body completely straight — head to heels, like a plank</div>
+                    <div class="ex-cue">Squeeze your chest at the top of every rep for 1 second</div>
+                  </div>
+                  <div class="ex-mistake">Don't flare your elbows out to 90° — they should point back at about 45°</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Hollow Body Hold</div><div class="ex-sets">3 × 20 sec</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back. Press your lower back firmly into the floor — this must stay down the whole time.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Raise your shoulders slightly off the floor. Lift your legs (start with knees bent if needed).</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold the position. Breathe steadily — imagine pulling your belly button to your spine.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Lower back must stay flat — if it arches, bend your knees more</div>
+                    <div class="ex-cue">Keep breathing — holding your breath makes it collapse faster</div>
+                  </div>
+                  <div class="ex-mistake">Don't just lift your legs and hope for the best — the lower back contact is the whole exercise</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Plank</div><div class="ex-sets">3 × 30 sec</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Forearms on floor, elbows directly under shoulders. Toes tucked.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift into a straight line from head to heels. Squeeze your glutes and brace your core.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for the full time. Think "push the floor away" with your forearms.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Squeeze glutes, quads, and core at the same time — all three</div>
+                    <div class="ex-cue">Breathe steadily — a shaky breathing plank beats a held-breath plank</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your hips sag down OR shoot up — keep the line perfectly straight</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Pike Push Up</div><div class="ex-sets">3 × 8</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Start in downward dog — hips high, hands and feet on floor, forming an inverted V.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Bend your elbows and lower your head toward the floor between your hands.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Press back up to start. Hips stay high throughout the whole movement.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The higher your hips, the more shoulder load — don't let them drop</div>
+                    <div class="ex-cue">Elbows track over your wrists as you lower — don't flare them out</div>
+                  </div>
+                  <div class="ex-mistake">This is not a push up — don't lower your chest. Your head goes toward the floor.</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Leg Raises</div><div class="ex-sets">3 × 10</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie flat on your back. Place hands under your lower back for support.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Raise both legs together to 90° with slow control.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower slowly — stop 2 inches off the floor, then raise again. Don't touch down.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Slow the lowering down — that's where the core work actually happens</div>
+                    <div class="ex-cue">Keep your neck relaxed — don't crane your head up</div>
+                  </div>
+                  <div class="ex-mistake">Don't use momentum — if you're swinging, slow down and do fewer reps with control</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 2 — Squat & Hinge</h4>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Bodyweight Squat</div><div class="ex-sets">4 × 15</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Feet shoulder-width apart, toes turned slightly out. Arms forward for balance.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Sit back and down — like sitting into a chair. Keep your chest up.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Drive through your heels to stand. Squeeze glutes at the top.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Knees track over your toes — don't let them cave inward</div>
+                    <div class="ex-cue">Go as deep as your mobility allows — full depth over time is the goal</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your heels rise off the floor — push through your whole foot</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Glute Bridge</div><div class="ex-sets">3 × 15</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back, feet flat near your hips, arms by your sides.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Drive hips up by squeezing your glutes. Form a straight line from knees to shoulders.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Squeeze hard at the top for 1 second. Lower slowly with control.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The squeeze at the top is the point — don't rush through it</div>
+                    <div class="ex-cue">Drive through your heels, not your toes</div>
+                  </div>
+                  <div class="ex-mistake">Don't hyperextend your lower back at the top — tuck your pelvis slightly</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Reverse Lunge</div><div class="ex-sets">3 × 10 each</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Stand tall. Step one foot directly behind you.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your back knee toward the floor. Keep your torso upright.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Push through your front heel to return to standing. Repeat on same leg for the set.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Front knee stays stacked over your ankle — don't let it drift forward</div>
+                    <div class="ex-cue">Torso stays straight — don't lean forward into your thigh</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your front knee collapse inward — that's your glutes not firing</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Good Morning</div><div class="ex-sets">3 × 12</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Stand with hands behind your head and a slight bend in your knees.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Hinge at your hips — push them backward while keeping your back flat.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return to standing by driving your hips forward. Feel the hamstrings stretch on the way down.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This is a hip hinge — not a squat. Hips go back, not down.</div>
+                    <div class="ex-cue">Keep your back flat — no rounding at the bottom</div>
+                  </div>
+                  <div class="ex-mistake">Don't round your spine — if your back rounds, you've gone too far. Reduce the range.</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Calf Raise</div><div class="ex-sets">3 × 20</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Stand with feet hip-width apart. Hold a wall for balance if needed.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Rise up onto the balls of your feet as high as possible.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower slowly to full stretch. Pause briefly at top and bottom.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Slow is better than fast — 1 second up, 2 seconds down</div>
+                    <div class="ex-cue">Use a step edge for more range once this feels easy</div>
+                  </div>
+                  <div class="ex-mistake">Don't bounce — if you're bouncing you're not building strength, just momentum</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 3 — Pull & Shoulders</h4>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Superman Hold</div><div class="ex-sets">3 × 20 sec</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down with arms extended overhead and legs straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift your arms, chest, and legs off the floor simultaneously.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Squeeze everything and hold. Breathe steadily.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Lift from your chest — don't just crane your neck up</div>
+                    <div class="ex-cue">Squeeze your glutes — they hold the leg lift</div>
+                  </div>
+                  <div class="ex-mistake">Don't only lift your arms — the legs must come up equally for this to count</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Arch Body Hold</div><div class="ex-sets">3 × 20 sec</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down. Arms can be overhead (harder) or by your sides (easier).</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift your arms, chest, and legs — forming a banana shape.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold the position and breathe. Squeeze glutes and upper back throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This is the exact counterpart to hollow body — train both equally</div>
+                    <div class="ex-cue">The arch in gymnastics is a controlled position — not just a sag</div>
+                  </div>
+                  <div class="ex-mistake">Don't collapse between sets — reset fully before each hold</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Prone Y-T-W</div><div class="ex-sets">3 × 8 each</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down. Form a Y shape — arms overhead in a V. Lift and squeeze. Lower.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Form a T — arms straight out to sides. Lift and squeeze. Lower.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Form a W — elbows bent, like a flex. Lift and squeeze. Lower. 8 reps each letter.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">No weight needed — your arms are enough for this muscle group</div>
+                    <div class="ex-cue">Focus on squeezing the shoulder blades together on every single rep</div>
+                  </div>
+                  <div class="ex-mistake">Don't rush — these are small muscles doing important work. Slow and deliberate.</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Table Row</div><div class="ex-sets">3 × 10</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie under a sturdy table. Grip the edge with an overhand grip.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Keep your body straight — like a reverse plank. Pull your chest up to the table.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with full control. Repeat.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Squeeze your shoulder blades hard at the top of every rep</div>
+                    <div class="ex-cue">Don't let your hips sag — keep the body rigid throughout</div>
+                  </div>
+                  <div class="ex-mistake">Don't pull with just your arms — drive your elbows back and down</div>
+                </div>
+              </div>
+
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)">
+                  <div class="ex-left"><div class="ex-title">Shoulder Tap Plank</div><div class="ex-sets">3 × 10 each</div></div>
+                  <div class="ex-toggle">+</div>
+                </div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a high plank — arms straight, hands under shoulders.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Brace hard, then lift one hand and tap the opposite shoulder.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Replace the hand and repeat on the other side. Alternate for 10 per side.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Brace your core before every single tap — don't wait until you're already rotating</div>
+                    <div class="ex-cue">Slow is better — the goal is zero hip rotation, not fast reps</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your hips rotate side-to-side — if they are, widen your feet or slow down</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header">
+            <div class="week-header-left">
+              <span class="week-num">WEEK 3 & 4</span>
+              <h3>Build</h3>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="focus">Adding volume & difficulty</span>
+              <span class="lock-badge">🔒 Locked</span>
+            </div>
+          </div>
+          <div class="locked-body">
+            <p>Purchase to unlock all 8 weeks of programming.</p>
+            <a class="unlock-btn" href="#">Get Access — $19</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header">
+            <div class="week-header-left">
+              <span class="week-num">WEEK 5 & 6</span>
+              <h3>Strength</h3>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="focus">Progressive overload</span>
+              <span class="lock-badge">🔒 Locked</span>
+            </div>
+          </div>
+          <div class="locked-body">
+            <p>Purchase to unlock all 8 weeks of programming.</p>
+            <a class="unlock-btn" href="#">Get Access — $19</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header">
+            <div class="week-header-left">
+              <span class="week-num">WEEK 7 & 8</span>
+              <h3>Peak</h3>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="focus">Test your new strength</span>
+              <span class="lock-badge">🔒 Locked</span>
+            </div>
+          </div>
+          <div class="locked-body">
+            <p>Purchase to unlock all 8 weeks of programming.</p>
+            <a class="unlock-btn" href="#">Get Access — $19</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Your Coach</div>
+      <div class="about-grid">
+        <div class="about-img"><img src="photo-coaching.jpeg" alt="Liam coaching"></div>
+        <div class="about-content">
+          <h3>Why trust a 18-year-old gymnast?</h3>
+          <p>Because I started exactly where you are. I know what it's like to have zero strength, zero flexibility, and zero idea what you're doing.</p>
+          <p>I've been training gymnastics since I was 7 years old, coached kids and adults of all levels at my local club, and competed at the national level in Canada. I've seen what works and what doesn't — at every level.</p>
+          <p>This program is built the way my coaches built me. Progressive, intentional, and designed to actually work.</p>
+          <div class="about-cred">
+            <div class="cred-item">2nd Place — Canadian National Championships</div>
+            <div class="cred-item">Elite Canada Champion (Junior)</div>
+            <div class="cred-item">Coached athletes from age 6 to 50+</div>
+            <div class="cred-item">11+ years of competitive gymnastics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Ready to start?</h2>
+      <p>Get the full 8-week program. No equipment, no excuses, just results.</p>
+      <a class="btn-white" href="#">Get This Program — $19</a>
+    </div>
+
+    <footer>© 2026 Liam Vanounou. All rights reserved.</footer>
+
+    <script>
+      function toggleWeek(header) {
+        const body = header.nextElementSibling;
+        body.classList.toggle('open');
+      }
+      function toggleEx(header) {
+        const body = header.nextElementSibling;
+        const toggle = header.querySelector('.ex-toggle');
+        body.classList.toggle('open');
+        toggle.classList.toggle('open');
+      }
+      window.addEventListener('scroll', () => {
+        document.querySelector('nav').style.padding = window.scrollY > 60 ? '12px 48px' : '20px 48px';
+      });
+      const style = document.createElement('style');
+      style.textContent = '.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';
+      document.head.appendChild(style);
+      document.querySelectorAll('.outcome-card,.principle,.preview-week,.about-grid,.cta-section').forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i % 3) * 0.08 + 's';
+      });
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+      const cursor = document.createElement('div');
+      cursor.style.cssText = 'position:fixed;width:12px;height:12px;background:#e63946;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease;transform:translate(-50%,-50%);';
+      const cursorRing = document.createElement('div');
+      cursorRing.style.cssText = 'position:fixed;width:36px;height:36px;border:1.5px solid rgba(230,57,70,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);';
+      document.body.appendChild(cursor); document.body.appendChild(cursorRing);
+      let mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
+      (function animRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px'; requestAnimationFrame(animRing); })();
+      document.querySelectorAll('a,button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.style.transform='translate(-50%,-50%) scale(2)');
+        el.addEventListener('mouseleave', () => cursor.style.transform='translate(-50%,-50%) scale(1)');
+      });
+    </script>
+    <script src="visuals.js"></script>
+  </body>
+</html>

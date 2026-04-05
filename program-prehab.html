@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Injury Prevention & Prehab — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#f0f0f0;overflow-x:hidden;}
+      nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #222;transition:padding 0.3s;}
+      nav .logo{font-size:18px;font-weight:800;color:#f0f0f0;text-decoration:none;letter-spacing:-0.5px;}nav .logo span{color:#e63946;}
+      nav .nav-links a{color:#888;text-decoration:none;font-size:14px;font-weight:500;margin-left:32px;transition:color 0.2s;}nav .nav-links a:hover{color:#f0f0f0;}
+      .hero{padding:140px 48px 80px;display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start;border-bottom:1px solid #222;}
+      .breadcrumb{color:#555;font-size:13px;margin-bottom:20px;}.breadcrumb a{color:#e63946;text-decoration:none;}
+      .program-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);color:#e63946;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:6px 12px;border-radius:4px;margin-bottom:20px;}
+      .hero h1{font-size:60px;font-weight:800;letter-spacing:-3px;line-height:0.95;margin-bottom:24px;}.hero h1 em{font-style:normal;color:#e63946;}
+      .hero-sub{font-size:18px;color:#888;line-height:1.7;max-width:520px;margin-bottom:40px;}
+      .hero-stats{display:flex;gap:0;border:1px solid #222;border-radius:12px;overflow:hidden;}
+      .stat{padding:20px 28px;border-right:1px solid #222;flex:1;}.stat:last-child{border-right:none;}
+      .stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:6px;}.stat-val{font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+      .buy-box{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:32px;position:sticky;top:90px;}
+      .buy-box .price{font-size:52px;font-weight:800;letter-spacing:-3px;margin-bottom:4px;}.buy-box .price-sub{color:#555;font-size:13px;margin-bottom:28px;}
+      .buy-btn{display:block;background:#e63946;color:white;text-align:center;padding:18px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:background 0.2s,transform 0.2s;margin-bottom:16px;}
+      .buy-btn:hover{background:#c1121f;transform:translateY(-2px);}
+      .guarantee{text-align:center;color:#555;font-size:12px;margin-bottom:24px;}
+      .includes{border-top:1px solid #222;padding-top:20px;}.includes-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:14px;}
+      .include-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#aaa;margin-bottom:10px;}.include-item::before{content:'✓';color:#4caf50;font-weight:800;flex-shrink:0;}
+      .section{padding:80px 48px;border-bottom:1px solid #222;}
+      .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+      .section-eyebrow::before{content:'';display:block;width:16px;height:2px;background:#e63946;}
+      .section h2{font-size:40px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.05;}.section-sub{color:#888;font-size:16px;line-height:1.8;max-width:540px;}
+      .outcomes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px;}
+      .outcome-card{background:#161616;border:1px solid #222;border-radius:16px;padding:32px;}.outcome-icon{font-size:32px;margin-bottom:16px;}
+      .outcome-card h3{font-size:19px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;}.outcome-card p{color:#777;font-size:14px;line-height:1.7;}
+      .principles{display:flex;flex-direction:column;gap:0;margin-top:48px;border:1px solid #222;border-radius:16px;overflow:hidden;}
+      .principle{display:flex;gap:32px;align-items:flex-start;padding:32px;border-bottom:1px solid #222;}.principle:last-child{border-bottom:none;}
+      .principle-num{font-size:48px;font-weight:800;color:#222;letter-spacing:-3px;flex-shrink:0;line-height:1;}
+      .principle-content h3{font-size:19px;font-weight:700;margin-bottom:8px;}.principle-content p{color:#777;font-size:14px;line-height:1.7;}
+      .preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:48px;}
+      .preview-week{border-radius:12px;overflow:hidden;border:1px solid #222;}.preview-week.unlocked{border-color:#e63946;}
+      .week-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:#161616;cursor:pointer;}
+      .preview-week.unlocked .week-header{background:rgba(230,57,70,0.08);}
+      .week-header-left{display:flex;align-items:center;gap:16px;}.week-num{font-size:11px;font-weight:700;color:#e63946;letter-spacing:1px;}
+      .week-header h3{font-size:16px;font-weight:700;}.week-header .focus{font-size:13px;color:#555;}
+      .lock-badge{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:100px;padding:5px 12px;font-size:12px;color:#555;font-weight:600;}
+      .open-badge{display:flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:#e63946;font-weight:600;}
+      .week-body{padding:24px;background:#111;display:none;}.week-body.open{display:block;}
+      .day{margin-bottom:28px;}.day:last-child{margin-bottom:0;}
+      .day h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:12px;}
+      .ex-card{border:1px solid #222;border-radius:10px;overflow:hidden;margin-bottom:8px;}.ex-card:last-child{margin-bottom:0;}
+      .ex-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#1a1a1a;cursor:pointer;user-select:none;transition:background 0.2s;}
+      .ex-header:hover{background:#202020;}.ex-left{display:flex;flex-direction:column;gap:3px;}
+      .ex-title{font-size:14px;font-weight:600;color:#ddd;}.ex-sets{font-size:12px;color:#e63946;font-weight:700;}
+      .ex-toggle{font-size:22px;color:#444;font-weight:300;line-height:1;transition:transform 0.2s,color 0.2s;flex-shrink:0;}
+      .ex-toggle.open{transform:rotate(45deg);color:#e63946;}
+      .ex-body{padding:20px 18px;background:#131313;display:none;border-top:1px solid #1e1e1e;}.ex-body.open{display:block;}
+      .ex-steps{margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
+      .ex-step{display:flex;gap:12px;font-size:13px;color:#bbb;line-height:1.5;}
+      .ex-step-num{background:#e63946;color:white;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+      .ex-cues{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding-top:12px;border-top:1px solid #1e1e1e;}
+      .ex-cue{font-size:13px;color:#888;padding-left:18px;position:relative;line-height:1.5;}
+      .ex-cue::before{content:'→';position:absolute;left:0;color:#e63946;font-weight:700;}
+      .ex-mistake{font-size:12px;color:#e6a817;background:rgba(230,168,23,0.07);border:1px solid rgba(230,168,23,0.15);border-radius:6px;padding:10px 14px;margin-top:10px;}
+      .ex-mistake::before{content:'⚠ ';font-weight:700;}
+      .locked-body{padding:32px;background:#111;text-align:center;border-top:1px solid #222;}
+      .locked-body p{color:#555;font-size:14px;margin-bottom:16px;}
+      .unlock-btn{display:inline-block;background:#e63946;color:white;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;}
+      .unlock-btn:hover{background:#c1121f;}
+      .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;}
+      .about-img{border-radius:16px;overflow:hidden;height:400px;}.about-img img{width:100%;height:100%;object-fit:cover;}
+      .about-content h3{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;}.about-content p{color:#888;font-size:15px;line-height:1.8;margin-bottom:16px;}
+      .about-cred{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+      .cred-item{display:flex;align-items:center;gap:12px;font-size:14px;color:#aaa;}.cred-item::before{content:'🏅';font-size:16px;}
+      .cta-section{background:#e63946;padding:80px 48px;text-align:center;}
+      .cta-section h2{font-size:48px;font-weight:800;color:white;letter-spacing:-2px;margin-bottom:12px;}
+      .cta-section p{color:rgba(255,255,255,0.7);font-size:17px;margin-bottom:36px;}
+      .btn-white{display:inline-block;background:white;color:#e63946;padding:18px 48px;border-radius:10px;font-size:16px;font-weight:800;text-decoration:none;transition:transform 0.2s;}
+      .btn-white:hover{transform:translateY(-2px);}
+      footer{text-align:center;padding:32px;color:#444;font-size:13px;border-top:1px solid #222;}
+      @media(max-width:900px){nav{padding:16px 24px;}.hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:40px;}.hero h1{font-size:40px;letter-spacing:-2px;}.hero-stats{flex-wrap:wrap;}.stat{min-width:50%;}.section{padding:60px 24px;}.outcomes-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.cta-section{padding:60px 24px;}.cta-section h2{font-size:32px;}}
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a><a href="index.html#contact">Contact</a></div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Injury Prevention & Prehab</div>
+        <div class="program-tag">Bodyweight / No Equipment</div>
+        <h1>Train harder.<br><em>Stay injury-free.</em></h1>
+        <p class="hero-sub">Most injuries in gymnastics and calisthenics come from loading joints that aren't ready. This 6-week program builds the wrist, shoulder, and elbow resilience that lets you train hard, long-term — without the setbacks that stop most people.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-label">Duration</div><div class="stat-val">6 Weeks</div></div>
+          <div class="stat"><div class="stat-label">Level</div><div class="stat-val">All Levels</div></div>
+          <div class="stat"><div class="stat-label">Per Week</div><div class="stat-val">3 Days</div></div>
+          <div class="stat"><div class="stat-label">Equipment</div><div class="stat-val">Band / None</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$14</div>
+        <div class="price-sub">One-time. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <p class="guarantee">🔒 Secure checkout</p>
+        <div class="includes">
+          <div class="includes-title">What's included</div>
+          <div class="include-item">Full 6-week program (all weeks unlocked)</div>
+          <div class="include-item">Step-by-step guides for every exercise</div>
+          <div class="include-item">Wrist, shoulder & elbow conditioning</div>
+          <div class="include-item">Daily maintenance routines</div>
+          <div class="include-item">Email support from Liam</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">What You'll Achieve</div>
+      <h2>After 6 weeks,<br>here's where you'll be.</h2>
+      <p class="section-sub">Prehab isn't about doing less — it's about making your joints robust enough to handle more. This program doesn't slow you down; it keeps you in the game.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><div class="outcome-icon">🙌</div><h3>Pain-free wrists</h3><p>Wrist pain is the #1 complaint in handstand and parallette training. Six weeks of targeted loading and stretching builds the range and resilience to train without pain.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">💪</div><h3>Bulletproof shoulders</h3><p>External rotation strength, wall slides, and prone Y-T-W work build the rotator cuff strength that protects your shoulders through every pulling and pressing movement.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🔄</div><h3>Elbow stability</h3><p>Gymnastic elbows take a beating. This program addresses the specific loading patterns that cause golfer's and tennis elbow — before they become a problem.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🧠</div><h3>A daily maintenance habit</h3><p>The real value of this program is what it teaches you to do for 10 minutes every day. The habits built here pay dividends for years of training.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Condition. Strengthen.<br>Maintain.</h2>
+      <p class="section-sub">Prehab works in three phases: first build the range of motion, then add strength through that range, then maintain it with shorter daily practice.</p>
+      <div class="principles">
+        <div class="principle"><div class="principle-num">01</div><div class="principle-content"><h3>Zone-based training</h3><p>Each week focuses on specific zones — wrists, shoulders, elbows. This lets you build each area properly before combining them, rather than doing a shallow routine across everything at once.</p></div></div>
+        <div class="principle"><div class="principle-num">02</div><div class="principle-content"><h3>Mobility before strength</h3><p>You can't strengthen what you can't access. Range of motion work comes first in every session. Stretching before loading — not the other way around.</p></div></div>
+        <div class="principle"><div class="principle-num">03</div><div class="principle-content"><h3>Frequency beats intensity</h3><p>Joint tissue adapts to consistent low-load work better than occasional high-intensity sessions. Short, frequent sessions are the protocol here — and the science backs it up.</p></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Inside the Program</div>
+      <h2>Week 1 is on us.<br>The rest is yours.</h2>
+      <p class="section-sub">Tap any exercise to see exactly how to do it. Purchase to unlock all 6 weeks.</p>
+      <div class="preview-grid">
+
+        <div class="preview-week unlocked">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 1 & 2</span><h3>Foundation</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Wrist & shoulder zones</span><span class="open-badge">Free Preview</span></div>
+          </div>
+          <div class="week-body open">
+            <div class="day">
+              <h4>Day 1 — Wrist Zone</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Circles</div><div class="ex-sets">2 × 20 reps each direction</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Extend both arms forward at shoulder height. Fingers spread wide, fists loose.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Rotate wrists in full, slow circles — 20 clockwise then 20 counter-clockwise.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Shake out your hands for 10 seconds after each set.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Go slowly and make the circles as big as your range allows — this is tissue mobilization, not a speed drill</div>
+                    <div class="ex-cue">Note which directions feel stiff — those are the directions to focus on</div>
+                  </div>
+                  <div class="ex-mistake">Don't rush through this thinking it's too easy — the slow, full range movement is the entire point</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Push Up</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Kneel on all fours with hands flat on the floor, fingers forward.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Slowly rock your weight forward over your hands, loading the wrists into extension. Hold 2 seconds.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Rock back to neutral. Repeat for 10 controlled reps.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This is progressively loading the wrist into the range required for handstands and parallette work</div>
+                    <div class="ex-cue">Spread fingers wide — distributes the load across the whole hand, not just the heel of the palm</div>
+                  </div>
+                  <div class="ex-mistake">Sharp pain (not stretch discomfort) means stop — you're exceeding your current range. Back off and build gradually</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Flexion Stretch</div><div class="ex-sets">2 × 45 sec each wrist</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Extend one arm forward with palm facing up.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Use your other hand to gently pull your fingers down toward the floor — stretching the underside of your forearm.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold 45 seconds each side. Steady pressure only — no bouncing.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This stretches the wrist flexors — the opposing muscles to the extension stressed in most gymnastics movements</div>
+                    <div class="ex-cue">A mild pull along the underside of the forearm is the target sensation</div>
+                  </div>
+                  <div class="ex-mistake">Don't pull too aggressively — wrist flexibility builds over weeks, not in a single hard session</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Extension Stretch</div><div class="ex-sets">2 × 45 sec each wrist</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Kneel and place the palms of both hands flat on the floor, fingers pointing toward your knees.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Gently sit your weight back, increasing the stretch across the top of your wrists.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold 45 seconds. This stretches the wrist extensors — the direction used in all handstand work.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Do this stretch after every training session, not just on prehab days</div>
+                    <div class="ex-cue">The stretch sensation should be felt across the back of the wrist and into the top of the forearm</div>
+                  </div>
+                  <div class="ex-mistake">Don't force the depth — sit back only as far as you can without sharp pain. The range will improve every week</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Finger Extension Stretch</div><div class="ex-sets">2 × 30 sec each hand</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Extend one arm in front of you, palm facing down, fingers pointing down.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Use the other hand to gently press all four fingers back toward your body — stretching the palm and flexor tendons.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold 30 seconds each hand. This is often neglected and incredibly effective.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Grip training tightens the flexor tendons across the palm — this stretch counteracts that tightening</div>
+                    <div class="ex-cue">Do each finger individually if the combined stretch is too intense</div>
+                  </div>
+                  <div class="ex-mistake">Don't force the fingers back hard — a gentle sustained stretch is more effective than an aggressive forced stretch</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 2 — Shoulder Zone</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Band Pull-Apart</div><div class="ex-sets">3 × 20</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Hold a light resistance band at shoulder height, arms fully extended in front of you.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Pull the band apart until it touches your chest — squeeze your shoulder blades together at the end.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return slowly to the start. 20 controlled reps, not rushed.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This directly targets the rear deltoids and external rotators — the most important muscles for shoulder health in gymnastics</div>
+                    <div class="ex-cue">Arms stay completely straight — bend and you lose the isolation</div>
+                  </div>
+                  <div class="ex-mistake">Don't use a band that's too heavy — you should be able to complete 20 reps with full range and controlled speed</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Prone Y-T-W</div><div class="ex-sets">3 × 8 each position</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down on the floor, arms by your sides. Thumbs up.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift both arms into a Y shape (overhead diagonal), then T shape (straight out to sides), then W shape (elbows bent, hands up). Each is a separate rep.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold each position for 2 seconds at the top. Lower with control.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">These positions target lower trapezius, middle trapezius, and external rotators — the three most undertrained shoulder muscles</div>
+                    <div class="ex-cue">Squeeze your shoulder blades together and down at the top of every rep</div>
+                  </div>
+                  <div class="ex-mistake">Don't shrug your shoulders up as you lift — the movement comes from shoulder blade retraction, not neck elevation</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wall Slide</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Stand with your back flat against a wall. Press your lower back, shoulders, and head into the wall.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Raise your arms to a W position — elbows at 90°, backs of hands touching the wall.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Slide both arms up the wall to a Y position (overhead), keeping all contact points on the wall throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Every part of your arm should stay in contact with the wall — this reveals and corrects poor overhead mechanics</div>
+                    <div class="ex-cue">If your lower back arches away from the wall during the slide, stop and fix the arch first</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your arms drift off the wall to compensate — if contact breaks, you've found your mobility limitation. Work at that point</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">External Rotation (Band)</div><div class="ex-sets">3 × 15 each side</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Anchor a light band to a fixed point at elbow height. Stand side-on to the anchor.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Hold the band with the far hand. Keep your elbow bent at 90° and pinned to your side.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Rotate your forearm away from your body (externally rotating the shoulder). Return slowly. 15 reps each side.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">External rotation strength is the single most important metric for shoulder longevity in gymnasts</div>
+                    <div class="ex-cue">Keep the elbow pinned to your side throughout — elbow coming forward means the exercise is wrong</div>
+                  </div>
+                  <div class="ex-mistake">Don't use a band that forces you to bend your elbow or use your whole arm — the movement should come only from shoulder rotation</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Doorframe Chest Opener</div><div class="ex-sets">2 × 45 sec each side</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Stand in a doorframe. Place one forearm against the doorframe, elbow at 90°.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Step forward with the same-side leg, rotating your chest away from the wall.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold 45 seconds. You should feel the stretch across your chest and front shoulder.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">A tight chest and front shoulder are often the hidden cause of shoulder impingement — this addresses it directly</div>
+                    <div class="ex-cue">Try the stretch at different arm heights (low, middle, high) to feel different parts of the chest</div>
+                  </div>
+                  <div class="ex-mistake">Don't lean aggressively into the stretch — let gravity and time do the work. Forced stretching tightens the muscle</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 3 — Combined Maintenance</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Circles + Shakeout</div><div class="ex-sets">2 × 20 each direction</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Perform wrist circles as per Day 1 — both directions, slow and full range.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Shake your hands out for 10 seconds after each set.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>This becomes your daily warm-up habit — do it before every training session going forward.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Start noticing if one direction feels consistently tighter — that's where to spend more time</div>
+                    <div class="ex-cue">Wrist circles daily is a lifelong habit for anyone doing gymnastics-based training</div>
+                  </div>
+                  <div class="ex-mistake">Don't do this cold immediately before maximum loading — do it a few minutes before you plan to start training</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Band Pull-Apart (High + Low)</div><div class="ex-sets">2 × 15 each angle</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Perform 15 band pull-aparts at shoulder height (standard).</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Then raise the band to forehead height and do 15 more — targets upper trapezius and rear deltoid differently.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Then lower to hip height and do 15 more — targets lower trapezius and rhomboids.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Different angles recruit different parts of the shoulder — three angles covers the full musculature</div>
+                    <div class="ex-cue">Keep the movement quality the same regardless of angle — squeeze at the end, slow return</div>
+                  </div>
+                  <div class="ex-mistake">Don't compromise form at the awkward angles — if you can't control it, lighten the band</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Wrist Extension + Flexion Stretch</div><div class="ex-sets">1 × 60 sec each direction</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Do the extension stretch (fingers back, palm down) for 60 seconds.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Then do the flexion stretch (palm up, fingers pulled down) for 60 seconds.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Both wrists, both directions. This is your post-training wrist cool-down.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Longer holds (60 sec) on maintenance days help the wrist adapt to its new range at a tissue level</div>
+                    <div class="ex-cue">This routine should take about 8 minutes total — a worthwhile investment after every session</div>
+                  </div>
+                  <div class="ex-mistake">Don't skip this on days you're tired — that's exactly when your recovery work matters most</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Prone Y-T-W (Weighted)</div><div class="ex-sets">2 × 8 each position</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down. Hold very light weight in each hand (0.5–1kg books or bottles).</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Perform the Y, T, and W positions as on Day 2 — with added resistance.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Even minimal weight makes a significant difference — don't go heavy. Light and controlled.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Adding load to these positions builds genuine strength in the rotator cuff — this is the progression beyond bodyweight</div>
+                    <div class="ex-cue">If you can't maintain the position for 8 reps with weight, drop back to bodyweight</div>
+                  </div>
+                  <div class="ex-mistake">Don't rush the reps to get through them — slow, controlled movement with a 2-second pause at the top is the goal</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Doorframe Chest Opener (Both Sides)</div><div class="ex-sets">1 × 60 sec each side</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Perform the doorframe chest opener as on Day 2 — but hold for 60 seconds this time.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>After the 60-second hold, take a deep breath in and release it slowly — you'll often feel the stretch deepen.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Switch sides. Total time: 2 minutes of chest opening.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Breathing through the stretch is the fastest way to release a tight chest — the exhale is when the muscle lets go</div>
+                    <div class="ex-cue">Try three different arm heights in the same hold — sweep through the range slowly</div>
+                  </div>
+                  <div class="ex-mistake">Don't watch your phone during this — focus on the breathing and sensation. Distracted stretching is half as effective</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 3 & 4</span><h3>Build</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Elbow zone & loaded stretching</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>Elbow conditioning, loaded stretching progressions, and the full wrist + shoulder + elbow combined routine. Unlock to continue.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $14</a>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 5 & 6</span><h3>Maintenance</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">10-min daily routine</span><span class="lock-badge">🔒 Locked</span></div>
+          </div>
+          <div class="locked-body">
+            <p>The condensed daily maintenance routine — everything distilled into 10 minutes for lifelong joint health.</p>
+            <a class="unlock-btn" href="#">Unlock Full Program — $14</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Your Coach</div>
+      <h2>Built by a gymnast.<br>Designed for everyone.</h2>
+      <div class="about-grid">
+        <div class="about-img"><img src="liam-photo.jpg" alt="Liam Vanounou" onerror="this.parentElement.style.background='#1a1a1a'"></div>
+        <div class="about-content">
+          <h3>Hi, I'm Liam.</h3>
+          <p>I've had wrist and shoulder issues that set me back months. Looking back, all of them were preventable — if I'd done the basic conditioning work consistently.</p>
+          <p>This program is built from that experience and from what I've seen work with the athletes I've coached. The exercises are unsexy. The habit is everything. And it genuinely keeps you training.</p>
+          <div class="about-cred">
+            <div class="cred-item">15+ years of gymnastics training</div>
+            <div class="cred-item">Competed at national level</div>
+            <div class="cred-item">Coached hundreds of athletes at all levels</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Train longer. Train harder.</h2>
+      <p>6 weeks of joint conditioning. One-time payment. Yours forever.</p>
+      <a class="btn-white" href="#">Get the Program — $14</a>
+    </div>
+
+    <footer>© 2025 Liam Vanounou. All rights reserved.</footer>
+
+    <script>
+      function toggleWeek(h){const b=h.nextElementSibling;b.classList.toggle('open');}
+      function toggleEx(h){const b=h.nextElementSibling;const t=h.querySelector('.ex-toggle');b.classList.toggle('open');t.classList.toggle('open');}
+      window.addEventListener('scroll',()=>{const n=document.querySelector('nav');n.style.padding=window.scrollY>50?'12px 48px':'20px 48px';});
+    </script>
+    <script src="visuals.js"></script>
+    </script>
+  </body>
+</html>

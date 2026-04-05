@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Programs — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Inter', sans-serif; background: #faf8f5; color: #111; overflow-x: hidden; }
+
+      /* OVERLAY + SIDE MENU */
+      .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+      .overlay.open { opacity: 1; pointer-events: all; }
+      .sidemenu { position: fixed; top: 0; right: -360px; bottom: 0; width: 320px; background: #111; z-index: 300; padding: 60px 40px; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
+      .sidemenu.open { right: 0; }
+      .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #555; font-size: 24px; transition: color 0.2s; }
+      .sidemenu-close:hover { color: white; }
+      .sidemenu-logo { font-size: 16px; font-weight: 700; color: white; margin-bottom: 48px; }
+      .sidemenu-logo span { color: #e63946; }
+      .sidemenu nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+      .sidemenu nav a { color: #555; text-decoration: none; font-size: 32px; font-weight: 700; padding: 10px 0; transition: color 0.2s; border-bottom: 1px solid #1e1e1e; letter-spacing: -1px; }
+      .sidemenu nav a:hover { color: white; }
+      .sidemenu-footer { color: #333; font-size: 13px; margin-top: 40px; }
+
+      /* TOP NAV */
+      .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(250,248,245,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #ece8e2; transition: padding 0.3s; }
+      .topnav .logo { font-size: 18px; font-weight: 800; color: #111; text-decoration: none; letter-spacing: -0.5px; }
+      .topnav .logo span { color: #e63946; }
+      .topnav-links { display: flex; align-items: center; gap: 32px; }
+      .topnav-links a { color: #888; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+      .topnav-links a:hover { color: #111; }
+      .topnav-links a.coaching-link { color: #e63946; font-weight: 700; }
+      .topnav-links a.coaching-link:hover { color: #c1121f; }
+      .sidemenu nav a.coaching-link { color: #e63946; }
+
+      /* COACHING BANNER */
+      .coaching-banner { background: #111; border-bottom: 1px solid #1e1e1e; padding: 16px 48px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+      .coaching-banner p { color: #888; font-size: 14px; }
+      .coaching-banner strong { color: white; }
+      .coaching-banner a { background: #e63946; color: white; padding: 9px 20px; border-radius: 6px; text-decoration: none; font-size: 13px; font-weight: 700; white-space: nowrap; transition: background 0.2s; }
+      .coaching-banner a:hover { background: #c1121f; }
+
+      /* RECOMMENDATION SECTION */
+      .rec-section { padding: 72px 48px 80px; background: #f3f0eb; border-top: 1px solid #ece8e2; }
+      .rec-section h2 { font-size: 32px; font-weight: 800; letter-spacing: -1.5px; color: #111; margin-bottom: 8px; }
+      .rec-section > p { color: #7a6f65; font-size: 15px; margin-bottom: 40px; }
+      .rec-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .rec-card { background: white; border: 1px solid #e8e3dc; border-radius: 14px; padding: 28px; text-decoration: none; color: #111; transition: box-shadow 0.25s, transform 0.25s; }
+      .rec-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+      .rec-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #e63946; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+      .rec-label::before { content: ''; width: 6px; height: 6px; background: #e63946; border-radius: 50%; display: block; }
+      .rec-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 8px; letter-spacing: -0.3px; }
+      .rec-card p { color: #8a7f75; font-size: 13px; line-height: 1.6; margin-bottom: 16px; }
+      .rec-card .rec-arrow { font-size: 13px; font-weight: 700; color: #e63946; }
+      .menu-btn { background: none; border: 1px solid #ddd8d0; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; transition: border-color 0.2s; }
+      .menu-btn:hover { border-color: #111; }
+      .menu-btn span { width: 18px; height: 1.5px; background: #111; border-radius: 2px; display: block; }
+
+      /* HERO */
+      .page-hero { background: #111; padding: 160px 48px 100px; position: relative; overflow: hidden; }
+      .page-hero::before { content: ''; position: absolute; top: -100px; right: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(230,57,70,0.15) 0%, transparent 70%); pointer-events: none; }
+      .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 24px; }
+      .hero-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: #e63946; }
+      .page-hero h1 { font-size: 96px; font-weight: 800; letter-spacing: -5px; line-height: 0.9; color: white; max-width: 800px; margin-bottom: 40px; }
+      .page-hero h1 em { font-style: normal; color: #e63946; }
+      .hero-bottom { display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 32px; }
+      .page-hero p { color: #888; font-size: 17px; line-height: 1.7; max-width: 480px; }
+      .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; }
+      .hero-tag { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); color: #aaa; padding: 8px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; }
+
+      /* SILHOUETTES */
+      .card-silhouette { position: absolute; top: 28px; right: 28px; opacity: 0.09; transition: opacity 0.4s; pointer-events: none; }
+      .program-card:hover .card-silhouette { opacity: 0.22; }
+      .programs-grid { perspective: 1200px; }
+
+      /* FILTER BAR */
+      .filter-bar { position: sticky; top: 61px; z-index: 89; background: rgba(250,248,245,0.97); backdrop-filter: blur(12px); border-bottom: 1px solid #ece8e2; padding: 16px 48px; display: flex; gap: 8px; flex-wrap: wrap; }
+      .filter-btn { background: transparent; border: 1.5px solid #ddd8d0; color: #888; padding: 9px 20px; border-radius: 100px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.2s; }
+      .filter-btn:hover { border-color: #111; color: #111; }
+      .filter-btn.active { background: #e63946; border-color: #e63946; color: white; }
+
+      /* PROGRAMS GRID */
+      .programs-section { padding: 60px 48px 100px; }
+      .programs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+
+      .program-card {
+        background: white;
+        border-radius: 20px;
+        padding: 40px;
+        border: 1px solid #ece8e2;
+        text-decoration: none;
+        color: #111;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
+      }
+      .program-card::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 4px;
+        background: #e63946;
+        transform: scaleY(0);
+        transform-origin: bottom;
+        transition: transform 0.35s ease;
+        border-radius: 0 2px 2px 0;
+      }
+      .program-card:hover { transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.1); border-color: #e8e3dc; }
+      .program-card:hover::before { transform: scaleY(1); }
+
+      .card-num { font-size: 72px; font-weight: 800; color: #f0ede8; letter-spacing: -3px; line-height: 1; margin-bottom: 8px; transition: color 0.3s; }
+      .program-card:hover .card-num { color: rgba(230,57,70,0.12); }
+
+      .program-card-tag { font-size: 10px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 12px; display: inline-flex; align-items: center; gap: 6px; }
+      .program-card-tag::before { content: ''; display: block; width: 8px; height: 8px; background: #e63946; border-radius: 50%; }
+
+      .program-card h3 { font-size: 24px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 12px; line-height: 1.2; }
+      .program-card p { color: #8a7f75; font-size: 14px; line-height: 1.7; flex: 1; margin-bottom: 32px; }
+
+      .card-footer { display: flex; justify-content: space-between; align-items: center; padding-top: 24px; border-top: 1px solid #ece8e2; }
+      .card-level { display: flex; flex-direction: column; gap: 4px; }
+      .card-level-label { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #bbb; }
+      .card-level-value { font-size: 13px; font-weight: 600; color: #555; }
+      .card-right { display: flex; align-items: center; gap: 20px; }
+      .card-price { font-size: 28px; font-weight: 800; letter-spacing: -1px; color: #111; }
+      .card-arrow { width: 40px; height: 40px; background: #f3f0eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; transition: background 0.3s, transform 0.3s; }
+      .program-card:hover .card-arrow { background: #e63946; color: white; transform: translate(3px, -3px); }
+
+      /* CTA BOTTOM */
+      .cta-bottom { background: #111; margin: 0 48px 80px; border-radius: 24px; padding: 64px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+      .cta-bottom h2 { font-size: 40px; font-weight: 800; color: white; letter-spacing: -1.5px; line-height: 1.1; max-width: 440px; }
+      .cta-bottom h2 em { font-style: normal; color: #e63946; }
+      .cta-bottom p { color: #666; font-size: 15px; line-height: 1.7; max-width: 300px; }
+      .btn-red { background: #e63946; color: white; padding: 16px 36px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 700; transition: background 0.2s, transform 0.2s; white-space: nowrap; }
+      .btn-red:hover { background: #c1121f; transform: translateY(-2px); }
+
+      /* FOOTER */
+      footer { padding: 32px 48px; border-top: 1px solid #ece8e2; display: flex; justify-content: space-between; align-items: center; }
+      .footer-logo { font-size: 16px; font-weight: 800; color: #111; letter-spacing: -0.5px; }
+      .footer-logo span { color: #e63946; }
+      .footer-links { display: flex; gap: 24px; }
+      .footer-links a { color: #aaa; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+      .footer-links a:hover { color: #111; }
+      .footer-copy { color: #ccc; font-size: 13px; }
+
+      @media (max-width: 900px) {
+        .topnav { padding: 16px 24px; }
+        .topnav-links .hide-mobile { display: none; }
+        .page-hero { padding: 120px 24px 64px; }
+        .page-hero h1 { font-size: 52px; letter-spacing: -3px; }
+        .filter-bar { padding: 14px 24px; top: 57px; }
+        .programs-section { padding: 40px 24px 60px; }
+        .programs-grid { grid-template-columns: 1fr; }
+        .cta-bottom { flex-direction: column; margin: 0 24px 60px; padding: 40px 32px; }
+        .cta-bottom h2 { font-size: 28px; }
+        footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+    <div class="sidemenu" id="sidemenu">
+      <button class="sidemenu-close" onclick="closeMenu()">✕</button>
+      <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+      <nav>
+        <a href="index.html" onclick="closeMenu()">Home</a>
+        <a href="index.html#about" onclick="closeMenu()">About</a>
+        <a href="programs.html" onclick="closeMenu()">Programs</a>
+        <a href="coaching.html" class="coaching-link" onclick="closeMenu()">Coaching</a>
+        <a href="index.html#gallery" onclick="closeMenu()">Gallery</a>
+        <a href="index.html#contact" onclick="closeMenu()">Contact</a>
+      </nav>
+      <div class="sidemenu-footer">© 2026 Liam Vanounou</div>
+    </div>
+
+    <header class="topnav">
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="topnav-links">
+        <a href="index.html#about" class="hide-mobile">About</a>
+        <a href="programs.html" class="hide-mobile">Programs</a>
+        <a href="coaching.html" class="coaching-link hide-mobile">Coaching</a>
+        <a href="index.html#contact" class="hide-mobile">Contact</a>
+        <button class="menu-btn" onclick="openMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="coaching-banner" style="margin-top:61px; position:relative; z-index:50;">
+      <p><strong>Want results faster?</strong> Work directly with Liam — custom programming, weekly check-ins, and video form review.</p>
+      <a href="coaching.html">Work with Liam 1-on-1 →</a>
+    </div>
+
+    <div class="page-hero">
+      <div class="hero-eyebrow">Program Library</div>
+      <h1>Start where<br>you <em>are.</em></h1>
+      <div class="hero-bottom">
+        <p>9 programs built to meet you at your level — whether you've never worked out a day in your life or you're chasing your first muscle up.</p>
+        <div class="hero-tags">
+          <span class="hero-tag">No Experience Needed</span>
+          <span class="hero-tag">All Fitness Levels</span>
+          <span class="hero-tag">Equipment Optional</span>
+          <span class="hero-tag">Move at Your Pace</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filter('all', this)">All Programs</button>
+      <button class="filter-btn" onclick="filter('no-equipment', this)">No Equipment</button>
+      <button class="filter-btn" onclick="filter('pull-up-bar', this)">Pull Up Bar</button>
+      <button class="filter-btn" onclick="filter('apparatus', this)">Rings & Parallettes</button>
+      <button class="filter-btn" onclick="filter('prehab', this)">Injury Prevention</button>
+    </div>
+
+    <div class="programs-section">
+      <div class="programs-grid" id="grid">
+
+        <a class="program-card" href="program-bodyweight.html" data-category="no-equipment">
+          <div class="card-silhouette"><svg viewBox="0 0 120 75" width="110" height="68" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="108" cy="18" r="9" stroke="none"/><line x1="108" y1="27" x2="98" y2="31" stroke-width="8"/><line x1="98" y1="31" x2="28" y2="40" stroke-width="9"/><line x1="86" y1="31" x2="84" y2="56" stroke-width="7"/><line x1="38" y1="35" x2="36" y2="56" stroke-width="7"/><line x1="26" y1="40" x2="6" y2="46" stroke-width="8"/></svg></div>
+          <div class="card-num">01</div>
+          <div class="program-card-tag">No Equipment</div>
+          <h3>Beginner Bodyweight Strength</h3>
+          <p>Build real strength from zero using gymnastic movement patterns. Push, pull, squat, core — the foundation of everything.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">Beginner · 8 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$19</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-flexibility.html" data-category="no-equipment">
+          <div class="card-silhouette"><svg viewBox="0 0 100 90" width="90" height="81" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="12" r="9" stroke="none"/><line x1="50" y1="21" x2="50" y2="48" stroke-width="9"/><line x1="50" y1="48" x2="7" y2="76" stroke-width="7"/><line x1="50" y1="48" x2="93" y2="76" stroke-width="7"/><line x1="50" y1="33" x2="18" y2="50" stroke-width="6"/><line x1="50" y1="33" x2="82" y2="50" stroke-width="6"/></svg></div>
+          <div class="card-num">02</div>
+          <div class="program-card-tag">No Equipment</div>
+          <h3>Flexibility & Mobility</h3>
+          <p>Splits, bridge, shoulder prep, and hip mobility. The flexibility base every gymnast and athlete needs — starting from zero.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">All Levels · 6 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$19</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-core.html" data-category="no-equipment">
+          <div class="card-silhouette"><svg viewBox="0 0 120 70" width="110" height="64" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="18" cy="34" r="9" stroke="none"/><line x1="16" y1="26" x2="6" y2="14" stroke-width="7"/><line x1="20" y1="26" x2="10" y2="16" stroke-width="7"/><path d="M26,36 Q62,46 100,26" stroke-width="9" fill="none"/><line x1="100" y1="26" x2="114" y2="20" stroke-width="8"/><line x1="102" y1="30" x2="116" y2="26" stroke-width="7"/></svg></div>
+          <div class="card-num">03</div>
+          <div class="program-card-tag">No Equipment</div>
+          <h3>Core & Conditioning</h3>
+          <p>Gymnastic-style core training that builds the hollow body, arch, and control that transfers to every skill.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">Beginner · 4 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$15</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-pullup.html" data-category="pull-up-bar">
+          <div class="card-silhouette"><svg viewBox="0 0 80 110" width="72" height="99" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><line x1="5" y1="8" x2="75" y2="8" stroke-width="6"/><line x1="25" y1="8" x2="30" y2="28" stroke-width="7"/><line x1="55" y1="8" x2="50" y2="28" stroke-width="7"/><circle cx="40" cy="37" r="9" stroke="none"/><line x1="40" y1="46" x2="40" y2="74" stroke-width="9"/><line x1="40" y1="74" x2="28" y2="102" stroke-width="7"/><line x1="40" y1="74" x2="52" y2="102" stroke-width="7"/></svg></div>
+          <div class="card-num">04</div>
+          <div class="program-card-tag">Pull Up Bar</div>
+          <h3>Pull Up Progression</h3>
+          <p>Zero to 10+ pull ups. Form breakdowns, progressions, and programming that actually works.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">Beginner → Intermediate · 6 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$19</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-handstand.html" data-category="pull-up-bar">
+          <div class="card-silhouette"><svg viewBox="0 0 80 110" width="72" height="99" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><line x1="15" y1="106" x2="65" y2="106" stroke-width="5"/><line x1="28" y1="106" x2="30" y2="90" stroke-width="7"/><line x1="52" y1="106" x2="50" y2="90" stroke-width="7"/><circle cx="40" cy="80" r="9" stroke="none"/><line x1="40" y1="71" x2="40" y2="36" stroke-width="9"/><line x1="40" y1="36" x2="27" y2="8" stroke-width="7"/><line x1="40" y1="36" x2="53" y2="8" stroke-width="7"/></svg></div>
+          <div class="card-num">05</div>
+          <div class="program-card-tag">Pull Up Bar</div>
+          <h3>Handstand Progression</h3>
+          <p>Wall handstand to freestanding. Every drill, every cue, every progression taught the way a gymnast learns it.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">Intermediate · 10 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$29</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-muscleup.html" data-category="pull-up-bar">
+          <div class="card-silhouette"><svg viewBox="0 0 80 110" width="72" height="99" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="10" r="9" stroke="none"/><line x1="40" y1="19" x2="40" y2="50" stroke-width="9"/><line x1="40" y1="30" x2="18" y2="58" stroke-width="7"/><line x1="40" y1="30" x2="62" y2="58" stroke-width="7"/><line x1="8" y1="60" x2="72" y2="60" stroke-width="6"/><line x1="38" y1="50" x2="30" y2="88" stroke-width="7"/><line x1="42" y1="50" x2="50" y2="88" stroke-width="7"/></svg></div>
+          <div class="card-num">06</div>
+          <div class="program-card-tag">Pull Up Bar</div>
+          <h3>Muscle Up Progression</h3>
+          <p>From pull up to muscle up. Learn the kip, the transition, and the strength to hit your first clean rep.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">Intermediate · 8 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$25</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-rings.html" data-category="apparatus">
+          <div class="card-silhouette"><svg viewBox="0 0 120 100" width="110" height="91" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="10" cy="24" r="8" fill="none" stroke-width="4"/><circle cx="110" cy="24" r="8" fill="none" stroke-width="4"/><line x1="18" y1="24" x2="44" y2="33" stroke-width="7"/><line x1="102" y1="24" x2="76" y2="33" stroke-width="7"/><circle cx="60" cy="18" r="9" stroke="none"/><line x1="60" y1="27" x2="60" y2="68" stroke-width="9"/><line x1="60" y1="68" x2="46" y2="96" stroke-width="7"/><line x1="60" y1="68" x2="74" y2="96" stroke-width="7"/></svg></div>
+          <div class="card-num">07</div>
+          <div class="program-card-tag">Rings & Parallettes</div>
+          <h3>Rings Strength Foundation</h3>
+          <p>Support holds, dips, straight-arm work, and ring muscle up. Build the unstable strength that rings demand.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">Intermediate · 8 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$25</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-parallettes.html" data-category="apparatus">
+          <div class="card-silhouette"><svg viewBox="0 0 100 110" width="91" height="100" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="30" cy="10" r="9" stroke="none"/><line x1="30" y1="19" x2="30" y2="58" stroke-width="9"/><line x1="24" y1="36" x2="18" y2="72" stroke-width="7"/><line x1="36" y1="36" x2="42" y2="72" stroke-width="7"/><line x1="30" y1="58" x2="86" y2="52" stroke-width="8"/><line x1="86" y1="52" x2="94" y2="56" stroke-width="6"/></svg></div>
+          <div class="card-num">08</div>
+          <div class="program-card-tag">Rings & Parallettes</div>
+          <h3>Parallettes & Floor Strength</h3>
+          <p>L-sit, planche lean, tuck planche, and press handstand. One of the best tools in gymnastics training.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">Intermediate · 8 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$22</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+        <a class="program-card" href="program-prehab.html" data-category="prehab">
+          <div class="card-silhouette"><svg viewBox="0 0 80 110" width="72" height="99" fill="#e63946" stroke="#e63946" stroke-linecap="round" stroke-linejoin="round" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="10" r="9" stroke="none"/><line x1="40" y1="19" x2="40" y2="62" stroke-width="9"/><line x1="40" y1="32" x2="14" y2="44" stroke-width="7"/><line x1="14" y1="44" x2="22" y2="54" stroke-width="5"/><line x1="40" y1="32" x2="64" y2="22" stroke-width="7"/><line x1="40" y1="62" x2="28" y2="96" stroke-width="7"/><line x1="40" y1="62" x2="52" y2="96" stroke-width="7"/></svg></div>
+          <div class="card-num">09</div>
+          <div class="program-card-tag">Injury Prevention</div>
+          <h3>Injury Prevention & Prehab</h3>
+          <p>Wrists, shoulders, elbows, lower back — the joints that take the most load. Build resilience before you need it.</p>
+          <div class="card-footer">
+            <div class="card-level">
+              <span class="card-level-label">Level & Duration</span>
+              <span class="card-level-value">All Levels · 6 Weeks</span>
+            </div>
+            <div class="card-right">
+              <span class="card-price">$15</span>
+              <div class="card-arrow">→</div>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+
+    <div class="rec-section">
+      <h2>Not sure where to start?</h2>
+      <p>Here's where to go based on your level.</p>
+      <div class="rec-grid">
+        <a class="rec-card" href="program-bodyweight.html">
+          <div class="rec-label">Beginner</div>
+          <h3>Start with Bodyweight Strength</h3>
+          <p>No equipment, no experience needed. Build the movement foundation every gymnast trains from day one.</p>
+          <div class="rec-arrow">Start here →</div>
+        </a>
+        <a class="rec-card" href="program-rings.html">
+          <div class="rec-label">Intermediate</div>
+          <h3>Move to Rings or Flexibility</h3>
+          <p>You've built a base. Now add unstable strength on rings or unlock the flexibility that unlocks every other skill.</p>
+          <div class="rec-arrow">Level up →</div>
+        </a>
+        <a class="rec-card" href="program-mag.html">
+          <div class="rec-label">Competitive / Advanced</div>
+          <h3>MAG or Competition Prep</h3>
+          <p>For gymnasts or serious calisthenics athletes chasing real apparatus skills or comp-ready conditioning.</p>
+          <div class="rec-arrow">Go deep →</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="cta-bottom">
+      <div>
+        <h2>Want <em>personalised</em> guidance?</h2>
+        <p style="color:#666;font-size:15px;line-height:1.7;margin-top:12px;">Work 1-on-1 with Liam. Custom monthly programs, weekly check-ins, and video form feedback. Limited to 5 spots.</p>
+      </div>
+      <a class="btn-red" href="coaching.html">Apply for Coaching</a>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Liam <span>Vanounou</span></div>
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="coaching.html">Coaching</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 Liam Vanounou</div>
+    </footer>
+
+    <script>
+      // MENU
+      function openMenu() { document.getElementById('sidemenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+      function closeMenu() { document.getElementById('sidemenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+      // FILTER
+      function filter(category, btn) {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        document.querySelectorAll('.program-card').forEach(card => {
+          const show = category === 'all' || card.dataset.category === category;
+          card.style.display = show ? 'flex' : 'none';
+        });
+      }
+
+      // CUSTOM CURSOR
+      const cursor = document.createElement('div');
+      cursor.style.cssText = 'position:fixed;width:12px;height:12px;background:#e63946;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease;transform:translate(-50%,-50%);';
+      const cursorRing = document.createElement('div');
+      cursorRing.style.cssText = 'position:fixed;width:36px;height:36px;border:1.5px solid rgba(230,57,70,0.4);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.35s ease;transform:translate(-50%,-50%);';
+      document.body.appendChild(cursor);
+      document.body.appendChild(cursorRing);
+      let mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove', e => {
+        mx=e.clientX; my=e.clientY;
+        cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+      });
+      (function animRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px'; requestAnimationFrame(animRing); })();
+      document.querySelectorAll('a,button').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; cursorRing.style.transform='translate(-50%,-50%) scale(1.5)'; });
+        el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; cursorRing.style.transform='translate(-50%,-50%) scale(1)'; });
+      });
+
+      // NAV SHRINK
+      const topnav = document.querySelector('.topnav');
+      window.addEventListener('scroll', () => {
+        topnav.style.padding = window.scrollY > 60 ? '12px 48px' : '20px 48px';
+      });
+
+      // HERO LOAD ANIMATION
+      const heroEls = [document.querySelector('.hero-eyebrow'), document.querySelector('.page-hero h1'), document.querySelector('.page-hero p'), document.querySelector('.hero-tags')];
+      heroEls.forEach((el, i) => {
+        if (!el) return;
+        el.style.cssText += 'opacity:0;transform:translateY(30px);transition:opacity 0.7s ease,transform 0.7s ease;';
+        setTimeout(() => { el.style.opacity='1'; el.style.transform='translateY(0)'; }, 100 + i * 120);
+      });
+
+      // SCROLL REVEAL
+      const style = document.createElement('style');
+      style.textContent = '.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.7s ease,transform 0.7s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';
+      document.head.appendChild(style);
+      document.querySelectorAll('.program-card,.cta-bottom').forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i % 2) * 0.1 + 's';
+      });
+      new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+      }, { threshold: 0.1 }).observe(document.querySelectorAll('.reveal')[0] || document.body);
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+      }, { threshold: 0.08 });
+      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+
+      // CARD TILT
+      document.querySelectorAll('.program-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `translateY(-6px) rotateX(${-y * 6}deg) rotateY(${x * 6}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+          card.style.transition = 'transform 0.5s ease, box-shadow 0.35s ease, border-color 0.35s ease';
+        });
+      });
+    </script>
+
+  </body>
+</html>

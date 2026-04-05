@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Core & Conditioning — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      *{margin:0;padding:0;box-sizing:border-box;}html{scroll-behavior:smooth;}body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#f0f0f0;overflow-x:hidden;}
+      nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;padding:20px 48px;background:rgba(15,15,15,0.95);backdrop-filter:blur(12px);border-bottom:1px solid #222;transition:padding 0.3s;}
+      nav .logo{font-size:18px;font-weight:800;color:#f0f0f0;text-decoration:none;letter-spacing:-0.5px;}nav .logo span{color:#e63946;}
+      nav .nav-links a{color:#888;text-decoration:none;font-size:14px;font-weight:500;margin-left:32px;transition:color 0.2s;}nav .nav-links a:hover{color:#f0f0f0;}
+      .hero{padding:140px 48px 80px;display:grid;grid-template-columns:1fr 320px;gap:80px;align-items:start;border-bottom:1px solid #222;}
+      .breadcrumb{color:#555;font-size:13px;margin-bottom:20px;}.breadcrumb a{color:#e63946;text-decoration:none;}
+      .program-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);color:#e63946;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;padding:6px 12px;border-radius:4px;margin-bottom:20px;}
+      .hero h1{font-size:60px;font-weight:800;letter-spacing:-3px;line-height:0.95;margin-bottom:24px;}.hero h1 em{font-style:normal;color:#e63946;}
+      .hero-sub{font-size:18px;color:#888;line-height:1.7;max-width:520px;margin-bottom:40px;}
+      .hero-stats{display:flex;gap:0;border:1px solid #222;border-radius:12px;overflow:hidden;}
+      .stat{padding:20px 28px;border-right:1px solid #222;flex:1;}.stat:last-child{border-right:none;}
+      .stat-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:6px;}.stat-val{font-size:18px;font-weight:800;letter-spacing:-0.5px;}
+      .buy-box{background:#161616;border:1px solid #2a2a2a;border-radius:20px;padding:32px;position:sticky;top:90px;}
+      .buy-box .price{font-size:52px;font-weight:800;letter-spacing:-3px;margin-bottom:4px;}.buy-box .price-sub{color:#555;font-size:13px;margin-bottom:28px;}
+      .buy-btn{display:block;background:#e63946;color:white;text-align:center;padding:18px;border-radius:10px;font-size:16px;font-weight:700;text-decoration:none;transition:background 0.2s,transform 0.2s;margin-bottom:16px;}
+      .buy-btn:hover{background:#c1121f;transform:translateY(-2px);}
+      .guarantee{text-align:center;color:#555;font-size:12px;margin-bottom:24px;}
+      .includes{border-top:1px solid #222;padding-top:20px;}.includes-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:#555;margin-bottom:14px;}
+      .include-item{display:flex;align-items:center;gap:10px;font-size:13px;color:#aaa;margin-bottom:10px;}.include-item::before{content:'✓';color:#4caf50;font-weight:800;flex-shrink:0;}
+      .section{padding:80px 48px;border-bottom:1px solid #222;}
+      .section-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#e63946;margin-bottom:12px;display:flex;align-items:center;gap:8px;}
+      .section-eyebrow::before{content:'';display:block;width:16px;height:2px;background:#e63946;}
+      .section h2{font-size:40px;font-weight:800;letter-spacing:-2px;margin-bottom:16px;line-height:1.05;}.section-sub{color:#888;font-size:16px;line-height:1.8;max-width:540px;}
+      .outcomes-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:48px;}
+      .outcome-card{background:#161616;border:1px solid #222;border-radius:16px;padding:32px;}.outcome-icon{font-size:32px;margin-bottom:16px;}
+      .outcome-card h3{font-size:19px;font-weight:800;letter-spacing:-0.5px;margin-bottom:10px;}.outcome-card p{color:#777;font-size:14px;line-height:1.7;}
+      .principles{display:flex;flex-direction:column;gap:0;margin-top:48px;border:1px solid #222;border-radius:16px;overflow:hidden;}
+      .principle{display:flex;gap:32px;align-items:flex-start;padding:32px;border-bottom:1px solid #222;}.principle:last-child{border-bottom:none;}
+      .principle-num{font-size:48px;font-weight:800;color:#222;letter-spacing:-3px;flex-shrink:0;line-height:1;}
+      .principle-content h3{font-size:19px;font-weight:700;margin-bottom:8px;}.principle-content p{color:#777;font-size:14px;line-height:1.7;}
+      .preview-grid{display:flex;flex-direction:column;gap:12px;margin-top:48px;}
+      .preview-week{border-radius:12px;overflow:hidden;border:1px solid #222;}.preview-week.unlocked{border-color:#e63946;}
+      .week-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:#161616;cursor:pointer;}
+      .preview-week.unlocked .week-header{background:rgba(230,57,70,0.08);}
+      .week-header-left{display:flex;align-items:center;gap:16px;}.week-num{font-size:11px;font-weight:700;color:#e63946;letter-spacing:1px;}
+      .week-header h3{font-size:16px;font-weight:700;}.week-header .focus{font-size:13px;color:#555;}
+      .lock-badge{display:flex;align-items:center;gap:6px;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:100px;padding:5px 12px;font-size:12px;color:#555;font-weight:600;}
+      .open-badge{display:flex;align-items:center;gap:6px;background:rgba(230,57,70,0.12);border:1px solid rgba(230,57,70,0.2);border-radius:100px;padding:5px 12px;font-size:12px;color:#e63946;font-weight:600;}
+      .week-body{padding:24px;background:#111;display:none;}.week-body.open{display:block;}
+      .day{margin-bottom:28px;}.day:last-child{margin-bottom:0;}
+      .day h4{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#555;margin-bottom:12px;}
+      .ex-card{border:1px solid #222;border-radius:10px;overflow:hidden;margin-bottom:8px;}.ex-card:last-child{margin-bottom:0;}
+      .ex-header{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:#1a1a1a;cursor:pointer;user-select:none;transition:background 0.2s;}
+      .ex-header:hover{background:#202020;}.ex-left{display:flex;flex-direction:column;gap:3px;}
+      .ex-title{font-size:14px;font-weight:600;color:#ddd;}.ex-sets{font-size:12px;color:#e63946;font-weight:700;}
+      .ex-toggle{font-size:22px;color:#444;font-weight:300;line-height:1;transition:transform 0.2s,color 0.2s;flex-shrink:0;}
+      .ex-toggle.open{transform:rotate(45deg);color:#e63946;}
+      .ex-body{padding:20px 18px;background:#131313;display:none;border-top:1px solid #1e1e1e;}.ex-body.open{display:block;}
+      .ex-steps{margin-bottom:14px;display:flex;flex-direction:column;gap:8px;}
+      .ex-step{display:flex;gap:12px;font-size:13px;color:#bbb;line-height:1.5;}
+      .ex-step-num{background:#e63946;color:white;min-width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:800;flex-shrink:0;margin-top:1px;}
+      .ex-cues{display:flex;flex-direction:column;gap:6px;margin-bottom:12px;padding-top:12px;border-top:1px solid #1e1e1e;}
+      .ex-cue{font-size:13px;color:#888;padding-left:18px;position:relative;line-height:1.5;}
+      .ex-cue::before{content:'→';position:absolute;left:0;color:#e63946;font-weight:700;}
+      .ex-mistake{font-size:12px;color:#e6a817;background:rgba(230,168,23,0.07);border:1px solid rgba(230,168,23,0.15);border-radius:6px;padding:10px 14px;margin-top:10px;}
+      .ex-mistake::before{content:'⚠ ';font-weight:700;}
+      .locked-body{padding:32px;background:#111;text-align:center;border-top:1px solid #222;}
+      .locked-body p{color:#555;font-size:14px;margin-bottom:16px;}
+      .unlock-btn{display:inline-block;background:#e63946;color:white;padding:12px 28px;border-radius:8px;font-size:14px;font-weight:700;text-decoration:none;}
+      .unlock-btn:hover{background:#c1121f;}
+      .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;margin-top:48px;}
+      .about-img{border-radius:16px;overflow:hidden;height:400px;}.about-img img{width:100%;height:100%;object-fit:cover;}
+      .about-content h3{font-size:28px;font-weight:800;letter-spacing:-1px;margin-bottom:16px;}.about-content p{color:#888;font-size:15px;line-height:1.8;margin-bottom:16px;}
+      .about-cred{display:flex;flex-direction:column;gap:10px;margin-top:24px;}
+      .cred-item{display:flex;align-items:center;gap:12px;font-size:14px;color:#aaa;}.cred-item::before{content:'🏅';font-size:16px;}
+      .cta-section{background:#e63946;padding:80px 48px;text-align:center;}
+      .cta-section h2{font-size:48px;font-weight:800;color:white;letter-spacing:-2px;margin-bottom:12px;}
+      .cta-section p{color:rgba(255,255,255,0.7);font-size:17px;margin-bottom:36px;}
+      .btn-white{display:inline-block;background:white;color:#e63946;padding:18px 48px;border-radius:10px;font-size:16px;font-weight:800;text-decoration:none;transition:transform 0.2s;}
+      .btn-white:hover{transform:translateY(-2px);}
+      footer{text-align:center;padding:32px;color:#444;font-size:13px;border-top:1px solid #222;}
+      @media(max-width:900px){nav{padding:16px 24px;}.hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:40px;}.hero h1{font-size:40px;letter-spacing:-2px;}.hero-stats{flex-wrap:wrap;}.stat{min-width:50%;}.section{padding:60px 24px;}.outcomes-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.cta-section{padding:60px 24px;}.cta-section h2{font-size:32px;}}
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a><a href="index.html#contact">Contact</a></div>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → Core & Conditioning</div>
+        <div class="program-tag">No Equipment</div>
+        <h1>Build a core that<br>actually <em>works.</em></h1>
+        <p class="hero-sub">The hollow body. The arch. The L-sit. These are the movements elite gymnasts are built on — and they'll transform how you feel in every other exercise you do. No crunches required.</p>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-label">Duration</div><div class="stat-val">4 Weeks</div></div>
+          <div class="stat"><div class="stat-label">Level</div><div class="stat-val">Beginner</div></div>
+          <div class="stat"><div class="stat-label">Per Week</div><div class="stat-val">4 Days</div></div>
+          <div class="stat"><div class="stat-label">Equipment</div><div class="stat-val">None</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$15</div>
+        <div class="price-sub">One-time. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <p class="guarantee">🔒 Secure checkout</p>
+        <div class="includes">
+          <div class="includes-title">What's included</div>
+          <div class="include-item">Full 4-week program (all weeks unlocked)</div>
+          <div class="include-item">Step-by-step guides for every exercise</div>
+          <div class="include-item">Hollow body, arch & L-sit progressions</div>
+          <div class="include-item">Email support from Liam</div>
+          <div class="include-item">Lifetime access — train it again anytime</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">What You'll Achieve</div>
+      <h2>After 4 weeks,<br>here's where you'll be.</h2>
+      <p class="section-sub">A stronger core changes everything. Your posture, your lifts, your handstands — all of it relies on what you build here.</p>
+      <div class="outcomes-grid">
+        <div class="outcome-card"><div class="outcome-icon">🎯</div><h3>A locked-in hollow body</h3><p>The hollow body is gymnastics' most fundamental position. You'll go from struggling to hold 5 seconds to owning it for 30+. Everything else builds from here.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🦅</div><h3>A controlled arch hold</h3><p>The arch trains your posterior chain and teaches total body tension in extension. Essential for bar work, rings, and handstands.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">📐</div><h3>A solid L-sit</h3><p>The L-sit is the gymnastics measure of core and hip flexor strength. Most people can't hold it for 5 seconds. By week 4, you'll have a real one.</p></div>
+        <div class="outcome-card"><div class="outcome-icon">🐉</div><h3>Dragon flag foundations</h3><p>One of the most visually impressive bodyweight movements. You'll start building the strength and body awareness needed to progress toward it.</p></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">How It Works</div>
+      <h2>Gymnastics core.<br>Not gym class core.</h2>
+      <p class="section-sub">Crunches build a flat stomach. Gymnastic core work builds total body control. There's a difference — and you'll feel it on day one.</p>
+      <div class="principles">
+        <div class="principle"><div class="principle-num">01</div><div class="principle-content"><h3>Position before reps</h3><p>Every session focuses on maintaining perfect body position before adding volume or difficulty. Sloppy reps build sloppy strength. We don't do that here.</p></div></div>
+        <div class="principle"><div class="principle-num">02</div><div class="principle-content"><h3>Four focused days</h3><p>Each day targets a specific quality — hollow control, arch development, compression strength, or dynamic core. Short, focused, and effective.</p></div></div>
+        <div class="principle"><div class="principle-num">03</div><div class="principle-content"><h3>Progressions that actually progress</h3><p>Week 1 teaches you the shape. Week 4 challenges you to own it under load. The progressions are deliberate — designed to build lasting strength.</p></div></div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Inside the Program</div>
+      <h2>Week 1 is on us.<br>The rest is yours.</h2>
+      <p class="section-sub">Tap any exercise to see exactly how to do it. Purchase to unlock all 4 weeks.</p>
+      <div class="preview-grid">
+
+        <div class="preview-week unlocked">
+          <div class="week-header" onclick="toggleWeek(this)">
+            <div class="week-header-left"><span class="week-num">WEEK 1</span><h3>The Shapes</h3></div>
+            <div style="display:flex;align-items:center;gap:12px;"><span class="focus">Learning the positions</span><span class="open-badge">Free Preview</span></div>
+          </div>
+          <div class="week-body open">
+            <div class="day">
+              <h4>Day 1 — Hollow Body</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Hollow Body Hold (knees bent)</div><div class="ex-sets">4 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back. Press your lower back firmly into the floor — this must stay down the entire hold.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Tuck your knees and raise your shoulders slightly off the ground. Arms can stay by your sides or reach overhead.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 20 seconds while breathing steadily. Imagine pulling your belly button to your spine.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Lower back must stay flat — if it arches, bend your knees more until it doesn't</div>
+                    <div class="ex-cue">Keep breathing — holding your breath makes the position collapse faster</div>
+                  </div>
+                  <div class="ex-mistake">Don't just lift your legs and hope — the lower back contact with the floor is the entire point of this exercise</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Dead Bug</div><div class="ex-sets">3 × 8 each side</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back. Arms point straight up. Knees bent at 90° in the air — like a dead bug.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Slowly lower your right arm and left leg toward the floor simultaneously.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return to start and repeat on the opposite arm and leg. Keep lower back flat throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Lower back must stay pressed to the floor the entire time — it must never lift</div>
+                    <div class="ex-cue">Move slowly — this exercise rewards control, not speed</div>
+                  </div>
+                  <div class="ex-mistake">Don't lower your limbs too far — only go as far as you can without your lower back lifting</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Hollow Body Rock</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into a full hollow body hold — lower back flat, legs and shoulders raised.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Gently rock forward and backward using your core. Do not break the body shape.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Complete 10 rocks while maintaining the position. Reset if the shape breaks.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">If your shape breaks, stop, reset, and continue — quality over quantity</div>
+                    <div class="ex-cue">Tight glutes help maintain the leg position throughout</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your lower back arch at the bottom of each rock — that means your hollow broke</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Plank (elbows)</div><div class="ex-sets">3 × 30 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Forearms on floor, elbows directly under your shoulders. Toes tucked.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift into a straight line from head to heels. Squeeze your glutes and brace your core hard.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 30 seconds. Think about "pushing the floor away" with your forearms.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Squeeze glutes, quads, and core simultaneously — all three at once</div>
+                    <div class="ex-cue">Breathe steadily — a shaky-breath plank beats a held-breath plank</div>
+                  </div>
+                  <div class="ex-mistake">Don't let hips sag OR shoot up — the line must be perfectly straight from head to heels</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Lying Leg Raise</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie flat on your back. Place hands under your lower back for support.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Raise both legs together to 90° with slow, controlled movement.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower slowly — stop 2 inches from the floor. Never touch down. Repeat.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The slower the lowering phase, the harder and more effective the exercise</div>
+                    <div class="ex-cue">Keep your neck relaxed — don't crane your head up</div>
+                  </div>
+                  <div class="ex-mistake">Don't use momentum — if you're swinging, slow down and do fewer reps with real control</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 2 — Arch & Posterior</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Arch Body Hold</div><div class="ex-sets">4 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down, arms extended overhead and legs straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift your arms, chest, and legs off the floor simultaneously. Form a banana shape.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Squeeze everything and hold. Breathe steadily for the full 20 seconds.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">This is the exact counterpart to hollow body — train both equally</div>
+                    <div class="ex-cue">Lift from your chest, not just your neck — the thoracic spine should extend</div>
+                  </div>
+                  <div class="ex-mistake">Don't only lift your arms — your legs must come up equally or you've missed the point</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Superman Hold</div><div class="ex-sets">3 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down, arms extended overhead like Superman flying.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift arms, chest, and legs simultaneously off the floor.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold and breathe. Squeeze glutes and upper back hard throughout.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Arms overhead is harder than arms by sides — start arms-out if needed</div>
+                    <div class="ex-cue">Squeeze glutes to hold the leg height — they'll try to drop</div>
+                  </div>
+                  <div class="ex-mistake">Don't crane your neck up — the extension should come from your mid-back, not your neck</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Prone Y-T-W</div><div class="ex-sets">3 × 8 each</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down. Arms in Y shape overhead — lift, squeeze shoulder blades, lower. 8 reps.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Arms in T shape straight out — lift, squeeze, lower. 8 reps.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Arms in W shape (elbows bent, flex position) — lift, squeeze, lower. 8 reps.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">No weight needed — these are small muscles and your arms provide enough resistance</div>
+                    <div class="ex-cue">Focus on the shoulder blade squeeze, not just the arm movement</div>
+                  </div>
+                  <div class="ex-mistake">Don't rush — slow deliberate reps build more strength than fast sloppy ones</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Glute Bridge Hold</div><div class="ex-sets">3 × 20 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie on your back, feet flat near hips, arms by sides.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Drive hips up by squeezing your glutes. Straight line from knees to shoulders.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 20 seconds, squeezing hard the entire time.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Squeeze glutes — not just lifting hips. The squeeze is the point.</div>
+                    <div class="ex-cue">Drive through heels, not toes</div>
+                  </div>
+                  <div class="ex-mistake">Don't hyperextend the lower back at the top — tuck your pelvis slightly to protect it</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Reverse Hyperextension</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie face down with your hips at the edge of a bed or bench. Legs hanging down.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift both legs to horizontal — squeezing glutes and lower back.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with slow control. Keep upper body relaxed and still.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Control the lowering — that's where most of the work is happening</div>
+                    <div class="ex-cue">Upper body should stay completely still throughout</div>
+                  </div>
+                  <div class="ex-mistake">Don't swing the legs up with momentum — a slow, controlled lift builds real strength</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="day">
+              <h4>Day 3 — Compression & L-sit</h4>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Seated L-sit Position</div><div class="ex-sets">4 × 10 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Sit on the floor, legs straight in front of you. Place hands beside your hips.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Push down hard into the floor with your hands and try to lift your hips off the ground.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 10 seconds. Flex your quads and point your toes — it helps the legs float.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">If you can't lift, push down as hard as you can and compress — the strength will come</div>
+                    <div class="ex-cue">Flex quads hard and point toes — both help the leg position</div>
+                  </div>
+                  <div class="ex-mistake">Don't bend your knees to make it easier — the L-sit requires straight legs. Build up to it.</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Seated Pike Compression</div><div class="ex-sets">3 × 15</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Sit with legs straight and feet flexed. Sit tall.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Actively use your hip flexors to pull your torso toward your thighs. Use hands to pull deeper.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Return to upright and repeat. This is an active compression, not a passive stretch.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The harder you actively compress, the more effective — don't just lean forward passively</div>
+                    <div class="ex-cue">You should feel this intensely in the front of your hips (hip flexors)</div>
+                  </div>
+                  <div class="ex-mistake">Don't round your lower back — fold from the hips, keep the spine long</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">V-Up (bent knee)</div><div class="ex-sets">3 × 10</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Lie flat on your back, arms extended overhead.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Simultaneously lift your torso and bend your knees to meet in the middle — like a folding knife.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Lower with control. Keep the movement smooth — no jerking.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Keep it smooth — momentum means your core isn't working</div>
+                    <div class="ex-cue">Straighten the legs to make it significantly harder when you're ready</div>
+                  </div>
+                  <div class="ex-mistake">Don't jerk up using your neck — the movement should come from your abs, not your head</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Hollow Body Hold (straight legs)</div><div class="ex-sets">3 × 15 sec</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Get into hollow body position but with legs fully straight.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lower your legs as far as possible without your lower back lifting.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold at that angle. This is harder than the bent-knee version — treat it as a progression.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">The lower your legs, the harder — find your threshold and hold there</div>
+                    <div class="ex-cue">Lower back stays flat no matter what — that's the rule</div>
+                  </div>
+                  <div class="ex-mistake">Don't lower your legs beyond the point where your back lifts — that's the wrong version of this exercise</div>
+                </div>
+              </div>
+              <div class="ex-card">
+                <div class="ex-header" onclick="toggleEx(this)"><div class="ex-left"><div class="ex-title">Side Plank</div><div class="ex-sets">3 × 20 sec each</div></div><div class="ex-toggle">+</div></div>
+                <div class="ex-body">
+                  <div class="ex-steps">
+                    <div class="ex-step"><div class="ex-step-num">1</div>Forearm on floor, elbow under shoulder. Stack your feet on top of each other.</div>
+                    <div class="ex-step"><div class="ex-step-num">2</div>Lift your hips to form a straight line from head to heels. Don't sag.</div>
+                    <div class="ex-step"><div class="ex-step-num">3</div>Hold for 20 seconds. Switch sides. Drop the bottom knee to the floor if needed.</div>
+                  </div>
+                  <div class="ex-cues">
+                    <div class="ex-cue">Squeeze the lateral core — the side you're balancing on should be working hard</div>
+                    <div class="ex-cue">Keep your hips stacked — don't let them rotate forward or back</div>
+                  </div>
+                  <div class="ex-mistake">Don't let your hips sag toward the floor — that takes all the work away from your core</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header"><div class="week-header-left"><span class="week-num">WEEK 2</span><h3>Volume</h3></div><div style="display:flex;align-items:center;gap:12px;"><span class="focus">Adding reps and holds</span><span class="lock-badge">🔒 Locked</span></div></div>
+          <div class="locked-body"><p>Purchase to unlock all 4 weeks of programming.</p><a class="unlock-btn" href="#">Get Access — $15</a></div>
+        </div>
+
+        <div class="preview-week">
+          <div class="week-header"><div class="week-header-left"><span class="week-num">WEEK 3 & 4</span><h3>Strength</h3></div><div style="display:flex;align-items:center;gap:12px;"><span class="focus">L-sit, dragon flag & peak</span><span class="lock-badge">🔒 Locked</span></div></div>
+          <div class="locked-body"><p>Purchase to unlock all 4 weeks of programming.</p><a class="unlock-btn" href="#">Get Access — $15</a></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-eyebrow">Your Coach</div>
+      <div class="about-grid">
+        <div class="about-img"><img src="photo-coaching.jpeg" alt="Liam coaching"></div>
+        <div class="about-content">
+          <h3>Why trust a 18-year-old gymnast?</h3>
+          <p>Because I started exactly where you are. I know what it's like to have zero strength, zero flexibility, and zero idea what you're doing.</p>
+          <p>I've been training gymnastics since I was 7 years old, coached kids and adults of all levels at my local club, and competed at the national level in Canada.</p>
+          <p>This program is built the way my coaches built me. Progressive, intentional, and designed to actually work.</p>
+          <div class="about-cred">
+            <div class="cred-item">2nd Place — Canadian National Championships</div>
+            <div class="cred-item">Elite Canada Champion (Junior)</div>
+            <div class="cred-item">Coached athletes from age 6 to 50+</div>
+            <div class="cred-item">11+ years of competitive gymnastics</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-section">
+      <h2>Build a core that works.</h2>
+      <p>4 weeks of gymnastic conditioning. No equipment, no gimmicks.</p>
+      <a class="btn-white" href="#">Get This Program — $15</a>
+    </div>
+
+    <footer>© 2026 Liam Vanounou. All rights reserved.</footer>
+
+    <script>
+      function toggleWeek(h){h.nextElementSibling.classList.toggle('open');}
+      function toggleEx(h){const b=h.nextElementSibling,t=h.querySelector('.ex-toggle');b.classList.toggle('open');t.classList.toggle('open');}
+      window.addEventListener('scroll',()=>{document.querySelector('nav').style.padding=window.scrollY>60?'12px 48px':'20px 48px';});
+    </script>
+    <script src="visuals.js"></script>
+      const s=document.createElement('style');s.textContent='.reveal{opacity:0;transform:translateY(32px);transition:opacity 0.7s ease,transform 0.7s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';document.head.appendChild(s);
+      document.querySelectorAll('.outcome-card,.principle,.preview-week,.about-grid,.cta-section').forEach((el,i)=>{el.classList.add('reveal');el.style.transitionDelay=(i%3)*0.08+'s';});
+      const obs=new IntersectionObserver(e=>{e.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.08});
+      document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+      const cursor=document.createElement('div');cursor.style.cssText='position:fixed;width:12px;height:12px;background:#e63946;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease;transform:translate(-50%,-50%);';
+      const ring=document.createElement('div');ring.style.cssText='position:fixed;width:36px;height:36px;border:1.5px solid rgba(230,57,70,0.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);';
+      document.body.appendChild(cursor);document.body.appendChild(ring);
+      let mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+      (function a(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();
+      document.querySelectorAll('a,button').forEach(el=>{el.addEventListener('mouseenter',()=>cursor.style.transform='translate(-50%,-50%) scale(2)');el.addEventListener('mouseleave',()=>cursor.style.transform='translate(-50%,-50%) scale(1)');});
+    </script>
+  </body>
+</html>

@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Liam Vanounou — Coach & Athlete</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Liam Vanounou — Coach & Athlete. Gymnastics-based training for everyone, starting from wherever you are.">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body { font-family: 'Inter', sans-serif; background: #faf8f5; color: #111; overflow-x: hidden; }
+
+      /* OVERLAY + SIDE MENU */
+      .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+      .overlay.open { opacity: 1; pointer-events: all; }
+      .sidemenu { position: fixed; top: 0; right: -360px; bottom: 0; width: 320px; background: #111; z-index: 300; padding: 60px 40px; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
+      .sidemenu.open { right: 0; }
+      .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #555; font-size: 24px; transition: color 0.2s; }
+      .sidemenu-close:hover { color: white; }
+      .sidemenu-logo { font-size: 16px; font-weight: 700; color: white; margin-bottom: 48px; }
+      .sidemenu-logo span { color: #e63946; }
+      .sidemenu nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+      .sidemenu nav a { color: #555; text-decoration: none; font-size: 32px; font-weight: 700; padding: 10px 0; transition: color 0.2s; border-bottom: 1px solid #1e1e1e; letter-spacing: -1px; }
+      .sidemenu nav a:hover { color: white; }
+      .sidemenu-footer { color: #333; font-size: 13px; margin-top: 40px; }
+
+      /* TOP NAV */
+      .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(250,248,245,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #ece8e2; }
+      .topnav .logo { font-size: 18px; font-weight: 800; color: #111; text-decoration: none; letter-spacing: -0.5px; }
+      .topnav .logo span { color: #e63946; }
+      .topnav-links { display: flex; align-items: center; gap: 32px; }
+      .topnav-links a { color: #888; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+      .topnav-links a:hover { color: #111; }
+      .topnav-links a.coaching-link { color: #e63946; font-weight: 700; }
+      .topnav-links a.coaching-link:hover { color: #c1121f; }
+      .sidemenu nav a.coaching-link { color: #e63946; }
+      .menu-btn { background: none; border: 1px solid #ddd8d0; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; transition: border-color 0.2s; }
+      .menu-btn:hover { border-color: #111; }
+      .menu-btn span { width: 18px; height: 1.5px; background: #111; border-radius: 2px; display: block; }
+
+      /* MARQUEE */
+      .marquee-bar { background: #111; color: white; padding: 10px 0; overflow: hidden; white-space: nowrap; margin-top: 61px; }
+      .marquee-track { display: inline-flex; animation: marquee 20s linear infinite; }
+      .marquee-track span { padding: 0 40px; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; }
+      .marquee-track span em { color: #e63946; font-style: normal; }
+      @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+      /* HERO */
+      .hero { min-height: calc(100vh - 101px); display: flex; align-items: center; justify-content: space-between; padding: 60px 48px 80px; gap: 80px; }
+      .hero-text { flex: 1; }
+      .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 24px; }
+      .hero-eyebrow::before { content: ''; display: block; width: 24px; height: 2px; background: #e63946; }
+      .hero-text h1 { font-size: 84px; font-weight: 800; line-height: 0.92; letter-spacing: -4px; margin-bottom: 28px; color: #111; }
+      .hero-text h1 em { font-style: normal; color: #e63946; }
+      .hero-text p { font-size: 18px; color: #7a6f65; line-height: 1.8; max-width: 440px; margin-bottom: 44px; font-weight: 400; }
+      .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
+      .btn-primary { background: #e63946; color: white; padding: 16px 36px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 700; transition: background 0.2s, transform 0.2s; letter-spacing: 0.2px; }
+      .btn-primary:hover { background: #c1121f; transform: translateY(-2px); }
+      .btn-ghost { color: #111; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: gap 0.2s; }
+      .btn-ghost:hover { gap: 14px; }
+      .hero-image-wrap { width: 440px; height: 560px; flex-shrink: 0; border-radius: 24px; overflow: hidden; position: relative; }
+      .hero-image-wrap img { width: 100%; height: 100%; object-fit: cover; }
+      .hero-badge { position: absolute; bottom: 24px; left: 24px; background: white; border-radius: 10px; padding: 14px 18px; box-shadow: 0 8px 32px rgba(0,0,0,0.12); display: flex; align-items: center; gap: 10px; }
+      .hero-badge-icon { font-size: 20px; }
+      .hero-badge-text { font-size: 13px; font-weight: 700; color: #111; }
+      .hero-badge-text span { color: #e63946; }
+      .hero-tag { position: absolute; top: 24px; right: 24px; background: #e63946; color: white; border-radius: 6px; padding: 6px 12px; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; }
+
+      /* STATS */
+      .stats-bar { display: flex; border-top: 1px solid #ece8e2; border-bottom: 1px solid #ece8e2; background: #f3f0eb; }
+      .stat-item { flex: 1; padding: 40px 48px; border-right: 1px solid #ece8e2; position: relative; }
+      .stat-item:last-child { border-right: none; }
+      .stat-item h2 { font-size: 44px; font-weight: 800; letter-spacing: -2px; margin-bottom: 4px; color: #111; }
+      .stat-item p { color: #9a8f85; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+      .stat-item::after { content: ''; position: absolute; bottom: 0; left: 48px; width: 32px; height: 3px; background: #e63946; }
+
+      /* SECTIONS */
+      .section { padding: 100px 48px; }
+      .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+      .section-label::before { content: ''; display: block; width: 16px; height: 2px; background: #e63946; }
+      .section-heading { font-size: 52px; font-weight: 800; letter-spacing: -2.5px; margin-bottom: 16px; line-height: 1.0; color: #111; }
+      .section-sub { color: #7a6f65; font-size: 16px; line-height: 1.8; max-width: 520px; }
+
+      /* PROGRAMS */
+      .programs-section { background: #f3f0eb; }
+      .programs-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+      .program-card { background: #faf8f5; border-radius: 14px; padding: 28px; border: 1px solid #e8e3dc; text-decoration: none; color: #111; display: flex; flex-direction: column; transition: box-shadow 0.25s, transform 0.25s; }
+      .program-card:hover { box-shadow: 0 12px 40px rgba(0,0,0,0.08); transform: translateY(-3px); }
+      .program-card-tag { font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #e63946; margin-bottom: 14px; }
+      .program-card h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; letter-spacing: -0.3px; }
+      .program-card p { color: #8a7f75; font-size: 13px; line-height: 1.6; flex: 1; }
+      .program-card-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 18px; border-top: 1px solid #e8e3dc; }
+      .program-card-footer .level { font-size: 12px; color: #bbb; }
+      .program-card-footer .price { font-size: 17px; font-weight: 800; letter-spacing: -0.5px; }
+      .see-all-wrap { text-align: center; margin-top: 48px; }
+
+      /* QUOTE SECTION */
+      .quote-section { background: #111; padding: 80px 48px; text-align: center; }
+      .quote-section blockquote { font-size: 36px; font-weight: 800; color: white; letter-spacing: -1.5px; line-height: 1.2; max-width: 760px; margin: 0 auto 20px; }
+      .quote-section blockquote em { color: #e63946; font-style: normal; }
+      .quote-section cite { color: #555; font-size: 13px; font-style: normal; }
+
+      /* TIMELINE */
+      .timeline-grid { display: grid; grid-template-columns: 1fr 1fr; margin-top: 64px; border: 1px solid #ece8e2; border-radius: 16px; overflow: hidden; }
+      .timeline-item { padding: 36px 40px; border-bottom: 1px solid #ece8e2; border-right: 1px solid #ece8e2; transition: background 0.2s; }
+      .timeline-item:hover { background: #f3f0eb; }
+      .timeline-item:nth-child(even) { border-right: none; }
+      .timeline-item:nth-last-child(-n+2) { border-bottom: none; }
+      .timeline-year { font-size: 11px; font-weight: 700; color: #e63946; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 10px; }
+      .timeline-item h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; }
+      .timeline-item p { color: #8a7f75; font-size: 14px; line-height: 1.6; }
+
+      /* GALLERY */
+      .gallery-section { background: #f3f0eb; }
+      .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 56px; }
+      .gallery-item { border-radius: 12px; overflow: hidden; background: #e8e3dc; }
+      .gallery-item:first-child { grid-row: span 2; }
+      .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; display: block; }
+      .gallery-item:hover img { transform: scale(1.04); }
+
+      /* TESTIMONIALS */
+      .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+      .testimonial-card { background: #f3f0eb; border-radius: 14px; padding: 32px; border: 1px solid #e8e3dc; }
+      .stars { color: #e63946; font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
+      .testimonial-card p { color: #5a5048; font-size: 15px; line-height: 1.75; margin-bottom: 24px; }
+      .testimonial-author { font-size: 13px; font-weight: 700; color: #111; }
+      .testimonial-role { font-size: 12px; color: #aaa; margin-top: 2px; }
+
+      /* CTA STRIP */
+      .cta-strip { background: #e63946; padding: 60px 48px; display: flex; justify-content: space-between; align-items: center; gap: 40px; }
+      .cta-strip h2 { font-size: 40px; font-weight: 800; color: white; letter-spacing: -1.5px; max-width: 500px; line-height: 1.1; }
+      .btn-white { background: white; color: #e63946; padding: 16px 36px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 700; white-space: nowrap; transition: transform 0.2s; }
+      .btn-white:hover { transform: translateY(-2px); }
+
+      /* CONTACT */
+      .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 56px; align-items: start; }
+      .contact-info h3 { font-size: 22px; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.5px; }
+      .contact-info p { color: #7a6f65; font-size: 15px; line-height: 1.8; }
+      .contact-detail { display: flex; align-items: center; gap: 12px; margin-top: 24px; font-size: 14px; color: #9a8f85; }
+      .contact-form { display: flex; flex-direction: column; gap: 12px; }
+      .contact-form input, .contact-form textarea { border: 1px solid #ddd8d0; border-radius: 8px; padding: 14px 16px; font-size: 14px; font-family: 'Inter', sans-serif; color: #111; background: white; transition: border-color 0.2s; }
+      .contact-form input:focus, .contact-form textarea:focus { outline: none; border-color: #e63946; }
+      .contact-form input::placeholder, .contact-form textarea::placeholder { color: #bbb; }
+      .contact-form button { background: #e63946; color: white; border: none; padding: 15px; border-radius: 8px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s; letter-spacing: 0.2px; }
+      .contact-form button:hover { background: #c1121f; }
+
+      /* FOOTER */
+      footer { padding: 32px 48px; border-top: 1px solid #ece8e2; display: flex; justify-content: space-between; align-items: center; }
+      .footer-logo { font-size: 16px; font-weight: 800; color: #111; letter-spacing: -0.5px; }
+      .footer-logo span { color: #e63946; }
+      .footer-links { display: flex; gap: 24px; }
+      .footer-links a { color: #aaa; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+      .footer-links a:hover { color: #111; }
+      .footer-copy { color: #ccc; font-size: 13px; }
+
+      /* EMAIL CAPTURE */
+      .email-capture { background: #f3f0eb; padding: 80px 48px; text-align: center; }
+      .email-capture .section-label { justify-content: center; }
+      .email-capture h2 { font-size: 40px; font-weight: 800; letter-spacing: -2px; color: #111; margin-bottom: 12px; line-height: 1.1; }
+      .email-capture p { color: #7a6f65; font-size: 16px; margin-bottom: 40px; }
+      .email-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+      .email-form input { flex: 1; min-width: 180px; border: 1px solid #ddd8d0; border-radius: 8px; padding: 14px 16px; font-size: 14px; font-family: 'Inter', sans-serif; color: #111; background: white; transition: border-color 0.2s; }
+      .email-form input:focus { outline: none; border-color: #e63946; }
+      .email-form input::placeholder { color: #bbb; }
+      .email-form button { background: #e63946; color: white; border: none; padding: 14px 28px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s; white-space: nowrap; }
+      .email-form button:hover { background: #c1121f; }
+      .email-note { margin-top: 12px; font-size: 12px; color: #bbb; }
+
+      /* MOBILE */
+      @media (max-width: 900px) {
+        .topnav { padding: 16px 24px; }
+        .topnav-links .hide-mobile { display: none; }
+        .marquee-bar { margin-top: 57px; }
+        .hero { flex-direction: column-reverse; padding: 40px 24px 60px; gap: 32px; min-height: auto; }
+        .hero-text h1 { font-size: 52px; letter-spacing: -2.5px; }
+        .hero-image-wrap { width: 100%; height: 320px; }
+        .stats-bar { flex-wrap: wrap; }
+        .stat-item { min-width: 50%; }
+        .section { padding: 60px 24px; }
+        .section-heading { font-size: 36px; letter-spacing: -1.5px; }
+        .programs-grid, .testimonials-grid { grid-template-columns: 1fr; }
+        .timeline-grid { grid-template-columns: 1fr; }
+        .timeline-item { border-right: none !important; }
+        .timeline-item:nth-last-child(-n+2) { border-bottom: 1px solid #ece8e2 !important; }
+        .timeline-item:last-child { border-bottom: none !important; }
+        .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        .gallery-item:first-child { grid-row: span 1; }
+        .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+        .cta-strip { flex-direction: column; text-align: center; padding: 48px 24px; }
+        .cta-strip h2 { font-size: 30px; }
+        footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+        .quote-section blockquote { font-size: 26px; }
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+    <div class="sidemenu" id="sidemenu">
+      <button class="sidemenu-close" onclick="closeMenu()">✕</button>
+      <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+      <nav>
+        <a href="index.html" onclick="closeMenu()">Home</a>
+        <a href="#about" onclick="closeMenu()">About</a>
+        <a href="programs.html" onclick="closeMenu()">Programs</a>
+        <a href="coaching.html" class="coaching-link" onclick="closeMenu()">Coaching</a>
+        <a href="#gallery" onclick="closeMenu()">Gallery</a>
+        <a href="#contact" onclick="closeMenu()">Contact</a>
+      </nav>
+      <div class="sidemenu-footer">© 2026 Liam Vanounou</div>
+    </div>
+
+    <header class="topnav">
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div class="topnav-links">
+        <a href="#about" class="hide-mobile">About</a>
+        <a href="programs.html" class="hide-mobile">Programs</a>
+        <a href="coaching.html" class="coaching-link hide-mobile">Coaching</a>
+        <a href="#contact" class="hide-mobile">Contact</a>
+        <button class="menu-btn" onclick="openMenu()">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <div class="marquee-bar">
+      <div class="marquee-track">
+        <span>🏅 2nd Place — <em>Canadian National Championships</em></span>
+        <span>🏆 Elite Canada <em>Champion</em></span>
+        <span>🇨🇦 Senior National Competitor</span>
+        <span>📍 Richmond Hill, Ontario</span>
+        <span>💪 11+ Years Training</span>
+        <span>🎯 Olympic <em>Goal</em></span>
+        <span>🏅 2nd Place — <em>Canadian National Championships</em></span>
+        <span>🏆 Elite Canada <em>Champion</em></span>
+        <span>🇨🇦 Senior National Competitor</span>
+        <span>📍 Richmond Hill, Ontario</span>
+        <span>💪 11+ Years Training</span>
+        <span>🎯 Olympic <em>Goal</em></span>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-text">
+        <span class="hero-eyebrow">National Gymnast & Coach</span>
+        <h1>I'm Liam.<br>I'll coach you to<br>move like a <em>gymnast.</em></h1>
+        <p>2nd at Canadian Nationals. 11+ years competing. Now I help adults build real gymnastic strength — handstands, rings, calisthenics — done right, from the start.</p>
+        <div class="hero-actions">
+          <a class="btn-primary" href="coaching.html">Apply for Coaching</a>
+          <a class="btn-ghost" href="programs.html">Browse Programs →</a>
+        </div>
+      </div>
+      <div class="hero-image-wrap">
+        <img src="photo-pommel-closeup.jpeg" alt="Liam Vanounou">
+        <div class="hero-badge">
+          <div class="hero-badge-icon">🏅</div>
+          <div class="hero-badge-text">2nd — <span>Canadian Nationals</span></div>
+        </div>
+        <div class="hero-tag">Senior Athlete</div>
+      </div>
+    </section>
+
+    <div class="stats-bar">
+      <div class="stat-item"><h2>All</h2><p>Fitness Levels Welcome</p></div>
+      <div class="stat-item"><h2>0</h2><p>Equipment Required to Start</p></div>
+      <div class="stat-item"><h2>Your</h2><p>Pace, Your Progress</p></div>
+      <div class="stat-item"><h2>Safe</h2><p>Fun & Beginner Friendly</p></div>
+    </div>
+
+    <section class="section programs-section" id="programs">
+      <div class="section-label">Program Library</div>
+      <h2 class="section-heading">Find your starting point.</h2>
+      <p class="section-sub">Every program is built to meet you where you are. No experience needed — just a willingness to move.</p>
+      <div class="programs-grid">
+        <a class="program-card" href="program-bodyweight.html">
+          <div class="program-card-tag">No Equipment</div>
+          <h3>Beginner Bodyweight Strength</h3>
+          <p>Build real strength from zero using gymnastic movement patterns. Push, pull, squat, core.</p>
+          <div class="program-card-footer">
+            <span class="level">Beginner · 8 Weeks</span>
+            <span class="price">$19</span>
+          </div>
+        </a>
+        <a class="program-card" href="program-flexibility.html">
+          <div class="program-card-tag">No Equipment</div>
+          <h3>Flexibility & Mobility</h3>
+          <p>Splits, bridge, shoulder prep. The flexibility foundation every athlete needs.</p>
+          <div class="program-card-footer">
+            <span class="level">All Levels · 6 Weeks</span>
+            <span class="price">$19</span>
+          </div>
+        </a>
+        <a class="program-card" href="program-pullup.html">
+          <div class="program-card-tag">Pull Up Bar</div>
+          <h3>Pull Up Progression</h3>
+          <p>Zero to 10+ pull ups. Form breakdowns, progressions, and programming that actually works.</p>
+          <div class="program-card-footer">
+            <span class="level">Beginner → Intermediate · 6 Weeks</span>
+            <span class="price">$19</span>
+          </div>
+        </a>
+      </div>
+      <div class="see-all-wrap">
+        <a class="btn-primary" href="programs.html">See All 9 Programs</a>
+      </div>
+    </section>
+
+    <div class="quote-section">
+      <blockquote>"Gymnastics strength isn't just about looking good. It's about <em>owning your body</em> — every position, every movement, every rep."</blockquote>
+      <cite>— Liam Vanounou</cite>
+    </div>
+
+    <section class="section" id="about">
+      <div class="section-label">My Journey</div>
+      <h2 class="section-heading">From age 7 to<br>the nationals.</h2>
+      <p class="section-sub">I started gymnastics as a kid in Richmond Hill and never stopped. Here's the road that got me here.</p>
+      <div class="timeline-grid">
+        <div class="timeline-item">
+          <div class="timeline-year">2014</div>
+          <h3>Started Gymnastics</h3>
+          <p>Began training at age 7 in Richmond Hill, Ontario.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2019</div>
+          <h3>First National Competition</h3>
+          <p>Competed at the national level for the first time as a junior.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2022</div>
+          <h3>Won Elite Canada</h3>
+          <p>Took home the top title at Elite Canada in the junior category.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2023</div>
+          <h3>2nd at Canadian Nationals</h3>
+          <p>Placed 2nd at the Canadian National Championships.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">2024</div>
+          <h3>Moved to Senior</h3>
+          <p>Transitioned to senior competition, taking on the country's best.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Now</div>
+          <h3>Training for the Olympics</h3>
+          <p>Working every day toward representing Canada on the world stage.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section gallery-section" id="gallery">
+      <div class="section-label">Gallery</div>
+      <h2 class="section-heading">In the gym.</h2>
+      <div class="gallery-grid">
+        <div class="gallery-item" style="height:480px;"><img src="photo-highbar-release.jpeg" alt="Bar release"></div>
+        <div class="gallery-item" style="height:235px;"><img src="photo-rings.jpeg" alt="Rings"></div>
+        <div class="gallery-item" style="height:235px;"><img src="photo-pommel-comp.jpeg" alt="Pommel horse"></div>
+        <div class="gallery-item" style="height:235px;"><img src="photo-bar-release.jpeg" alt="Bar release move"></div>
+        <div class="gallery-item" style="height:235px;"><img src="photo-coaching.jpeg" alt="Coaching"></div>
+        <div class="gallery-item" style="height:235px;"><img src="photo-pommel-training.jpeg" alt="Training"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-label">Testimonials</div>
+      <h2 class="section-heading">What people say.</h2>
+      <div class="testimonials-grid">
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Liam is one of the most dedicated athletes I've ever coached. His work ethic and attention to detail is unmatched."</p>
+          <div class="testimonial-author">Head Coach</div>
+          <div class="testimonial-role">Richmond Hill Gymnastics</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"Training with Liam completely changed my approach. He breaks down every skill in a way that actually makes sense."</p>
+          <div class="testimonial-author">Athlete</div>
+          <div class="testimonial-role">Coached by Liam</div>
+        </div>
+        <div class="testimonial-card">
+          <div class="stars">★★★★★</div>
+          <p>"The focus and precision Liam brings to competition is on another level. He's the real deal."</p>
+          <div class="testimonial-author">Fellow Competitor</div>
+          <div class="testimonial-role">National Level</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="cta-strip">
+      <h2>Ready to see what your body can do?</h2>
+      <a class="btn-white" href="https://liamster777.gumroad.com/l/lzjqd">Get Started — $27</a>
+    </div>
+
+    <section class="section" id="contact">
+      <div class="section-label">Get In Touch</div>
+      <h2 class="section-heading">Let's work together.</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>Coaching inquiries, collabs, or just want to say hi.</h3>
+          <p style="margin-top:16px;">Whether you're looking for 1-on-1 coaching, want to ask about a program, or have a partnership idea — reach out and I'll get back to you.</p>
+          <div class="contact-detail">📍 Richmond Hill, Ontario, Canada</div>
+          <div class="contact-detail">🏅 National-level competitor since 2019</div>
+        </div>
+        <form class="contact-form" action="https://formspree.io/f/xlgonzrq" method="POST">
+          <input type="text" name="name" placeholder="Your name" required>
+          <input type="email" name="email" placeholder="Your email" required>
+          <textarea name="message" rows="5" placeholder="Your message" required></textarea>
+          <button type="submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+
+    <div class="email-capture">
+      <div class="section-label" style="margin-bottom:16px;">Free Resource</div>
+      <h2>Get a Free 7-Day<br>Gymnast Strength Plan</h2>
+      <p>The exact movements I'd give a beginner on day one — delivered to your inbox. No fluff, just training.</p>
+      <form class="email-form" action="https://formspree.io/f/xlgonzrq" method="POST">
+        <input type="text" name="name" placeholder="Your name" required>
+        <input type="email" name="email" placeholder="Your email" required>
+        <input type="hidden" name="form_source" value="email_capture_homepage">
+        <button type="submit">Send Me the Plan</button>
+      </form>
+      <div class="email-note">No spam. Unsubscribe anytime.</div>
+    </div>
+
+    <footer>
+      <div class="footer-logo">Liam <span>Vanounou</span></div>
+      <div class="footer-links">
+        <a href="#about">About</a>
+        <a href="programs.html">Programs</a>
+        <a href="coaching.html">Coaching</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-copy">© 2026 Liam Vanounou</div>
+    </footer>
+
+    <script>
+      // MENU
+      function openMenu() { document.getElementById('sidemenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+      function closeMenu() { document.getElementById('sidemenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+      // CUSTOM CURSOR
+      const cursor = document.createElement('div');
+      cursor.style.cssText = 'position:fixed;width:12px;height:12px;background:#e63946;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.3s;transform:translate(-50%,-50%);';
+      const cursorRing = document.createElement('div');
+      cursorRing.style.cssText = 'position:fixed;width:36px;height:36px;border:1.5px solid rgba(230,57,70,0.4);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.35s ease,opacity 0.3s;transform:translate(-50%,-50%);';
+      document.body.appendChild(cursor);
+      document.body.appendChild(cursorRing);
+      let mx=0,my=0,rx=0,ry=0;
+      document.addEventListener('mousemove', e => {
+        mx=e.clientX; my=e.clientY;
+        cursor.style.left=mx+'px'; cursor.style.top=my+'px';
+      });
+      (function animRing(){
+        rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+        cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px';
+        requestAnimationFrame(animRing);
+      })();
+      document.querySelectorAll('a,button').forEach(el => {
+        el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; cursorRing.style.transform='translate(-50%,-50%) scale(1.5)'; });
+        el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; cursorRing.style.transform='translate(-50%,-50%) scale(1)'; });
+      });
+
+      // NAV SHRINK ON SCROLL
+      const topnav = document.querySelector('.topnav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) {
+          topnav.style.padding = '12px 48px';
+          topnav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.06)';
+        } else {
+          topnav.style.padding = '20px 48px';
+          topnav.style.boxShadow = 'none';
+        }
+      });
+
+      // HERO LOAD ANIMATION
+      const heroEls = [
+        document.querySelector('.hero-eyebrow'),
+        document.querySelector('.hero-text h1'),
+        document.querySelector('.hero-text p'),
+        document.querySelector('.hero-actions'),
+        document.querySelector('.hero-image-wrap'),
+      ];
+      heroEls.forEach((el, i) => {
+        if (!el) return;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(28px)';
+        el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+        setTimeout(() => {
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 150 + i * 130);
+      });
+
+      // PARALLAX HERO IMAGE
+      const heroImg = document.querySelector('.hero-image-wrap');
+      window.addEventListener('scroll', () => {
+        if (heroImg) heroImg.style.transform = `translateY(${window.scrollY * 0.12}px)`;
+      });
+
+      // SCROLL REVEAL
+      const revealStyle = document.createElement('style');
+      revealStyle.textContent = '.reveal{opacity:0;transform:translateY(40px);transition:opacity 0.75s ease,transform 0.75s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';
+      document.head.appendChild(revealStyle);
+      const revealTargets = document.querySelectorAll('.stat-item,.program-card,.timeline-item,.gallery-item,.testimonial-card,.section-label,.section-heading,.section-sub,.quote-section blockquote,.contact-info,.contact-form');
+      revealTargets.forEach((el, i) => {
+        el.classList.add('reveal');
+        el.style.transitionDelay = (i % 4) * 0.08 + 's';
+      });
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      revealTargets.forEach(el => observer.observe(el));
+
+      // STATS COUNTER
+      function animateCounter(el, target, duration) {
+        let start = 0, startTime = null;
+        const isText = isNaN(target);
+        if (isText) return;
+        function step(ts) {
+          if (!startTime) startTime = ts;
+          const progress = Math.min((ts - startTime) / duration, 1);
+          el.textContent = Math.floor(progress * target);
+          if (progress < 1) requestAnimationFrame(step);
+          else el.textContent = target;
+        }
+        requestAnimationFrame(step);
+      }
+      const statObserver = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const h2 = e.target.querySelector('h2');
+            if (h2) {
+              const raw = h2.textContent.trim();
+              const num = parseInt(raw);
+              if (!isNaN(num)) animateCounter(h2, num, 1200);
+            }
+            statObserver.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      document.querySelectorAll('.stat-item').forEach(el => statObserver.observe(el));
+
+      // CARD TILT ON HOVER
+      document.querySelectorAll('.program-card').forEach(card => {
+        card.addEventListener('mousemove', e => {
+          const rect = card.getBoundingClientRect();
+          const x = (e.clientX - rect.left) / rect.width - 0.5;
+          const y = (e.clientY - rect.top) / rect.height - 0.5;
+          card.style.transform = `translateY(-6px) rotateX(${-y * 8}deg) rotateY(${x * 8}deg)`;
+          card.style.transition = 'box-shadow 0.25s';
+        });
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'translateY(0) rotateX(0) rotateY(0)';
+          card.style.transition = 'transform 0.5s ease, box-shadow 0.25s';
+        });
+      });
+    </script>
+
+  </body>
+</html>

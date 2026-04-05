@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>High Bar Skills — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
+      nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #f0f0f0; }
+      nav .logo { font-size: 18px; font-weight: 800; color: #111; text-decoration: none; }
+      nav .logo span { color: #e63946; }
+      nav a { color: #666; text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 32px; }
+      .hero { padding: 140px 48px 64px; display: flex; justify-content: space-between; gap: 60px; border-bottom: 1px solid #f0f0f0; }
+      .hero-left { flex: 1; }
+      .breadcrumb { color: #bbb; font-size: 13px; margin-bottom: 20px; }
+      .breadcrumb a { color: #e63946; text-decoration: none; }
+      .tag { display: inline-block; background: #fff5f5; color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 4px; margin-bottom: 16px; }
+      .hero h1 { font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; line-height: 1.05; }
+      .hero p { color: #777; font-size: 16px; line-height: 1.8; max-width: 520px; margin-bottom: 32px; }
+      .meta { display: flex; gap: 40px; flex-wrap: wrap; }
+      .meta-item .label { color: #bbb; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+      .meta-item .value { font-size: 15px; font-weight: 700; }
+      .buy-box { background: #fafafa; border: 1px solid #efefef; border-radius: 16px; padding: 32px; width: 280px; flex-shrink: 0; }
+      .price { font-size: 44px; font-weight: 800; letter-spacing: -2px; margin-bottom: 4px; }
+      .price-sub { color: #aaa; font-size: 13px; margin-bottom: 24px; }
+      .buy-btn { display: block; background: #111; color: white; text-align: center; padding: 16px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; margin-bottom: 20px; }
+      .includes p { color: #777; font-size: 13px; margin-bottom: 8px; }
+      .includes p::before { content: '✓ '; color: #4caf50; font-weight: 800; }
+      section { padding: 60px 48px; border-bottom: 1px solid #f0f0f0; }
+      h2 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 32px; }
+      .eq-list { display: flex; gap: 12px; flex-wrap: wrap; }
+      .eq-item { background: #f5f5f5; border-radius: 8px; padding: 12px 20px; font-size: 14px; font-weight: 500; }
+      .progression-steps { display: flex; flex-direction: column; gap: 0; border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; }
+      .step { display: flex; gap: 24px; padding: 28px; border-bottom: 1px solid #f0f0f0; align-items: flex-start; }
+      .step:last-child { border-bottom: none; }
+      .step-num { font-size: 36px; font-weight: 800; color: #f0f0f0; flex-shrink: 0; line-height: 1; }
+      .step-content h3 { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+      .step-content p { color: #777; font-size: 14px; line-height: 1.6; margin-bottom: 10px; }
+      .step-content .goal { font-size: 13px; color: #e63946; font-weight: 600; }
+      .ecards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .ecard { border: 1px solid #f0f0f0; border-radius: 12px; padding: 28px; }
+      .ecard .muscle { color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+      .ecard h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+      .ecard p { color: #777; font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+      .cues h4 { font-size: 12px; font-weight: 700; color: #999; margin-bottom: 10px; text-transform: uppercase; }
+      .cues ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+      .cues ul li { font-size: 13px; color: #666; padding-left: 16px; position: relative; line-height: 1.5; }
+      .cues ul li::before { content: '→'; position: absolute; left: 0; color: #e63946; font-weight: 700; }
+      .warning-box { background: #fff5f5; border: 1px solid #ffd6d6; border-radius: 12px; padding: 20px 28px; margin-bottom: 32px; }
+      .warning-box p { color: #c0392b; font-size: 14px; font-weight: 600; line-height: 1.6; }
+      .cta { text-align: center; padding: 80px 48px; border-bottom: none; }
+      footer { text-align: center; padding: 32px; color: #ccc; font-size: 13px; border-top: 1px solid #f0f0f0; }
+      @media (max-width: 768px) { nav { padding: 16px 24px; } .hero { flex-direction: column; padding: 100px 24px 48px; } .hero h1 { font-size: 36px; } .buy-box { width: 100%; } section { padding: 40px 24px; } .ecards { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <div class="hero-left">
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → High Bar Skills</div>
+        <span class="tag">Pull Up Bar</span>
+        <h1>High Bar Skills</h1>
+        <p>Giants, releases, catch and swing — the high bar is the most spectacular event in men's gymnastics. This 10-week program teaches the foundational swing mechanics, cast to handstand, and your first giant — step by step, from a gymnastics coach who has done it all.</p>
+        <div class="meta">
+          <div class="meta-item"><div class="label">Duration</div><div class="value">10 Weeks</div></div>
+          <div class="meta-item"><div class="label">Level</div><div class="value">Advanced</div></div>
+          <div class="meta-item"><div class="label">Days/Week</div><div class="value">4 Days</div></div>
+          <div class="meta-item"><div class="label">Equipment</div><div class="value">High Bar</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$35</div>
+        <div class="price-sub">One-time purchase. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <div class="includes">
+          <p>10-week full program</p>
+          <p>Giant swing progression</p>
+          <p>Cast to handstand drills</p>
+          <p>Grip and tap timing cues</p>
+          <p>Email support from Liam</p>
+        </div>
+      </div>
+    </div>
+    <section>
+      <h2>Before You Start</h2>
+      <div class="warning-box">
+        <p>⚠ High bar is an advanced skill. This program is designed for athletes with access to a proper gymnastics facility or competition bar with crash mats. Do not attempt giants or releases without a coach present and proper landing mats. Safety first — always.</p>
+      </div>
+      <div class="eq-list">
+        <div class="eq-item">✓ 10+ strict pull ups</div>
+        <div class="eq-item">✓ Clean muscle up</div>
+        <div class="eq-item">✓ Strong kip swing</div>
+        <div class="eq-item">✓ Gymnastics facility access</div>
+        <div class="eq-item">✓ Coach present for giants</div>
+      </div>
+    </section>
+    <section>
+      <h2>The Progression</h2>
+      <p style="color:#777; font-size:15px; margin-bottom:32px; line-height:1.7;">Every high bar skill is built on swing mechanics. If your swing is wrong, nothing else will work. Don't rush past the early phases.</p>
+      <div class="progression-steps">
+        <div class="step">
+          <div class="step-num">01</div>
+          <div class="step-content">
+            <h3>Kip & Swing Mechanics (Week 1–2)</h3>
+            <p>Your kip generates rhythm and amplitude. Every advanced skill on high bar starts with a powerful, controlled kip. We refine the shape and timing until it's automatic.</p>
+            <div class="goal">Goal: 5 consecutive clean kips with full extension</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">02</div>
+          <div class="step-content">
+            <h3>Cast to Horizontal (Week 3–4)</h3>
+            <p>The cast is the push away from the bar into the swing. It has to be strong and precise. Horizontal first — then we work to vertical.</p>
+            <div class="goal">Goal: Consistent cast to parallel (body horizontal)</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">03</div>
+          <div class="step-content">
+            <h3>Cast to Handstand (Week 5–6)</h3>
+            <p>One of the most technically demanding elements in gymnastics. The timing, body shape, and shoulder engagement all have to come together at exactly the right moment.</p>
+            <div class="goal">Goal: 3 consistent cast to handstand reps</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">04</div>
+          <div class="step-content">
+            <h3>Giant Swing Entry (Week 7–8)</h3>
+            <p>The giant is the fundamental swing skill — all the way around the bar with a straight body. We approach it progressively: half giants, then full with spot, then independent.</p>
+            <div class="goal">Goal: 3 giants with light spot from coach</div>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num">05</div>
+          <div class="step-content">
+            <h3>Giant to Dismount (Week 9–10)</h3>
+            <p>Connecting the giant to a controlled dismount. Flyaway, layout flyaway, or tucked dismount — depending on your level. Clean landings are the goal.</p>
+            <div class="goal">Goal: Giant + clean flyaway dismount</div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>Key Skills Breakdown</h2>
+      <div class="ecards">
+        <div class="ecard">
+          <div class="muscle">Swing</div>
+          <h3>The Kip</h3>
+          <p>The entry skill for everything on high bar. The tap and pull has to generate real swing amplitude or nothing else will work.</p>
+          <div class="cues"><h4>Form Cues</h4><ul>
+            <li>Swing into hollow, push feet forward under bar</li>
+            <li>At the lowest point: aggressive pull, heels up and over</li>
+            <li>Finish on top of bar in support — don't half-kip</li>
+            <li>Hips come to the bar — you don't come to your hips</li>
+            <li>The timing on the pull makes or breaks it</li>
+          </ul></div>
+        </div>
+        <div class="ecard">
+          <div class="muscle">Swing</div>
+          <h3>Cast to Handstand</h3>
+          <p>The most important non-release skill in high bar. A true cast to handstand with no angle — vertical over the bar, fully straight.</p>
+          <div class="cues"><h4>Form Cues</h4><ul>
+            <li>Push the bar away as you swing up from support</li>
+            <li>Body in hollow — don't arch as you push</li>
+            <li>Shoulders open at the top, fully extended</li>
+            <li>Arrive in handstand with zero momentum — controlled</li>
+            <li>This takes months to perfect — do not rush it</li>
+          </ul></div>
+        </div>
+        <div class="ecard">
+          <div class="muscle">Giant</div>
+          <h3>Giant Swing</h3>
+          <p>360 degrees around the bar, body straight, in control. The tap timing in the backswing is everything.</p>
+          <div class="cues"><h4>Form Cues</h4><ul>
+            <li>Entry from handstand or cast to handstand</li>
+            <li>Hollow body on the way down — don't arch early</li>
+            <li>Tap at the bottom: arch aggressively then snap to hollow</li>
+            <li>Rise through the front with arms pushing into the bar</li>
+            <li>Arrive back to handstand — same position you started</li>
+          </ul></div>
+        </div>
+        <div class="ecard">
+          <div class="muscle">Dismount</div>
+          <h3>Flyaway</h3>
+          <p>Release at the peak of the backswing, flip, land. The flyaway is the most common high bar dismount and the gateway to advanced release skills.</p>
+          <div class="cues"><h4>Form Cues</h4><ul>
+            <li>Release when the body is at or past horizontal on backswing</li>
+            <li>Open the body and spot the mat immediately on release</li>
+            <li>Tight body shape through the rotation</li>
+            <li>Land with soft knees — absorb the impact</li>
+            <li>Always train with a crash mat and coach until fully confident</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+    <div class="cta">
+      <h2>Swing like a gymnast.</h2>
+      <p style="color:#777; margin-bottom:32px;">10 weeks. Giants, handstands, flyaways — all of it.</p>
+      <a class="buy-btn" href="#" style="display:inline-block; max-width:300px; margin:0 auto;">Get This Program — $35</a>
+    </div>
+    <footer>© 2026 Liam Vanounou. All rights reserved.</footer>
+  </body>
+</html>

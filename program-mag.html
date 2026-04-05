@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MAG Conditioning — Liam Vanounou</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { font-family: 'Inter', sans-serif; background: #fff; color: #111; }
+      nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(255,255,255,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #f0f0f0; }
+      nav .logo { font-size: 18px; font-weight: 800; color: #111; text-decoration: none; }
+      nav .logo span { color: #e63946; }
+      nav a { color: #666; text-decoration: none; font-size: 14px; font-weight: 500; margin-left: 32px; }
+      .hero { padding: 140px 48px 64px; display: flex; justify-content: space-between; gap: 60px; border-bottom: 1px solid #f0f0f0; }
+      .hero-left { flex: 1; }
+      .breadcrumb { color: #bbb; font-size: 13px; margin-bottom: 20px; }
+      .breadcrumb a { color: #e63946; text-decoration: none; }
+      .tag { display: inline-block; background: #fff5f5; color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 5px 12px; border-radius: 4px; margin-bottom: 16px; }
+      .hero h1 { font-size: 48px; font-weight: 800; letter-spacing: -2px; margin-bottom: 20px; line-height: 1.05; }
+      .hero p { color: #777; font-size: 16px; line-height: 1.8; max-width: 520px; margin-bottom: 32px; }
+      .meta { display: flex; gap: 40px; flex-wrap: wrap; }
+      .meta-item .label { color: #bbb; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; font-weight: 600; }
+      .meta-item .value { font-size: 15px; font-weight: 700; }
+      .buy-box { background: #fafafa; border: 1px solid #efefef; border-radius: 16px; padding: 32px; width: 280px; flex-shrink: 0; }
+      .price { font-size: 44px; font-weight: 800; letter-spacing: -2px; margin-bottom: 4px; }
+      .price-sub { color: #aaa; font-size: 13px; margin-bottom: 24px; }
+      .buy-btn { display: block; background: #111; color: white; text-align: center; padding: 16px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; margin-bottom: 20px; }
+      .includes p { color: #777; font-size: 13px; margin-bottom: 8px; }
+      .includes p::before { content: '✓ '; color: #4caf50; font-weight: 800; }
+      section { padding: 60px 48px; border-bottom: 1px solid #f0f0f0; }
+      h2 { font-size: 28px; font-weight: 800; letter-spacing: -1px; margin-bottom: 32px; }
+      .eq-list { display: flex; gap: 12px; flex-wrap: wrap; }
+      .eq-item { background: #f5f5f5; border-radius: 8px; padding: 12px 20px; font-size: 14px; font-weight: 500; }
+      .apparatus-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+      .apparatus-card { border: 1px solid #f0f0f0; border-radius: 12px; padding: 24px; }
+      .apparatus-card h3 { font-size: 16px; font-weight: 800; margin-bottom: 8px; }
+      .apparatus-card p { color: #777; font-size: 13px; line-height: 1.5; }
+      .apparatus-card .focus { color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+      .week-block { border: 1px solid #f0f0f0; border-radius: 12px; overflow: hidden; margin-bottom: 12px; }
+      .week-header { display: flex; justify-content: space-between; align-items: center; padding: 20px 28px; cursor: pointer; background: #fff; transition: background 0.2s; }
+      .week-header:hover { background: #fafafa; }
+      .week-header h3 { font-size: 16px; font-weight: 700; }
+      .week-header .toggle { color: #e63946; font-size: 20px; font-weight: 700; line-height: 1; }
+      .week-body { display: none; padding: 0 28px 24px; }
+      .week-body.open { display: block; }
+      .day { margin-bottom: 20px; }
+      .day h4 { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #999; margin-bottom: 12px; }
+      .ex-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #f8f8f8; }
+      .ex-row:last-child { border-bottom: none; }
+      .ex-name { font-size: 14px; font-weight: 600; }
+      .ex-sets { font-size: 13px; color: #999; }
+      .ecards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .ecard { border: 1px solid #f0f0f0; border-radius: 12px; padding: 28px; }
+      .ecard .muscle { color: #e63946; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+      .ecard h3 { font-size: 17px; font-weight: 700; margin-bottom: 10px; }
+      .ecard p { color: #777; font-size: 14px; line-height: 1.6; margin-bottom: 14px; }
+      .cues h4 { font-size: 12px; font-weight: 700; color: #999; margin-bottom: 10px; text-transform: uppercase; }
+      .cues ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+      .cues ul li { font-size: 13px; color: #666; padding-left: 16px; position: relative; line-height: 1.5; }
+      .cues ul li::before { content: '→'; position: absolute; left: 0; color: #e63946; font-weight: 700; }
+      .cta { text-align: center; padding: 80px 48px; border-bottom: none; }
+      footer { text-align: center; padding: 32px; color: #ccc; font-size: 13px; border-top: 1px solid #f0f0f0; }
+      @media (max-width: 768px) { nav { padding: 16px 24px; } .hero { flex-direction: column; padding: 100px 24px 48px; } .hero h1 { font-size: 36px; } .buy-box { width: 100%; } section { padding: 40px 24px; } .ecards { grid-template-columns: 1fr; } .apparatus-grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="programs.html">Programs</a>
+        <a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+    </nav>
+    <div class="hero">
+      <div class="hero-left">
+        <div class="breadcrumb"><a href="programs.html">Programs</a> → MAG Conditioning</div>
+        <span class="tag">Sport Specific</span>
+        <h1>MAG Conditioning</h1>
+        <p>Men's Artistic Gymnastics demands strength, power, flexibility, and body awareness across six apparatus. This 12-week program is the off-apparatus conditioning that competitive gymnasts do — built for performance, not aesthetics.</p>
+        <div class="meta">
+          <div class="meta-item"><div class="label">Duration</div><div class="value">12 Weeks</div></div>
+          <div class="meta-item"><div class="label">Level</div><div class="value">Advanced</div></div>
+          <div class="meta-item"><div class="label">Days/Week</div><div class="value">5 Days</div></div>
+          <div class="meta-item"><div class="label">Equipment</div><div class="value">Pull Up Bar + Floor</div></div>
+        </div>
+      </div>
+      <div class="buy-box">
+        <div class="price">$39</div>
+        <div class="price-sub">One-time purchase. Lifetime access.</div>
+        <a class="buy-btn" href="#">Get This Program</a>
+        <div class="includes">
+          <p>12-week full program</p>
+          <p>All 6 apparatus conditioning</p>
+          <p>Explosive power development</p>
+          <p>Flexibility & mobility work</p>
+          <p>Email support from Liam</p>
+        </div>
+      </div>
+    </div>
+    <section>
+      <h2>The Six Apparatus</h2>
+      <p style="color:#777; font-size:15px; margin-bottom:28px; line-height:1.7;">This program conditions you for all six events. Each apparatus demands different physical qualities — this is how gymnasts train for all of them simultaneously.</p>
+      <div class="apparatus-grid">
+        <div class="apparatus-card"><div class="focus">Floor</div><h3>Floor Exercise</h3><p>Explosive tumbling power, body tension, and dynamic flexibility. The most athletic event.</p></div>
+        <div class="apparatus-card"><div class="focus">Pommel Horse</div><h3>Pommel Horse</h3><p>Circular strength, shoulder endurance, and hip mobility. The hardest event in men's gymnastics.</p></div>
+        <div class="apparatus-card"><div class="focus">Rings</div><h3>Rings</h3><p>Straight-arm and bent-arm strength. Shoulder stability. The most demanding upper body apparatus.</p></div>
+        <div class="apparatus-card"><div class="focus">Vault</div><h3>Vault</h3><p>Explosive run speed, block power, and post-flight body awareness. Speed + strength.</p></div>
+        <div class="apparatus-card"><div class="focus">Parallel Bars</div><h3>Parallel Bars</h3><p>Swing, press, and support strength. Full range dips and shoulder flexibility.</p></div>
+        <div class="apparatus-card"><div class="focus">High Bar</div><h3>High Bar</h3><p>Giant swing mechanics, cast handstand, and release skills. Grip strength and swing power.</p></div>
+      </div>
+    </section>
+    <section>
+      <h2>12-Week Program</h2>
+      <p style="color:#777; font-size:15px; margin-bottom:32px; line-height:1.7;">Each 4-week block builds on the previous. Block 1 builds the base, Block 2 adds intensity, Block 3 peaks for competition performance.</p>
+
+      <div class="week-block">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <h3>Block 1 (Week 1–4) — Foundation</h3><span class="toggle">+</span>
+        </div>
+        <div class="week-body">
+          <div class="day"><h4>Day 1 — Push / Floor Power</h4>
+            <div class="ex-row"><span class="ex-name">Hollow body holds</span><span class="ex-sets">4 × 30 sec</span></div>
+            <div class="ex-row"><span class="ex-name">Explosive push ups (clap)</span><span class="ex-sets">4 × 8</span></div>
+            <div class="ex-row"><span class="ex-name">Handstand kick ups</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Broad jump</span><span class="ex-sets">5 × 3</span></div>
+          </div>
+          <div class="day"><h4>Day 2 — Pull / Rings Base</h4>
+            <div class="ex-row"><span class="ex-name">Pull ups (slow tempo)</span><span class="ex-sets">5 × 6</span></div>
+            <div class="ex-row"><span class="ex-name">Ring support holds</span><span class="ex-sets">5 × 20 sec</span></div>
+            <div class="ex-row"><span class="ex-name">Ring rows</span><span class="ex-sets">4 × 8</span></div>
+            <div class="ex-row"><span class="ex-name">L-sit hold</span><span class="ex-sets">4 × 10 sec</span></div>
+          </div>
+          <div class="day"><h4>Day 3 — Flexibility</h4>
+            <div class="ex-row"><span class="ex-name">Front split work</span><span class="ex-sets">4 × 60 sec each side</span></div>
+            <div class="ex-row"><span class="ex-name">Bridge holds</span><span class="ex-sets">4 × 30 sec</span></div>
+            <div class="ex-row"><span class="ex-name">Shoulder dislocates</span><span class="ex-sets">3 × 10</span></div>
+            <div class="ex-row"><span class="ex-name">Middle split active stretch</span><span class="ex-sets">4 × 60 sec</span></div>
+          </div>
+          <div class="day"><h4>Day 4 — Pommel / Hip Circles</h4>
+            <div class="ex-row"><span class="ex-name">Support holds on parallettes</span><span class="ex-sets">5 × 20 sec</span></div>
+            <div class="ex-row"><span class="ex-name">Hip circle swings (lying)</span><span class="ex-sets">3 × 10 each direction</span></div>
+            <div class="ex-row"><span class="ex-name">Parallette dips</span><span class="ex-sets">4 × 8</span></div>
+            <div class="ex-row"><span class="ex-name">Wrist conditioning</span><span class="ex-sets">5 min</span></div>
+          </div>
+          <div class="day"><h4>Day 5 — Power / High Bar</h4>
+            <div class="ex-row"><span class="ex-name">Kip swings</span><span class="ex-sets">5 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Vertical jumps</span><span class="ex-sets">5 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Tuck jumps</span><span class="ex-sets">4 × 8</span></div>
+            <div class="ex-row"><span class="ex-name">Cast to horizontal</span><span class="ex-sets">4 × 5</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <h3>Block 2 (Week 5–8) — Intensity</h3><span class="toggle">+</span>
+        </div>
+        <div class="week-body">
+          <div class="day"><h4>Day 1 — Explosive Power</h4>
+            <div class="ex-row"><span class="ex-name">Plyo push ups</span><span class="ex-sets">5 × 8</span></div>
+            <div class="ex-row"><span class="ex-name">Depth jumps</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Handstand push ups</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Back extension rolls</span><span class="ex-sets">4 × 6</span></div>
+          </div>
+          <div class="day"><h4>Day 2 — Rings Strength</h4>
+            <div class="ex-row"><span class="ex-name">Ring dips</span><span class="ex-sets">5 × 6</span></div>
+            <div class="ex-row"><span class="ex-name">Ring pull ups (weighted)</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Skin the cat</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">L-sit to V-sit</span><span class="ex-sets">4 × 5</span></div>
+          </div>
+          <div class="day"><h4>Day 3 — Active Flexibility</h4>
+            <div class="ex-row"><span class="ex-name">Active front split holds</span><span class="ex-sets">4 × 30 sec each</span></div>
+            <div class="ex-row"><span class="ex-name">Bridge push ups</span><span class="ex-sets">4 × 6</span></div>
+            <div class="ex-row"><span class="ex-name">Shoulder dislocates (loaded)</span><span class="ex-sets">3 × 8</span></div>
+            <div class="ex-row"><span class="ex-name">Pike stretch hold</span><span class="ex-sets">4 × 60 sec</span></div>
+          </div>
+          <div class="day"><h4>Day 4 — P-Bar & Pommel</h4>
+            <div class="ex-row"><span class="ex-name">Parallel bar swings</span><span class="ex-sets">5 × 10</span></div>
+            <div class="ex-row"><span class="ex-name">P-bar dips (full range)</span><span class="ex-sets">5 × 6</span></div>
+            <div class="ex-row"><span class="ex-name">Pommel circle entry drills</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Support hold endurance</span><span class="ex-sets">3 × 40 sec</span></div>
+          </div>
+          <div class="day"><h4>Day 5 — High Bar & Vault</h4>
+            <div class="ex-row"><span class="ex-name">Cast to handstand attempts</span><span class="ex-sets">5 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Hurdle step practice</span><span class="ex-sets">4 × 10</span></div>
+            <div class="ex-row"><span class="ex-name">Block jumps (table / plyobox)</span><span class="ex-sets">5 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Sprint starts</span><span class="ex-sets">6 × 20m</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="week-block">
+        <div class="week-header" onclick="toggleWeek(this)">
+          <h3>Block 3 (Week 9–12) — Competition Peak</h3><span class="toggle">+</span>
+        </div>
+        <div class="week-body">
+          <div class="day"><h4>Day 1 — Max Power</h4>
+            <div class="ex-row"><span class="ex-name">Weighted explosive push ups</span><span class="ex-sets">5 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Depth jumps to box</span><span class="ex-sets">4 × 4</span></div>
+            <div class="ex-row"><span class="ex-name">Handstand to back roll</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Full turns on floor</span><span class="ex-sets">4 × 5</span></div>
+          </div>
+          <div class="day"><h4>Day 2 — Rings Peak</h4>
+            <div class="ex-row"><span class="ex-name">Muscle up on rings</span><span class="ex-sets">5 × max</span></div>
+            <div class="ex-row"><span class="ex-name">Back lever hold</span><span class="ex-sets">4 × 10 sec</span></div>
+            <div class="ex-row"><span class="ex-name">Ring dips (weighted)</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">L-sit hold (max)</span><span class="ex-sets">3 × max</span></div>
+          </div>
+          <div class="day"><h4>Day 3 — Taper Flexibility</h4>
+            <div class="ex-row"><span class="ex-name">Full split holds</span><span class="ex-sets">3 × 60 sec each</span></div>
+            <div class="ex-row"><span class="ex-name">Bridge holds</span><span class="ex-sets">3 × 30 sec</span></div>
+            <div class="ex-row"><span class="ex-name">Shoulder active mobility</span><span class="ex-sets">10 min</span></div>
+            <div class="ex-row"><span class="ex-name">Hip flexor release</span><span class="ex-sets">3 × 60 sec each</span></div>
+          </div>
+          <div class="day"><h4>Day 4 — Apparatus Sim</h4>
+            <div class="ex-row"><span class="ex-name">Pommel endurance set</span><span class="ex-sets">4 × 30 sec support</span></div>
+            <div class="ex-row"><span class="ex-name">P-bar full routine conditioning</span><span class="ex-sets">4 × routine</span></div>
+            <div class="ex-row"><span class="ex-name">Giant swings</span><span class="ex-sets">4 × 5</span></div>
+            <div class="ex-row"><span class="ex-name">Active recovery</span><span class="ex-sets">10 min</span></div>
+          </div>
+          <div class="day"><h4>Day 5 — Full Body Peak</h4>
+            <div class="ex-row"><span class="ex-name">Vault approach runs</span><span class="ex-sets">6 × full approach</span></div>
+            <div class="ex-row"><span class="ex-name">Floor tumbling conditioning</span><span class="ex-sets">4 × 3 passes</span></div>
+            <div class="ex-row"><span class="ex-name">Wrist + shoulder maintenance</span><span class="ex-sets">10 min</span></div>
+            <div class="ex-row"><span class="ex-name">Ice bath / contrast shower</span><span class="ex-sets">Recovery protocol</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <h2>What Makes This Program Different</h2>
+      <div class="ecards">
+        <div class="ecard">
+          <div class="muscle">Method</div>
+          <h3>Periodized Training</h3>
+          <p>12 weeks broken into 3 blocks. Each block has a different goal — build, intensify, peak. This is how real gymnasts train for competition.</p>
+          <div class="cues"><h4>Why It Matters</h4><ul>
+            <li>Random training plateaus fast — structured blocks don't</li>
+            <li>Block 1 prepares your body to handle Block 2 intensity</li>
+            <li>Block 3 tapers volume while keeping intensity high</li>
+            <li>Arrive at competition in your best shape</li>
+            <li>Same system used at the national level</li>
+          </ul></div>
+        </div>
+        <div class="ecard">
+          <div class="muscle">Training</div>
+          <h3>Apparatus-Specific</h3>
+          <p>Most fitness programs train general strength. This program trains the exact qualities each apparatus demands. Specificity is the point.</p>
+          <div class="cues"><h4>Why It Matters</h4><ul>
+            <li>Pommel demands different endurance than rings</li>
+            <li>Vault needs explosive power, not slow strength</li>
+            <li>High bar needs swing strength, not raw pull</li>
+            <li>Floor needs tumbling power and body tension</li>
+            <li>This program trains all of them correctly</li>
+          </ul></div>
+        </div>
+        <div class="ecard">
+          <div class="muscle">Recovery</div>
+          <h3>Flexibility Built In</h3>
+          <p>Every week has a dedicated flexibility day. Not an afterthought — the flexibility work is programmed, progressive, and sport-specific.</p>
+          <div class="cues"><h4>Why It Matters</h4><ul>
+            <li>Tight gymnasts get injured and score lower</li>
+            <li>Shoulder flexibility is critical for rings and high bar</li>
+            <li>Hip flexibility affects floor and pommel directly</li>
+            <li>Progressive loading applies to flexibility too</li>
+            <li>You'll gain range you've been missing</li>
+          </ul></div>
+        </div>
+        <div class="ecard">
+          <div class="muscle">Experience</div>
+          <h3>Coached by a Gymnast</h3>
+          <p>This isn't built from fitness research — it's built from years of training and competing in MAG at a national level.</p>
+          <div class="cues"><h4>Why It Matters</h4><ul>
+            <li>Every drill has been done by Liam himself</li>
+            <li>The cues are from real coaching, not YouTube</li>
+            <li>The progressions are battle-tested in real training</li>
+            <li>Email support included — ask Liam directly</li>
+            <li>No filler exercises — everything here has a reason</li>
+          </ul></div>
+        </div>
+      </div>
+    </section>
+    <div class="cta">
+      <h2>Train like a gymnast.</h2>
+      <p style="color:#777; margin-bottom:32px;">12 weeks. All six apparatus. Built for competition.</p>
+      <a class="buy-btn" href="#" style="display:inline-block; max-width:300px; margin:0 auto;">Get This Program — $39</a>
+    </div>
+    <footer>© 2026 Liam Vanounou. All rights reserved.</footer>
+    <script>
+      function toggleWeek(el) {
+        const body = el.nextElementSibling;
+        const toggle = el.querySelector('.toggle');
+        body.classList.toggle('open');
+        toggle.textContent = body.classList.contains('open') ? '−' : '+';
+      }
+    </script>
+  </body>
+</html>
