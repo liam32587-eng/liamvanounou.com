@@ -1,592 +1,511 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>1-on-1 Online Coaching — Liam Vanounou</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Train 1-on-1 with Liam Vanounou — National Gymnast. Custom programming, weekly check-ins, video form review. Limited to 5 spots.">
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      html { scroll-behavior: smooth; }
-      body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #f0ede8; overflow-x: hidden; }
+<head>
+  <title>1-on-1 Coaching — Liam Vanounou</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Train 1-on-1 with a national gymnast. Custom programming, weekly check-ins, video form review. Limited to 5 founding members.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #f0ede8; overflow-x: hidden; }
 
-      /* OVERLAY + SIDE MENU */
-      .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-      .overlay.open { opacity: 1; pointer-events: all; }
-      .sidemenu { position: fixed; top: 0; right: -360px; bottom: 0; width: 320px; background: #111; z-index: 300; padding: 60px 40px; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
-      .sidemenu.open { right: 0; }
-      .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #555; font-size: 24px; transition: color 0.2s; }
-      .sidemenu-close:hover { color: white; }
-      .sidemenu-logo { font-size: 16px; font-weight: 700; color: white; margin-bottom: 48px; }
-      .sidemenu-logo span { color: #e63946; }
-      .sidemenu nav { display: flex; flex-direction: column; gap: 4px; flex: 1; }
-      .sidemenu nav a { color: #555; text-decoration: none; font-size: 32px; font-weight: 700; padding: 10px 0; transition: color 0.2s; border-bottom: 1px solid #1e1e1e; letter-spacing: -1px; }
-      .sidemenu nav a:hover { color: white; }
-      .sidemenu nav a.coaching-link { color: #e63946; }
-      .sidemenu nav a.coaching-link:hover { color: #ff6b75; }
-      .sidemenu-footer { color: #333; font-size: 13px; margin-top: 40px; }
+    #progress { position: fixed; top: 0; left: 0; height: 2px; background: #e63946; z-index: 9999; width: 0; transition: width 0.08s linear; }
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
 
-      /* TOP NAV */
-      .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 20px 48px; background: rgba(15,15,15,0.95); backdrop-filter: blur(12px); border-bottom: 1px solid #1e1e1e; transition: padding 0.3s; }
-      .topnav .logo { font-size: 18px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px; }
-      .topnav .logo span { color: #e63946; }
-      .topnav-links { display: flex; align-items: center; gap: 32px; }
-      .topnav-links a { color: #666; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
-      .topnav-links a:hover { color: white; }
-      .topnav-links a.coaching-link { color: #e63946; font-weight: 700; }
-      .topnav-links a.coaching-link:hover { color: #ff6b75; }
-      .menu-btn { background: none; border: 1px solid #2a2a2a; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 8px 10px; transition: border-color 0.2s; }
-      .menu-btn:hover { border-color: #666; }
-      .menu-btn span { width: 18px; height: 1.5px; background: #aaa; border-radius: 2px; display: block; }
+    /* OVERLAY + SIDE MENU */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .sidemenu { position: fixed; top: 0; right: -360px; bottom: 0; width: 320px; background: #111; z-index: 300; padding: 60px 40px; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; border-left: 1px solid #1a1a1a; }
+    .sidemenu.open { right: 0; }
+    .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #444; font-size: 22px; transition: color 0.2s; }
+    .sidemenu-close:hover { color: white; }
+    .sidemenu-logo { font-size: 16px; font-weight: 700; color: white; margin-bottom: 48px; letter-spacing: -0.5px; }
+    .sidemenu-logo span { color: #e63946; }
+    .sidemenu nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .sidemenu nav a { color: #444; text-decoration: none; font-size: 34px; font-weight: 800; padding: 12px 0; transition: color 0.2s; border-bottom: 1px solid #1a1a1a; letter-spacing: -1.5px; }
+    .sidemenu nav a:hover { color: white; }
+    .sidemenu nav a.coaching-link { color: #e63946; }
+    .sidemenu-footer { color: #2a2a2a; font-size: 13px; margin-top: 40px; }
 
-      /* HERO */
-      .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 48px 80px; position: relative; overflow: hidden; }
-      .hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 700px; height: 700px; background: radial-gradient(circle, rgba(230,57,70,0.12) 0%, transparent 65%); pointer-events: none; }
-      .hero::after { content: ''; position: absolute; bottom: -100px; left: -100px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(230,57,70,0.06) 0%, transparent 65%); pointer-events: none; }
-      .hero-inner { display: flex; align-items: flex-start; gap: 80px; max-width: 1200px; width: 100%; }
-      .hero-text { flex: 1; }
-      .hero-eyebrow { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 24px; }
-      .hero-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: #e63946; }
-      .hero-text h1 { font-size: 76px; font-weight: 800; line-height: 0.95; letter-spacing: -4px; margin-bottom: 28px; color: white; }
-      .hero-text h1 em { font-style: normal; color: #e63946; }
-      .hero-text p { font-size: 18px; color: #888; line-height: 1.8; max-width: 500px; margin-bottom: 44px; }
-      .hero-tags { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 48px; }
-      .hero-tag { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #999; padding: 8px 16px; border-radius: 100px; font-size: 12px; font-weight: 500; }
-      .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; }
-      .btn-primary { background: #e63946; color: white; padding: 18px 40px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 700; transition: background 0.2s, transform 0.2s; letter-spacing: 0.2px; display: inline-block; }
-      .btn-primary:hover { background: #c1121f; transform: translateY(-2px); }
-      .btn-ghost-white { color: #aaa; font-size: 14px; font-weight: 600; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: color 0.2s, gap 0.2s; }
-      .btn-ghost-white:hover { color: white; gap: 14px; }
-      .hero-aside { flex-shrink: 0; }
+    /* TOP NAV */
+    .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; background: rgba(15,15,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #1a1a1a; }
+    .topnav .logo { font-size: 17px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px; }
+    .topnav .logo span { color: #e63946; }
+    .topnav-links { display: flex; align-items: center; gap: 36px; }
+    .topnav-links a { color: #555; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .topnav-links a:hover { color: #f0ede8; }
+    .topnav-links a.coaching-link { color: #e63946; font-weight: 700; }
+    .menu-btn { background: none; border: 1px solid #222; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 9px 11px; transition: border-color 0.2s; }
+    .menu-btn:hover { border-color: #444; }
+    .menu-btn span { width: 18px; height: 1.5px; background: #888; border-radius: 2px; display: block; }
 
-      /* STICKY BUY BOX */
-      .buy-box { background: #161616; border: 1px solid #2a2a2a; border-radius: 20px; padding: 36px; width: 300px; position: sticky; top: 100px; }
-      .buy-box-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); color: #e63946; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 6px 12px; border-radius: 100px; margin-bottom: 20px; }
-      .buy-box-badge::before { content: ''; width: 6px; height: 6px; background: #e63946; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
-      @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-      .buy-box-price { margin-bottom: 6px; }
-      .buy-box-price .founding { font-size: 11px; font-weight: 700; color: #e63946; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
-      .buy-box-price .amount { font-size: 52px; font-weight: 800; letter-spacing: -3px; color: white; line-height: 1; }
-      .buy-box-price .period { font-size: 14px; color: #555; font-weight: 500; }
-      .buy-box-renewal { color: #555; font-size: 12px; margin-bottom: 28px; line-height: 1.5; }
-      .buy-box-renewal span { color: #888; }
-      .buy-box-btn { display: block; background: #e63946; color: white; text-align: center; padding: 16px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; margin-bottom: 16px; transition: background 0.2s, transform 0.2s; }
-      .buy-box-btn:hover { background: #c1121f; transform: translateY(-2px); }
-      .buy-box-spots { text-align: center; font-size: 12px; color: #666; margin-bottom: 24px; }
-      .buy-box-spots strong { color: #e63946; }
-      .buy-box-divider { border: none; border-top: 1px solid #1e1e1e; margin-bottom: 20px; }
-      .buy-box-includes { display: flex; flex-direction: column; gap: 10px; }
-      .buy-box-includes li { list-style: none; font-size: 13px; color: #888; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5; }
-      .buy-box-includes li::before { content: '✓'; color: #e63946; font-weight: 800; flex-shrink: 0; }
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 140px 52px 100px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 800px; height: 800px; background: radial-gradient(circle, rgba(230,57,70,0.1) 0%, transparent 60%); pointer-events: none; }
+    .hero-inner { max-width: 760px; position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #e63946; margin-bottom: 28px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: #e63946; }
+    .hero-inner h1 { font-size: 80px; font-weight: 900; line-height: 0.95; letter-spacing: -4px; margin-bottom: 28px; color: white; }
+    .hero-inner h1 em { font-style: normal; color: #e63946; }
+    .hero-sub { font-size: 18px; color: #555; line-height: 1.8; max-width: 560px; margin-bottom: 48px; }
+    .hero-price-line { display: flex; align-items: center; gap: 24px; flex-wrap: wrap; margin-bottom: 40px; }
+    .price-badge { background: rgba(230,57,70,0.12); border: 1px solid rgba(230,57,70,0.25); border-radius: 100px; padding: 8px 18px; font-size: 13px; font-weight: 700; color: #e63946; display: flex; align-items: center; gap: 6px; }
+    .price-badge::before { content: ''; width: 6px; height: 6px; background: #e63946; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .price-text { font-size: 16px; color: #444; }
+    .price-text strong { color: #f0ede8; }
+    .btn-primary { background: #e63946; color: white; padding: 18px 44px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 700; transition: background 0.2s, transform 0.15s; letter-spacing: 0.2px; display: inline-block; }
+    .btn-primary:hover { background: #c1121f; transform: translateY(-2px); }
 
-      /* SECTION BASE */
-      .section { padding: 100px 48px; }
-      .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-      .section-label::before { content: ''; display: block; width: 16px; height: 2px; background: #e63946; }
-      .section-heading { font-size: 48px; font-weight: 800; letter-spacing: -2.5px; margin-bottom: 16px; line-height: 1.0; color: white; }
-      .section-sub { color: #777; font-size: 16px; line-height: 1.8; max-width: 520px; }
+    /* SECTION BASE */
+    .section { padding: 100px 52px; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #e63946; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .section-label::before { content: ''; display: block; width: 16px; height: 2px; background: #e63946; }
+    .section-heading { font-size: 48px; font-weight: 800; letter-spacing: -2.5px; line-height: 1.0; color: white; margin-bottom: 16px; }
+    .section-sub { color: #555; font-size: 16px; line-height: 1.8; max-width: 560px; }
 
-      /* WHAT'S INCLUDED */
-      .includes-section { background: #111; }
-      .includes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; border: 1px solid #1e1e1e; border-radius: 16px; overflow: hidden; }
-      .include-item { background: #161616; padding: 40px 36px; transition: background 0.2s; }
-      .include-item:hover { background: #1a1a1a; }
-      .include-icon { font-size: 28px; margin-bottom: 16px; display: block; }
-      .include-item h3 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 10px; letter-spacing: -0.3px; }
-      .include-item p { color: #666; font-size: 14px; line-height: 1.65; }
+    /* WHO IT'S FOR */
+    .for-section { background: #0f0f0f; }
+    .for-text { font-size: 22px; color: #555; line-height: 1.8; max-width: 680px; margin-top: 32px; }
+    .for-text strong { color: #f0ede8; }
 
-      /* WHO IT'S FOR */
-      .for-section { background: #0f0f0f; }
-      .for-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-top: 64px; }
-      .for-col h3 { font-size: 20px; font-weight: 700; color: white; margin-bottom: 24px; letter-spacing: -0.5px; }
-      .for-list { display: flex; flex-direction: column; gap: 14px; }
-      .for-item { display: flex; align-items: flex-start; gap: 14px; padding: 20px 24px; background: #111; border: 1px solid #1e1e1e; border-radius: 12px; transition: border-color 0.2s; }
-      .for-item:hover { border-color: #2a2a2a; }
-      .for-check { width: 22px; height: 22px; background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; font-size: 10px; color: #e63946; font-weight: 800; }
-      .for-item p { color: #888; font-size: 14px; line-height: 1.6; }
-      .not-for-item .for-check { background: rgba(255,255,255,0.04); border-color: #2a2a2a; color: #444; }
-      .not-for-item p { color: #555; }
+    /* WHAT'S INCLUDED */
+    .includes-section { background: #111; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+    .includes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 64px; border: 1px solid #1e1e1e; border-radius: 16px; overflow: hidden; }
+    .include-item { background: #161616; padding: 40px 36px; transition: background 0.2s; }
+    .include-item:hover { background: #1a1a1a; }
+    .include-num { font-size: 56px; font-weight: 900; color: rgba(230,57,70,0.15); letter-spacing: -3px; line-height: 1; margin-bottom: 12px; display: block; }
+    .include-item h3 { font-size: 16px; font-weight: 700; color: white; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .include-item p { color: #555; font-size: 14px; line-height: 1.65; }
 
-      /* PRICING */
-      .pricing-section { background: #111; }
-      .pricing-card { background: #161616; border: 1px solid #2a2a2a; border-radius: 24px; padding: 64px; display: flex; gap: 80px; align-items: flex-start; margin-top: 64px; position: relative; overflow: hidden; }
-      .pricing-card::before { content: ''; position: absolute; top: -80px; right: -80px; width: 400px; height: 400px; background: radial-gradient(circle, rgba(230,57,70,0.1) 0%, transparent 65%); pointer-events: none; }
-      .pricing-left { flex: 1; }
-      .pricing-badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(230,57,70,0.15); border: 1px solid rgba(230,57,70,0.3); color: #e63946; font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; padding: 7px 14px; border-radius: 100px; margin-bottom: 28px; }
-      .pricing-badge::before { content: ''; width: 6px; height: 6px; background: #e63946; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
-      .pricing-left h2 { font-size: 52px; font-weight: 800; letter-spacing: -3px; color: white; line-height: 1; margin-bottom: 8px; }
-      .pricing-left h2 em { font-style: normal; color: #e63946; }
-      .pricing-left .price-period { color: #555; font-size: 16px; margin-bottom: 20px; }
-      .pricing-left .renewal-note { color: #666; font-size: 14px; line-height: 1.7; margin-bottom: 36px; padding: 16px 20px; background: rgba(255,255,255,0.03); border: 1px solid #1e1e1e; border-radius: 10px; }
-      .pricing-left .renewal-note strong { color: #aaa; }
-      .pricing-spots { display: flex; align-items: center; gap: 12px; margin-bottom: 36px; }
-      .spots-dots { display: flex; gap: 6px; }
-      .spot-dot { width: 10px; height: 10px; background: #e63946; border-radius: 50%; }
-      .spot-dot.empty { background: #2a2a2a; }
-      .pricing-spots span { font-size: 13px; color: #666; }
-      .pricing-spots strong { color: #e63946; }
-      .pricing-right { flex-shrink: 0; width: 280px; }
-      .pricing-right h3 { font-size: 14px; font-weight: 700; color: #555; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 20px; }
-      .pricing-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
-      .pricing-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14px; color: #888; line-height: 1.5; }
-      .pricing-feature::before { content: '✓'; color: #e63946; font-weight: 800; flex-shrink: 0; }
-      .pricing-cta { display: block; background: #e63946; color: white; text-align: center; padding: 18px; border-radius: 10px; font-size: 15px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.2s; margin-bottom: 12px; }
-      .pricing-cta:hover { background: #c1121f; transform: translateY(-2px); }
-      .pricing-cta-note { text-align: center; font-size: 12px; color: #555; }
+    /* RIGHT FOR YOU */
+    .fit-section { background: #0f0f0f; }
+    .fit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 56px; }
+    .fit-card { border-radius: 16px; padding: 36px 32px; }
+    .fit-card.yes { background: #111; border: 1px solid #1e1e1e; }
+    .fit-card.no { background: rgba(255,255,255,0.02); border: 1px solid #1a1a1a; }
+    .fit-card-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
+    .fit-card.yes .fit-card-label { color: #e63946; }
+    .fit-card.no .fit-card-label { color: #333; }
+    .fit-card-label::before { content: ''; display: block; width: 8px; height: 8px; border-radius: 50%; }
+    .fit-card.yes .fit-card-label::before { background: #e63946; }
+    .fit-card.no .fit-card-label::before { background: #333; }
+    .fit-list { display: flex; flex-direction: column; gap: 14px; }
+    .fit-item { font-size: 15px; line-height: 1.6; display: flex; gap: 12px; align-items: flex-start; }
+    .fit-card.yes .fit-item { color: #888; }
+    .fit-card.no .fit-item { color: #333; }
+    .fit-item::before { flex-shrink: 0; margin-top: 2px; }
+    .fit-card.yes .fit-item::before { content: '✓'; color: #e63946; font-weight: 800; }
+    .fit-card.no .fit-item::before { content: '×'; color: #2a2a2a; font-weight: 800; }
 
-      /* APPLICATION FORM */
-      .application-section { background: #0f0f0f; }
-      .form-wrapper { max-width: 680px; margin: 64px auto 0; }
-      .form-intro { background: #111; border: 1px solid #1e1e1e; border-radius: 16px; padding: 32px; margin-bottom: 32px; display: flex; gap: 20px; align-items: flex-start; }
-      .form-intro-icon { font-size: 28px; flex-shrink: 0; }
-      .form-intro h3 { font-size: 17px; font-weight: 700; color: white; margin-bottom: 6px; }
-      .form-intro p { color: #666; font-size: 14px; line-height: 1.7; }
-      .application-form { display: flex; flex-direction: column; gap: 16px; }
-      .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-      .form-group { display: flex; flex-direction: column; gap: 6px; }
-      .form-group label { font-size: 12px; font-weight: 700; color: #555; letter-spacing: 0.5px; text-transform: uppercase; }
-      .form-group input,
-      .form-group select,
-      .form-group textarea { border: 1px solid #1e1e1e; border-radius: 10px; padding: 14px 16px; font-size: 14px; font-family: 'Inter', sans-serif; color: white; background: #111; transition: border-color 0.2s; -webkit-appearance: none; }
-      .form-group input:focus,
-      .form-group select:focus,
-      .form-group textarea:focus { outline: none; border-color: #e63946; background: #161616; }
-      .form-group input::placeholder,
-      .form-group textarea::placeholder { color: #333; }
-      .form-group select option { background: #1a1a1a; color: white; }
-      .form-group textarea { resize: vertical; }
-      .form-radio-group { display: flex; gap: 16px; }
-      .form-radio { display: flex; align-items: center; gap: 8px; cursor: pointer; }
-      .form-radio input[type="radio"] { width: 16px; height: 16px; accent-color: #e63946; cursor: pointer; }
-      .form-radio span { font-size: 14px; color: #888; }
-      .form-submit { background: #e63946; color: white; border: none; padding: 18px; border-radius: 10px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s, transform 0.2s; letter-spacing: 0.2px; margin-top: 8px; }
-      .form-submit:hover { background: #c1121f; transform: translateY(-2px); }
-      .form-note { text-align: center; font-size: 12px; color: #444; margin-top: 8px; }
+    /* PRICING */
+    .pricing-section { background: #111; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+    .pricing-box { max-width: 580px; margin-top: 56px; background: #161616; border: 1px solid #222; border-radius: 20px; padding: 52px; }
+    .founding-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(230,57,70,0.12); border: 1px solid rgba(230,57,70,0.25); color: #e63946; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; padding: 8px 16px; border-radius: 100px; margin-bottom: 28px; }
+    .founding-badge::before { content: ''; width: 6px; height: 6px; background: #e63946; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+    .price-main { margin-bottom: 6px; }
+    .price-founding-label { font-size: 11px; font-weight: 700; color: #e63946; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
+    .price-amount { font-size: 72px; font-weight: 900; letter-spacing: -4px; color: white; line-height: 1; }
+    .price-amount span { font-size: 18px; color: #444; font-weight: 500; letter-spacing: 0; }
+    .price-renewal { color: #444; font-size: 14px; margin-top: 8px; margin-bottom: 28px; line-height: 1.6; }
+    .price-renewal strong { color: #666; }
+    .spots-line { font-size: 13px; color: #444; margin-bottom: 32px; }
+    .spots-line strong { color: #e63946; }
+    .pricing-btn { display: block; background: #e63946; color: white; text-align: center; padding: 18px; border-radius: 8px; font-size: 16px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; margin-bottom: 20px; }
+    .pricing-btn:hover { background: #c1121f; transform: translateY(-2px); }
+    .pricing-divider { border: none; border-top: 1px solid #1e1e1e; margin: 24px 0; }
+    .pricing-includes { display: flex; flex-direction: column; gap: 10px; }
+    .pricing-includes li { list-style: none; font-size: 13px; color: #555; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+    .pricing-includes li::before { content: '✓'; color: #e63946; font-weight: 800; flex-shrink: 0; }
 
-      /* TESTIMONIALS */
-      .testimonials-section { background: #111; }
-      .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
-      .testimonial-card { background: #161616; border-radius: 14px; padding: 32px; border: 1px solid #1e1e1e; transition: border-color 0.2s; }
-      .testimonial-card:hover { border-color: #2a2a2a; }
-      .stars { color: #e63946; font-size: 14px; margin-bottom: 16px; letter-spacing: 2px; }
-      .testimonial-card p { color: #777; font-size: 15px; line-height: 1.75; margin-bottom: 24px; }
-      .testimonial-author { font-size: 13px; font-weight: 700; color: white; }
-      .testimonial-role { font-size: 12px; color: #444; margin-top: 2px; }
+    /* APPLICATION FORM */
+    .apply-section { background: #0f0f0f; }
+    .apply-form { max-width: 640px; margin-top: 56px; display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .apply-form input,
+    .apply-form select,
+    .apply-form textarea { background: #111; border: 1px solid #1e1e1e; border-radius: 8px; padding: 15px 18px; font-size: 14px; font-family: 'Inter', sans-serif; color: #f0ede8; transition: border-color 0.2s; width: 100%; }
+    .apply-form input:focus,
+    .apply-form select:focus,
+    .apply-form textarea:focus { outline: none; border-color: #e63946; }
+    .apply-form input::placeholder,
+    .apply-form textarea::placeholder { color: #333; }
+    .apply-form select { appearance: none; cursor: pointer; color: #f0ede8; }
+    .apply-form select option { background: #111; }
+    .apply-form textarea { resize: vertical; min-height: 100px; }
+    .apply-submit { background: #e63946; color: white; border: none; padding: 18px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s, transform 0.15s; margin-top: 8px; }
+    .apply-submit:hover { background: #c1121f; transform: translateY(-2px); }
+    .apply-note { font-size: 13px; color: #333; margin-top: 12px; line-height: 1.6; }
+    .form-success { display: none; background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 36px 32px; margin-top: 16px; }
+    .form-success h3 { font-size: 20px; font-weight: 800; color: white; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .form-success p { color: #555; font-size: 15px; line-height: 1.7; }
 
-      /* FINAL CTA */
-      .final-cta { background: #e63946; padding: 80px 48px; text-align: center; position: relative; overflow: hidden; }
-      .final-cta::before { content: ''; position: absolute; top: -100px; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 65%); pointer-events: none; }
-      .final-cta h2 { font-size: 52px; font-weight: 800; color: white; letter-spacing: -2.5px; line-height: 1.05; margin-bottom: 16px; position: relative; }
-      .final-cta p { color: rgba(255,255,255,0.7); font-size: 17px; line-height: 1.7; max-width: 480px; margin: 0 auto 40px; position: relative; }
-      .btn-white { background: white; color: #e63946; padding: 18px 44px; border-radius: 8px; text-decoration: none; font-size: 15px; font-weight: 700; display: inline-block; transition: transform 0.2s; position: relative; }
-      .btn-white:hover { transform: translateY(-2px); }
-      .final-cta-note { color: rgba(255,255,255,0.5); font-size: 12px; margin-top: 16px; position: relative; }
+    /* FOOTER */
+    footer { padding: 32px 52px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-size: 16px; font-weight: 800; color: #f0ede8; letter-spacing: -0.5px; }
+    .footer-logo span { color: #e63946; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: #333; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-links a:hover { color: #f0ede8; }
+    .footer-copy { color: #2a2a2a; font-size: 13px; }
 
-      /* FOOTER */
-      footer { padding: 32px 48px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; background: #0a0a0a; }
-      .footer-logo { font-size: 16px; font-weight: 800; color: white; letter-spacing: -0.5px; }
-      .footer-logo span { color: #e63946; }
-      .footer-links { display: flex; gap: 24px; }
-      .footer-links a { color: #444; text-decoration: none; font-size: 13px; transition: color 0.2s; }
-      .footer-links a:hover { color: white; }
-      .footer-copy { color: #333; font-size: 13px; }
+    /* SPLIT SECTION */
+    .split-section { background: #111; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+    .split-inner { display: flex; gap: 0; align-items: stretch; }
+    .split-left { flex: 1; padding-right: 64px; }
+    .split-right { flex: 1; padding-left: 64px; display: flex; flex-direction: column; justify-content: center; }
+    .split-divider { width: 1px; background: #222; flex-shrink: 0; }
+    .split-heading { font-size: 30px; font-weight: 800; letter-spacing: -1.2px; color: white; margin-bottom: 40px; line-height: 1.15; }
 
-      /* MOBILE */
-      @media (max-width: 900px) {
-        .topnav { padding: 16px 24px; }
-        .topnav-links .hide-mobile { display: none; }
-        .hero { padding: 100px 24px 60px; }
-        .hero-inner { flex-direction: column; gap: 40px; }
-        .hero-text h1 { font-size: 48px; letter-spacing: -2.5px; }
-        .hero-aside { width: 100%; }
-        .buy-box { width: 100%; position: static; }
-        .section { padding: 60px 24px; }
-        .section-heading { font-size: 34px; letter-spacing: -1.5px; }
-        .includes-grid { grid-template-columns: 1fr; }
-        .for-grid { grid-template-columns: 1fr; }
-        .pricing-card { flex-direction: column; padding: 40px 32px; gap: 40px; }
-        .pricing-left h2 { font-size: 40px; }
-        .pricing-right { width: 100%; }
-        .form-row { grid-template-columns: 1fr; }
-        .testimonials-grid { grid-template-columns: 1fr; }
-        .final-cta { padding: 60px 24px; }
-        .final-cta h2 { font-size: 36px; }
-        footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
-      }
-    </style>
-  </head>
-  <body>
+    /* TIMELINE */
+    .timeline { display: flex; flex-direction: column; }
+    .timeline-item { display: flex; gap: 20px; }
+    .timeline-track { display: flex; flex-direction: column; align-items: center; flex-shrink: 0; }
+    .timeline-dot { width: 12px; height: 12px; border-radius: 50%; background: #e63946; flex-shrink: 0; margin-top: 4px; box-shadow: 0 0 0 3px rgba(230,57,70,0.15); }
+    .timeline-line { width: 2px; flex: 1; background: linear-gradient(to bottom, rgba(230,57,70,0.4), rgba(230,57,70,0.1)); min-height: 32px; }
+    .timeline-item:last-child .timeline-line { display: none; }
+    .timeline-content { padding-bottom: 36px; }
+    .timeline-item:last-child .timeline-content { padding-bottom: 0; }
+    .timeline-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 8px; }
+    .timeline-content p { color: #666; font-size: 15px; line-height: 1.75; }
 
-    <div class="overlay" id="overlay" onclick="closeMenu()"></div>
-    <div class="sidemenu" id="sidemenu">
-      <button class="sidemenu-close" onclick="closeMenu()">✕</button>
-      <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
-      <nav>
-        <a href="index.html" onclick="closeMenu()">Home</a>
-        <a href="index.html#about" onclick="closeMenu()">About</a>
-        <a href="programs.html" onclick="closeMenu()">Programs</a>
-        <a href="coaching.html" class="coaching-link" onclick="closeMenu()">Coaching</a>
-        <a href="index.html#contact" onclick="closeMenu()">Contact</a>
-      </nav>
-      <div class="sidemenu-footer">© 2026 Liam Vanounou</div>
+    /* APPLY PANEL */
+    .split-sub { color: #555; font-size: 16px; line-height: 1.7; margin-bottom: 32px; max-width: 340px; }
+    .split-btn { display: inline-block; font-size: 15px; padding: 18px 44px; margin-bottom: 28px; }
+    .trust-signals { display: flex; flex-direction: column; gap: 10px; }
+    .trust-item { font-size: 13px; color: #333; display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+    .trust-item::before { content: '✓'; color: #e63946; font-weight: 800; flex-shrink: 0; margin-top: 1px; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    /* STAT PILLS */
+    .stat-pills { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 44px; }
+    .stat-pill { background: #141414; border: 1px solid #222; border-radius: 100px; padding: 10px 20px; display: flex; align-items: center; gap: 10px; }
+    .stat-pill.stat-pill-live { border-color: rgba(230,57,70,0.35); background: rgba(230,57,70,0.06); }
+    .stat-n { font-size: 18px; font-weight: 900; color: #e63946; letter-spacing: -0.5px; }
+    .stat-l { font-size: 13px; color: #888; font-weight: 500; }
+    .stat-pill-live .stat-l { color: #e63946; }
+
+    /* 5-FEATURE CARDS */
+    .feat-cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 56px; }
+    .feat-cards-grid .feat-feature-card:nth-child(4) { grid-column: 1; }
+    .feat-cards-grid .feat-feature-card:nth-child(5) { grid-column: 2; }
+    .feat-feature-card { background: #141414; border: 1px solid #1e1e1e; border-radius: 16px; padding: 36px 32px; transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease; }
+    .feat-feature-card:hover { border-color: rgba(230,57,70,0.3); background: #181818; transform: translateY(-4px); }
+    .ffc-icon { font-size: 36px; margin-bottom: 20px; line-height: 1; }
+    .feat-feature-card h3 { font-size: 17px; font-weight: 800; color: white; margin-bottom: 10px; letter-spacing: -0.3px; }
+    .feat-feature-card p { color: #888; font-size: 14px; line-height: 1.7; }
+
+    /* PRICE DISPLAY IN SPLIT */
+    .price-display { background: #141414; border: 1px solid #222; border-radius: 14px; padding: 28px 32px; margin-bottom: 28px; }
+    .price-display .price-founding-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 10px; }
+    .price-display .price-amount { font-size: 56px; font-weight: 900; letter-spacing: -3px; color: white; line-height: 1.05; }
+    .price-display .price-amount span { font-size: 18px; color: #555; font-weight: 500; letter-spacing: 0; }
+    .price-display .price-renewal { color: #666; font-size: 14px; margin-top: 8px; line-height: 1.6; }
+    .price-display .price-renewal strong { color: #999; }
+
+    /* FORM CARD */
+    .apply-form-card { max-width: 680px; margin: 0 auto; background: #111; border: 1px solid #222; border-radius: 20px; padding: 52px; }
+    .field-group { display: flex; flex-direction: column; gap: 8px; }
+    .field-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #e63946; }
+
+    @media (max-width: 960px) {
+      .topnav { padding: 18px 24px; }
+      .topnav-links .hide-mobile { display: none; }
+      .hero { padding: 100px 24px 72px; min-height: auto; }
+      .hero-inner h1 { font-size: 52px; letter-spacing: -3px; }
+      .hero-sub { font-size: 16px; }
+      .section { padding: 64px 24px; }
+      .section-heading { font-size: 36px; letter-spacing: -1.5px; }
+      .feat-cards-grid { grid-template-columns: 1fr; }
+      .feat-cards-grid .feat-feature-card:nth-child(4),
+      .feat-cards-grid .feat-feature-card:nth-child(5) { grid-column: auto; }
+      .form-row { grid-template-columns: 1fr; }
+      .apply-form-card { padding: 32px 24px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 28px 24px; }
+      .split-inner { flex-direction: column; }
+      .split-left { padding-right: 0; padding-bottom: 48px; }
+      .split-right { padding-left: 0; padding-top: 48px; }
+      .split-divider { width: auto; height: 1px; flex-shrink: 0; }
+      .split-heading { font-size: 24px; }
+      .stat-pills { gap: 8px; }
+      .stat-pill { padding: 8px 14px; }
+    }
+  </style>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+
+  <div id="progress"></div>
+
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#noise)" opacity="0.025"/>
+  </svg>
+
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+  <div class="sidemenu" id="sidemenu">
+    <button class="sidemenu-close" onclick="closeMenu()">✕</button>
+    <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+    <nav>
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="programs.html" onclick="closeMenu()">Programs</a>
+      <a href="coaching.html" class="coaching-link active-link" onclick="closeMenu()">1-on-1 Coaching</a>
+      <a href="about.html" onclick="closeMenu()">About</a>
+    </nav>
+    <div class="sidemenu-footer">© 2026 Liam Vanounou</div>
+  </div>
+
+  <header class="topnav">
+    <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+    <div class="topnav-links">
+      <a href="index.html" class="hide-mobile">Home</a>
+      <a href="programs.html" class="hide-mobile">Programs</a>
+      <a href="coaching.html" class="coaching-link hide-mobile active-link">1-on-1 Coaching</a>
+      <a href="about.html" class="hide-mobile">About</a>
+      <button class="menu-btn" onclick="openMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <h1 class="pl-1">Train 1-on-1<br>With <em>Liam.</em></h1>
+      <p class="hero-sub pl-2">You don't need more motivation. You need someone who has actually done it — who can look at how you move and tell you exactly what to fix. That's what this is.</p>
+      <div class="stat-pills pl-3">
+        <div class="stat-pill"><span class="stat-n">15+</span><span class="stat-l">Years Elite</span></div>
+        <div class="stat-pill"><span class="stat-n">3×</span><span class="stat-l">Ontario Champion</span></div>
+        <div class="stat-pill stat-pill-live"><span class="stat-n">5</span><span class="stat-l">Spots Left</span></div>
+      </div>
+      <a class="btn-primary pl-4" href="#apply">Apply for Coaching</a>
+    </div>
+  </section>
+
+  <section class="section includes-section">
+    <div class="section-label reveal">What's Included</div>
+    <h2 class="section-heading reveal reveal-d1">Everything you need.<br>Nothing you don't.</h2>
+    <div class="feat-cards-grid reveal reveal-d2">
+      <div class="feat-feature-card">
+        <div class="ffc-icon">📋</div>
+        <h3>Custom Monthly Program</h3>
+        <p>Built around your goals, your current level, and your schedule. Nothing generic — every session designed for you.</p>
+      </div>
+      <div class="feat-feature-card">
+        <div class="ffc-icon">🎙️</div>
+        <h3>Weekly Voice Note Check-In</h3>
+        <p>Tell me how training is going. I respond personally — with real adjustments, real feedback, and what to focus on next.</p>
+      </div>
+      <div class="feat-feature-card">
+        <div class="ffc-icon">🎥</div>
+        <h3>Video Form Review</h3>
+        <p>Send me clips of your training. I tell you exactly what to fix — the specific cue that unlocks the movement.</p>
+      </div>
+      <div class="feat-feature-card">
+        <div class="ffc-icon">💬</div>
+        <h3>Unlimited Direct Messaging</h3>
+        <p>Questions anytime. I respond within 24 hours. No waiting until a weekly call to get unstuck.</p>
+      </div>
+      <div class="feat-feature-card">
+        <div class="ffc-icon">📚</div>
+        <h3>Full Program Library Access</h3>
+        <p>All 10 digital programs included free. Reference material to supplement your coaching between sessions.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section split-section">
+    <div class="split-inner">
+
+      <!-- LEFT: Progress Timeline -->
+      <div class="split-left">
+        <div class="section-label reveal">Your First 90 Days</div>
+        <h2 class="split-heading reveal reveal-d1">This is what happens when you stop guessing and start training with a plan.</h2>
+        <div class="timeline reveal reveal-d2">
+          <div class="timeline-item">
+            <div class="timeline-track">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-label">Day 1–30 — Foundation</div>
+              <p>Your program is built. Your movement is assessed. Every weak point is identified and targeted. You train with a clear direction for the first time.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-track">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-label">Day 31–60 — Progression</div>
+              <p>Things start clicking. You film your training, I tell you exactly what to fix. Strength is building. Skills are developing. You feel the difference.</p>
+            </div>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-track">
+              <div class="timeline-dot"></div>
+              <div class="timeline-line"></div>
+            </div>
+            <div class="timeline-content">
+              <div class="timeline-label">Day 61–90 — Results</div>
+              <p>You can do things you couldn't do before. Handstands hold. Rings make sense. Your body moves the way you always thought it should. People notice.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Vertical Divider -->
+      <div class="split-divider"></div>
+
+      <!-- RIGHT: Apply CTA -->
+      <div class="split-right">
+        <div class="section-label reveal reveal-d1">Limited Availability</div>
+        <h2 class="split-heading reveal reveal-d2">This Spot Could Be Yours.</h2>
+        <p class="split-sub reveal reveal-d2">Only 5 founding member spots available at the introductory rate. Once they're gone, they're gone.</p>
+        <div class="price-display reveal reveal-d2">
+          <div class="price-founding-label">Founding Member Rate</div>
+          <div class="price-amount">$197<span>/first month</span></div>
+          <div class="price-renewal">Then <strong>$397/month</strong> — founding rate locked for life</div>
+        </div>
+        <a class="btn-primary split-btn reveal reveal-d3" href="#apply">Apply Now</a>
+        <div class="trust-signals reveal reveal-d3">
+          <div class="trust-item">Reviewed personally by Liam within 48 hours</div>
+          <div class="trust-item">No contracts. Cancel anytime.</div>
+          <div class="trust-item">Founding rate locked in for life</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="section apply-section" id="apply">
+    <div style="text-align:center; margin-bottom: 56px;">
+      <div class="section-label reveal" style="justify-content:center;">Apply</div>
+      <h2 class="section-heading reveal reveal-d1">Tell me about yourself.</h2>
+      <p class="section-sub reveal reveal-d2" style="margin:0 auto;">Liam reviews every application personally. Spots are limited. Fill this out honestly — it helps me understand who I'm working with.</p>
     </div>
 
-    <header class="topnav" id="topnav">
-      <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
-      <div class="topnav-links">
-        <a href="index.html#about" class="hide-mobile">About</a>
-        <a href="programs.html" class="hide-mobile">Programs</a>
-        <a href="coaching.html" class="coaching-link hide-mobile">Coaching</a>
-        <a href="index.html#contact" class="hide-mobile">Contact</a>
-        <button class="menu-btn" onclick="openMenu()">
-          <span></span><span></span><span></span>
-        </button>
-      </div>
-    </header>
+    <div class="apply-form-card reveal">
+      <form class="apply-form" id="applyForm" action="https://formspree.io/f/xlgonzrq" method="POST">
+        <input type="hidden" name="form_source" value="coaching_application">
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Full Name</label>
+            <input type="text" name="name" placeholder="Your full name" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Email Address</label>
+            <input type="email" name="email" placeholder="you@email.com" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label">Age</label>
+            <input type="number" name="age" placeholder="Your age" min="13" max="99" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label">Location</label>
+            <input type="text" name="location" placeholder="City / Country" required>
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Current Fitness Level</label>
+          <select name="fitness_level" required>
+            <option value="" disabled selected>Select your level</option>
+            <option value="complete-beginner">Complete Beginner</option>
+            <option value="some-experience">Some Experience</option>
+            <option value="athletic-background">Athletic Background</option>
+            <option value="competitive-athlete">Competitive Athlete</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">What's Your Main Goal?</label>
+          <textarea name="main_goal" placeholder="Be specific. What do you want to be able to do?" rows="3" required></textarea>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Prior Gymnastics or Calisthenics Experience?</label>
+          <select name="prior_experience" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
+          </select>
+        </div>
+        <div class="field-group">
+          <label class="field-label">What's Held You Back So Far?</label>
+          <textarea name="what_held_back" placeholder="What has stopped you from reaching this goal?" rows="3" required></textarea>
+        </div>
+        <div class="field-group">
+          <label class="field-label">Why Do You Want to Work With Liam?</label>
+          <textarea name="why_liam" placeholder="Why specifically? The more honest, the better." rows="3" required></textarea>
+        </div>
+        <div class="field-group">
+          <label class="field-label">How Did You Find Us?</label>
+          <select name="how_found" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="instagram">Instagram</option>
+            <option value="tiktok">TikTok</option>
+            <option value="google">Google</option>
+            <option value="friend">Friend / Word of Mouth</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+        <p class="apply-note" style="text-align:center;">Liam reads every application himself. If it's a good fit, you'll hear back within 48 hours.</p>
+        <button type="submit" class="apply-submit">Send My Application</button>
+      </form>
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-inner">
-        <div class="hero-text">
-          <span class="hero-eyebrow">1-on-1 Online Coaching</span>
-          <h1>Train 1-on-1 With a<br><em>National Gymnast.</em></h1>
-          <p>Learn handstands, ring strength, and calisthenics skills from an elite competitor who has spent 11+ years mastering what your body is capable of.</p>
-          <div class="hero-tags">
-            <span class="hero-tag">Custom Programming</span>
-            <span class="hero-tag">Weekly Check-Ins</span>
-            <span class="hero-tag">Video Form Review</span>
-            <span class="hero-tag">Unlimited Messaging</span>
-          </div>
-          <div class="hero-cta">
-            <a class="btn-primary" href="#apply">Apply for a Spot</a>
-            <a class="btn-ghost-white" href="#whats-included">See what's included →</a>
-          </div>
-        </div>
-        <div class="hero-aside">
-          <div class="buy-box">
-            <div class="buy-box-badge">5 Spots Only — Live</div>
-            <div class="buy-box-price">
-              <div class="founding">Founding Member Rate</div>
-              <div class="amount">$197</div>
-              <div class="period">first month</div>
-            </div>
-            <div class="buy-box-renewal">Then <span>$397/month</span> — cancel anytime.</div>
-            <a class="buy-box-btn" href="#apply">Apply Now — Limited Spots</a>
-            <div class="buy-box-spots"><strong>Only 5 spots</strong> available total.</div>
-            <hr class="buy-box-divider">
-            <ul class="buy-box-includes">
-              <li>Custom monthly training program</li>
-              <li>Weekly check-ins via voice note</li>
-              <li>Video form review with feedback</li>
-              <li>Unlimited messaging access</li>
-              <li>All digital programs included</li>
-            </ul>
-          </div>
-        </div>
+      <div class="form-success" id="formSuccess">
+        <h3>Application received.</h3>
+        <p>Liam reviews every application personally and will be in touch within 48 hours.</p>
       </div>
-    </section>
-
-    <!-- WHAT'S INCLUDED -->
-    <section class="section includes-section" id="whats-included">
-      <div class="section-label">What's Included</div>
-      <h2 class="section-heading">Everything you need<br>to actually progress.</h2>
-      <p class="section-sub">No generic plans. No guessing. Every part of this is built around you, your schedule, and your goals.</p>
-      <div class="includes-grid">
-        <div class="include-item">
-          <span class="include-icon">📋</span>
-          <h3>Custom Monthly Program</h3>
-          <p>A full training plan written specifically for your body, your schedule, and your goal. Rebuilt each month as you progress.</p>
-        </div>
-        <div class="include-item">
-          <span class="include-icon">🎙️</span>
-          <h3>Weekly Check-Ins</h3>
-          <p>Every week we check in via voice note. I'll review your progress, adjust the plan, and answer any questions.</p>
-        </div>
-        <div class="include-item">
-          <span class="include-icon">🎥</span>
-          <h3>Video Form Review</h3>
-          <p>Send me video of your training. I'll give you detailed feedback on technique — the same way a gymnastics coach would.</p>
-        </div>
-        <div class="include-item">
-          <span class="include-icon">💬</span>
-          <h3>Unlimited Messaging</h3>
-          <p>You have direct access to me between sessions. Ask questions, share updates, or get clarity whenever you need it.</p>
-        </div>
-        <div class="include-item">
-          <span class="include-icon">📦</span>
-          <h3>All Digital Programs</h3>
-          <p>Immediate access to all 9 programs in the library — handstands, rings, flexibility, core, and more. Yours to keep.</p>
-        </div>
-        <div class="include-item">
-          <span class="include-icon">🏆</span>
-          <h3>Elite-Level Knowledge</h3>
-          <p>11+ years of competitive gymnastics training distilled into a coaching approach that actually transfers to real movement.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHO IT'S FOR -->
-    <section class="section for-section">
-      <div class="section-label">Who This Is For</div>
-      <h2 class="section-heading">Built for serious people.</h2>
-      <p class="section-sub">This isn't a mass program. I work with a small number of people who are genuinely committed to moving better.</p>
-      <div class="for-grid">
-        <div class="for-col">
-          <h3>This is for you if...</h3>
-          <div class="for-list">
-            <div class="for-item">
-              <div class="for-check">✓</div>
-              <p>You're 25–40 and want to learn to move like a gymnast — handstands, rings, real body control.</p>
-            </div>
-            <div class="for-item">
-              <div class="for-check">✓</div>
-              <p>You're serious about training and show up consistently — not someone looking for shortcuts.</p>
-            </div>
-            <div class="for-item">
-              <div class="for-check">✓</div>
-              <p>You've been stuck on the same plateau and need structure, accountability, and expert eyes on your form.</p>
-            </div>
-            <div class="for-item">
-              <div class="for-check">✓</div>
-              <p>You want to build real gymnastic strength — ring dips, L-sits, planche progressions, freestanding handstands.</p>
-            </div>
-            <div class="for-item">
-              <div class="for-check">✓</div>
-              <p>You're willing to invest in yourself and your training — and understand quality takes time.</p>
-            </div>
-          </div>
-        </div>
-        <div class="for-col">
-          <h3>This is NOT for you if...</h3>
-          <div class="for-list">
-            <div class="for-item not-for-item">
-              <div class="for-check">✗</div>
-              <p>You want quick results with no consistency or effort on your end.</p>
-            </div>
-            <div class="for-item not-for-item">
-              <div class="for-check">✗</div>
-              <p>You're looking for a generic cookie-cutter plan you could find for free on YouTube.</p>
-            </div>
-            <div class="for-item not-for-item">
-              <div class="for-check">✗</div>
-              <p>You're not ready to film yourself training and engage with the feedback process.</p>
-            </div>
-            <div class="for-item not-for-item">
-              <div class="for-check">✗</div>
-              <p>You have an injury that prevents you from training — see a physiotherapist first.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PRICING -->
-    <section class="section pricing-section" id="pricing">
-      <div class="section-label">Investment</div>
-      <h2 class="section-heading">Founding Member rate.<br>5 spots only.</h2>
-      <p class="section-sub">Early members get locked in at a discounted rate as long as they stay. This pricing goes away once the 5 spots are filled.</p>
-      <div class="pricing-card">
-        <div class="pricing-left">
-          <div class="pricing-badge">Founding Member — Limited</div>
-          <h2><em>$197</em></h2>
-          <div class="price-period">first month &nbsp;→&nbsp; then $397/month</div>
-          <div class="renewal-note">Your founding rate is <strong>locked in</strong> as long as you stay enrolled. Cancel anytime with 7 days notice — no questions asked.</div>
-          <div class="pricing-spots">
-            <div class="spots-dots">
-              <div class="spot-dot"></div>
-              <div class="spot-dot"></div>
-              <div class="spot-dot empty"></div>
-              <div class="spot-dot empty"></div>
-              <div class="spot-dot empty"></div>
-            </div>
-            <span><strong>2 of 5 spots</strong> filled — 3 remaining</span>
-          </div>
-        </div>
-        <div class="pricing-right">
-          <h3>Everything included</h3>
-          <div class="pricing-features">
-            <div class="pricing-feature">Custom monthly training program</div>
-            <div class="pricing-feature">Weekly voice note check-ins</div>
-            <div class="pricing-feature">Video form review & feedback</div>
-            <div class="pricing-feature">Unlimited direct messaging</div>
-            <div class="pricing-feature">All 9 digital programs</div>
-            <div class="pricing-feature">Cancel anytime, no hassle</div>
-          </div>
-          <a class="pricing-cta" href="#apply">Apply for Coaching</a>
-          <div class="pricing-cta-note">Applications reviewed within 24 hours</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- TESTIMONIALS -->
-    <section class="section testimonials-section">
-      <div class="section-label">Testimonials</div>
-      <h2 class="section-heading">What people say.</h2>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Liam is one of the most dedicated athletes I've ever coached. His work ethic and attention to detail is unmatched."</p>
-          <div class="testimonial-author">Head Coach</div>
-          <div class="testimonial-role">Richmond Hill Gymnastics</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"Training with Liam completely changed my approach. He breaks down every skill in a way that actually makes sense."</p>
-          <div class="testimonial-author">Athlete</div>
-          <div class="testimonial-role">Coached by Liam</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="stars">★★★★★</div>
-          <p>"The focus and precision Liam brings to competition is on another level. He's the real deal."</p>
-          <div class="testimonial-author">Fellow Competitor</div>
-          <div class="testimonial-role">National Level</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- APPLICATION FORM -->
-    <section class="section application-section" id="apply">
-      <div class="section-label">Apply</div>
-      <h2 class="section-heading">Apply for a spot.</h2>
-      <p class="section-sub">Tell me about yourself. I review every application personally and respond within 24 hours.</p>
-      <div class="form-wrapper">
-        <div class="form-intro">
-          <div class="form-intro-icon">📝</div>
-          <div>
-            <h3>This is an application, not a checkout</h3>
-            <p>I want to make sure we're a good fit before we start working together. Fill this out honestly — there are no wrong answers, and I'm not looking for a specific fitness level.</p>
-          </div>
-        </div>
-        <form class="application-form" action="https://formspree.io/f/xlgonzrq" method="POST">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="name">Full Name</label>
-              <input type="text" id="name" name="name" placeholder="Your name" required>
-            </div>
-            <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" id="email" name="email" placeholder="your@email.com" required>
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label for="age">Age</label>
-              <input type="number" id="age" name="age" placeholder="Your age" min="16" max="80" required>
-            </div>
-            <div class="form-group">
-              <label for="level">Current Fitness Level</label>
-              <select id="level" name="fitness_level" required>
-                <option value="" disabled selected>Select your level</option>
-                <option value="beginner">Beginner — little to no training background</option>
-                <option value="intermediate">Intermediate — train regularly, some strength base</option>
-                <option value="advanced">Advanced — serious training history</option>
-              </select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="goal">What's your main goal?</label>
-            <input type="text" id="goal" name="main_goal" placeholder="e.g. freestanding handstand, ring muscle up, general strength..." required>
-          </div>
-          <div class="form-group">
-            <label>Have you done any gymnastics or calisthenics before?</label>
-            <div class="form-radio-group">
-              <label class="form-radio">
-                <input type="radio" name="prior_experience" value="yes" required>
-                <span>Yes</span>
-              </label>
-              <label class="form-radio">
-                <input type="radio" name="prior_experience" value="no">
-                <span>No</span>
-              </label>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="why">Why do you want to work with Liam?</label>
-            <textarea id="why" name="why_liam" rows="5" placeholder="Tell me what brought you here and why you think this is a good fit..." required></textarea>
-          </div>
-          <input type="hidden" name="form_source" value="coaching_page_application">
-          <button type="submit" class="form-submit">Submit Application</button>
-          <div class="form-note">I personally review every application and respond within 24 hours.</div>
-        </form>
-      </div>
-    </section>
-
-    <!-- FINAL CTA -->
-    <div class="final-cta">
-      <h2>5 spots. That's it.</h2>
-      <p>When they're gone, they're gone. If you're serious about training like a gymnast — this is how you start.</p>
-      <a class="btn-white" href="#apply">Apply Now</a>
-      <div class="final-cta-note">First month $197 · Then $397/month · Cancel anytime</div>
     </div>
+  </section>
 
-    <footer>
-      <div class="footer-logo">Liam <span>Vanounou</span></div>
-      <div class="footer-links">
-        <a href="index.html">Home</a>
-        <a href="programs.html">Programs</a>
-        <a href="coaching.html">Coaching</a>
-        <a href="index.html#contact">Contact</a>
-      </div>
-      <div class="footer-copy">© 2026 Liam Vanounou</div>
-    </footer>
+  <footer>
+    <div class="footer-logo">Liam <span>Vanounou</span></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="coaching.html">Coaching</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-copy">© 2026 Liam Vanounou</div>
+  </footer>
 
-    <script>
-      function openMenu() { document.getElementById('sidemenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
-      function closeMenu() { document.getElementById('sidemenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+  <script>
+    function openMenu() { document.getElementById('sidemenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+    function closeMenu() { document.getElementById('sidemenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
 
-      // CUSTOM CURSOR
-      const cursor = document.createElement('div');
-      cursor.style.cssText = 'position:fixed;width:12px;height:12px;background:#e63946;border-radius:50%;pointer-events:none;z-index:9999;transition:transform 0.15s ease,opacity 0.3s;transform:translate(-50%,-50%);';
-      const cursorRing = document.createElement('div');
-      cursorRing.style.cssText = 'position:fixed;width:36px;height:36px;border:1.5px solid rgba(230,57,70,0.4);border-radius:50%;pointer-events:none;z-index:9998;transition:transform 0.35s ease,opacity 0.3s;transform:translate(-50%,-50%);';
-      document.body.appendChild(cursor);
-      document.body.appendChild(cursorRing);
-      let mx=0,my=0,rx=0,ry=0;
-      document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cursor.style.left=mx+'px'; cursor.style.top=my+'px'; });
-      (function animRing(){ rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12; cursorRing.style.left=rx+'px'; cursorRing.style.top=ry+'px'; requestAnimationFrame(animRing); })();
-      document.querySelectorAll('a,button').forEach(el => {
-        el.addEventListener('mouseenter', () => { cursor.style.transform='translate(-50%,-50%) scale(2)'; cursorRing.style.transform='translate(-50%,-50%) scale(1.5)'; });
-        el.addEventListener('mouseleave', () => { cursor.style.transform='translate(-50%,-50%) scale(1)'; cursorRing.style.transform='translate(-50%,-50%) scale(1)'; });
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      document.getElementById('progress').style.width = pct + '%';
+    });
+
+    document.getElementById('applyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const form = this;
+      fetch(form.action, {
+        method: 'POST',
+        body: new FormData(form),
+        headers: { 'Accept': 'application/json' }
+      }).then(r => {
+        if (r.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        }
       });
+    });
 
-      // NAV SHRINK
-      const topnav = document.getElementById('topnav');
-      window.addEventListener('scroll', () => {
-        topnav.style.padding = window.scrollY > 60 ? '12px 48px' : '20px 48px';
-      });
-
-      // SCROLL REVEAL
-      const revealStyle = document.createElement('style');
-      revealStyle.textContent = '.reveal{opacity:0;transform:translateY(36px);transition:opacity 0.75s ease,transform 0.75s ease;}.reveal.visible{opacity:1;transform:translateY(0);}';
-      document.head.appendChild(revealStyle);
-      document.querySelectorAll('.include-item,.for-item,.testimonial-card,.pricing-card,.section-label,.section-heading,.section-sub,.form-intro').forEach((el, i) => {
-        el.classList.add('reveal');
-        el.style.transitionDelay = (i % 4) * 0.08 + 's';
-      });
-      new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-      }, { threshold: 0.1 });
-      const obs = new IntersectionObserver(entries => {
-        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
-      }, { threshold: 0.1 });
-      document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
-
-      // HERO LOAD ANIMATION
-      const heroEls = [
-        document.querySelector('.hero-eyebrow'),
-        document.querySelector('.hero-text h1'),
-        document.querySelector('.hero-text p'),
-        document.querySelector('.hero-tags'),
-        document.querySelector('.hero-cta'),
-        document.querySelector('.buy-box'),
-      ];
-      heroEls.forEach((el, i) => {
-        if (!el) return;
-        el.style.opacity = '0';
-        el.style.transform = 'translateY(28px)';
-        el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
-        setTimeout(() => { el.style.opacity = '1'; el.style.transform = 'translateY(0)'; }, 150 + i * 110);
-      });
-    </script>
-  </body>
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+  <script src="ui.js" defer></script>
+</body>
 </html>

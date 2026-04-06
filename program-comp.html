@@ -68,7 +68,8 @@
       footer { text-align: center; padding: 32px; color: #ccc; font-size: 13px; border-top: 1px solid #f0f0f0; }
       @media (max-width: 768px) { nav { padding: 16px 24px; } .hero { flex-direction: column; padding: 100px 24px 48px; } .hero h1 { font-size: 36px; } .buy-box { width: 100%; } section { padding: 40px 24px; } .mindset-grid { grid-template-columns: 1fr; } .comp-day-grid { grid-template-columns: 1fr; } }
     </style>
-  </head>
+    <link rel="stylesheet" href="ui.css">
+</head>
   <body>
     <nav>
       <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
@@ -290,5 +291,6 @@
         toggle.textContent = body.classList.contains('open') ? '−' : '+';
       }
     </script>
-  </body>
+    <script src="ui.js" defer></script>
+</body>
 </html>

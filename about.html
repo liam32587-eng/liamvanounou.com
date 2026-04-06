@@ -1,80 +1,303 @@
-<!DOCTYPE html> 
-  <html>
-    <head>
-      <title>About - Liam Vanounou</title>                                                            
-      <style>
-        body {                                                                                        
-          font-family: Arial, sans-serif;                                                             
-          max-width: 600px;
-          margin: 0 auto;                                                                             
-          padding: 40px 20px;
-          background-color: #f5f5f5;
-        }                                                                                             
-   
-        nav {                                                                                         
-          margin-bottom: 40px;
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>About — Liam Vanounou</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Liam Vanounou — 3x Ontario Champion, Elite Canada Champion, National competitor. 15+ years of gymnastics. Now coaching.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #f0ede8; overflow-x: hidden; }
 
-        nav a {
-          margin-right: 20px;
-          text-decoration: none;                                                                      
-          color: #444;
-          font-weight: bold;                                                                          
-        }         
+    #progress { position: fixed; top: 0; left: 0; height: 2px; background: #e63946; z-index: 9999; width: 0; transition: width 0.08s linear; }
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
 
-        nav a:hover {
-          color: #e63946;
-        }                                                                                             
-   
-        h1 {                                                                                          
-          color: #1a1a1a;
-          font-size: 42px;
-        }
+    /* OVERLAY + SIDE MENU */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .sidemenu { position: fixed; top: 0; right: -360px; bottom: 0; width: 320px; background: #111; z-index: 300; padding: 60px 40px; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; border-left: 1px solid #1a1a1a; }
+    .sidemenu.open { right: 0; }
+    .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #444; font-size: 22px; transition: color 0.2s; }
+    .sidemenu-close:hover { color: white; }
+    .sidemenu-logo { font-size: 16px; font-weight: 700; color: white; margin-bottom: 48px; letter-spacing: -0.5px; }
+    .sidemenu-logo span { color: #e63946; }
+    .sidemenu nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .sidemenu nav a { color: #444; text-decoration: none; font-size: 34px; font-weight: 800; padding: 12px 0; transition: color 0.2s; border-bottom: 1px solid #1a1a1a; letter-spacing: -1.5px; }
+    .sidemenu nav a:hover { color: white; }
+    .sidemenu nav a.coaching-link { color: #e63946; }
+    .sidemenu-footer { color: #2a2a2a; font-size: 13px; margin-top: 40px; }
 
-        p {
-          color: #555555;
-          line-height: 1.6;                                                                           
-        }
-      </style>                                                                                        
-    </head>       
-    <body>
+    /* TOP NAV */
+    .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; background: rgba(15,15,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #1a1a1a; }
+    .topnav .logo { font-size: 17px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px; }
+    .topnav .logo span { color: #e63946; }
+    .topnav-links { display: flex; align-items: center; gap: 36px; }
+    .topnav-links a { color: #555; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .topnav-links a:hover { color: #f0ede8; }
+    .topnav-links a.coaching-link { color: #e63946; font-weight: 700; }
+    .menu-btn { background: none; border: 1px solid #222; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 9px 11px; transition: border-color 0.2s; }
+    .menu-btn:hover { border-color: #444; }
+    .menu-btn span { width: 18px; height: 1.5px; background: #888; border-radius: 2px; display: block; }
 
-      <nav>
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>                                                                
-      </nav>
-                                                                                                      
-      <h1>About Me</h1>
-      <p>I'm Liam Vanounou, an elite gymnast from Richmond Hill, Ontario. I started gymnastics at age
-  7 and have competed at the national level, placing 2nd at the Canadian National Championships.</p>  
-      <p>Outside of competing, I coach at my home gym and am passionate about developing the next
-  generation of athletes.</p>                                                                         
-                  
-    </body>                                                                                           
-  </html>         
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: stretch; padding-top: 65px; position: relative; overflow: hidden; }
+    .hero-left { flex: 1; display: flex; flex-direction: column; justify-content: center; padding: 80px 52px; position: relative; z-index: 2; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #e63946; margin-bottom: 28px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: #e63946; }
+    .hero-left h1 { font-size: 64px; font-weight: 900; line-height: 1.0; letter-spacing: -3px; color: white; max-width: 600px; margin-bottom: 28px; }
+    .hero-left h1 em { font-style: normal; color: #e63946; }
+    .hero-left p { font-size: 17px; color: #555; line-height: 1.8; max-width: 440px; }
+    .hero-right { width: 42%; flex-shrink: 0; position: relative; overflow: hidden; }
+    .hero-right img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+    .hero-right::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(to right, #0f0f0f, transparent); z-index: 1; }
+    .hero-right::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 160px; background: linear-gradient(to top, #0f0f0f, transparent); z-index: 1; }
 
-  Once that's saved, open your index.html and add the nav bar to it too. Right after <body> add:      
-   
-      <nav>                                                                                           
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-      </nav>
+    /* SECTIONS */
+    .section { padding: 100px 52px; }
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #e63946; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .section-label::before { content: ''; display: block; width: 16px; height: 2px; background: #e63946; }
+    .section-heading { font-size: 48px; font-weight: 800; letter-spacing: -2.5px; line-height: 1.0; color: white; margin-bottom: 40px; }
 
-  And add this nav CSS inside the <style> block:                                                      
-   
-        nav {                                                                                         
-          margin-bottom: 40px;
-        }
+    /* STORY */
+    .story-section { background: #111; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+    .story-body { max-width: 680px; display: flex; flex-direction: column; gap: 24px; }
+    .story-body p { font-size: 17px; color: #666; line-height: 1.9; }
+    .story-body p strong { color: #f0ede8; font-weight: 600; }
 
-        nav a {
-          margin-right: 20px;
-          text-decoration: none;                                                                      
-          color: #444;
-          font-weight: bold;                                                                          
-        }         
+    /* CREDENTIALS */
+    .creds-section { background: #0f0f0f; }
+    .creds-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 48px; border: 1px solid #1a1a1a; border-radius: 16px; overflow: hidden; }
+    .cred-card { background: #111; padding: 32px 28px; transition: background 0.2s; }
+    .cred-card:hover { background: #161616; }
+    .cred-num { font-size: 44px; font-weight: 900; color: rgba(230,57,70,0.15); letter-spacing: -2px; line-height: 1; margin-bottom: 10px; }
+    .cred-card h3 { font-size: 15px; font-weight: 700; color: white; margin-bottom: 6px; letter-spacing: -0.3px; }
+    .cred-card p { color: #444; font-size: 13px; line-height: 1.5; }
 
-        nav a:hover {
-          color: #e63946;
-        }
+    /* WHAT I HELP WITH */
+    .helps-section { background: #111; border-top: 1px solid #1a1a1a; border-bottom: 1px solid #1a1a1a; }
+    .helps-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 48px; max-width: 680px; }
+    .help-item { background: #161616; border: 1px solid #1a1a1a; border-radius: 10px; padding: 20px 24px; display: flex; align-items: center; gap: 14px; font-size: 14px; color: #888; font-weight: 500; transition: border-color 0.2s; }
+    .help-item:hover { border-color: #2a2a2a; color: #f0ede8; }
+    .help-item::before { content: '→'; color: #e63946; font-weight: 700; flex-shrink: 0; }
 
-  Save both files, open index.html in your browser, and try clicking between Home and About.
+    /* ACHIEVEMENTS */
+    .achievements-section { background: #0f0f0f; }
+    .achievements-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 48px; }
+    .achievement-card { background: #111; border: 1px solid #1a1a1a; border-left: 3px solid #e63946; border-radius: 12px; padding: 36px 32px; transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s; }
+    .achievement-card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(0,0,0,0.35); border-color: rgba(230,57,70,0.4); }
+    .achievement-card h3 { font-size: 26px; font-weight: 900; letter-spacing: -1px; color: white; margin-bottom: 12px; line-height: 1.1; }
+    .achievement-card p { color: #555; font-size: 15px; line-height: 1.7; margin-bottom: 20px; }
+    .achievement-detail { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #333; }
+
+    /* ABOUT CTA */
+    .about-cta-section { background: #111; border-top: 1px solid #1a1a1a; padding: 100px 52px; text-align: center; }
+    .about-cta-section h2 { font-size: 44px; font-weight: 900; letter-spacing: -2px; color: white; margin-bottom: 14px; line-height: 1.1; }
+    .about-cta-section p { color: #444; font-size: 16px; margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .cta-buttons { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn-outline { color: #f0ede8; padding: 17px 36px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 700; border: 1px solid #2a2a2a; transition: border-color 0.2s, color 0.2s, transform 0.15s; display: inline-block; }
+    .btn-outline:hover { border-color: #555; color: white; transform: translateY(-2px); }
+
+    /* CTA */
+    .cta-section { background: #0f0f0f; text-align: center; }
+    .cta-section h2 { font-size: 52px; font-weight: 900; letter-spacing: -2.5px; color: white; margin-bottom: 16px; }
+    .cta-section h2 em { font-style: normal; color: #e63946; }
+    .cta-section p { color: #444; font-size: 16px; margin-bottom: 40px; max-width: 400px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+    .btn-primary { background: #e63946; color: white; padding: 18px 44px; border-radius: 6px; text-decoration: none; font-size: 15px; font-weight: 700; transition: background 0.2s, transform 0.15s; display: inline-block; }
+    .btn-primary:hover { background: #c1121f; transform: translateY(-2px); }
+
+    /* FOOTER */
+    footer { padding: 32px 52px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-size: 16px; font-weight: 800; color: #f0ede8; letter-spacing: -0.5px; }
+    .footer-logo span { color: #e63946; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: #333; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-links a:hover { color: #f0ede8; }
+    .footer-copy { color: #2a2a2a; font-size: 13px; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    @media (max-width: 960px) {
+      .topnav { padding: 18px 24px; }
+      .topnav-links .hide-mobile { display: none; }
+      .hero { flex-direction: column-reverse; min-height: auto; padding-top: 65px; }
+      .hero-left { padding: 48px 24px 60px; }
+      .hero-left h1 { font-size: 44px; letter-spacing: -2px; }
+      .hero-right { width: 100%; height: 280px; }
+      .hero-right::before { display: none; }
+      .section { padding: 64px 24px; }
+      .section-heading { font-size: 34px; letter-spacing: -1.5px; }
+      .creds-grid { grid-template-columns: 1fr 1fr; }
+      .achievements-grid { grid-template-columns: 1fr; }
+      .about-cta-section { padding: 64px 24px; }
+      .about-cta-section h2 { font-size: 30px; letter-spacing: -1.2px; }
+      .helps-grid { grid-template-columns: 1fr; }
+      .cta-section h2 { font-size: 36px; letter-spacing: -1.5px; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 28px 24px; }
+    }
+  </style>
+  <link rel="stylesheet" href="ui.css">
+</head>
+<body>
+
+  <div id="progress"></div>
+
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#noise)" opacity="0.025"/>
+  </svg>
+
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+  <div class="sidemenu" id="sidemenu">
+    <button class="sidemenu-close" onclick="closeMenu()">✕</button>
+    <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+    <nav>
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="programs.html" onclick="closeMenu()">Programs</a>
+      <a href="coaching.html" class="coaching-link" onclick="closeMenu()">1-on-1 Coaching</a>
+      <a href="about.html" class="active-link" onclick="closeMenu()">About</a>
+    </nav>
+    <div class="sidemenu-footer">© 2026 Liam Vanounou</div>
+  </div>
+
+  <header class="topnav">
+    <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+    <div class="topnav-links">
+      <a href="index.html" class="hide-mobile">Home</a>
+      <a href="programs.html" class="hide-mobile">Programs</a>
+      <a href="coaching.html" class="coaching-link hide-mobile">1-on-1 Coaching</a>
+      <a href="about.html" class="hide-mobile active-link">About</a>
+      <button class="menu-btn" onclick="openMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow pl-1">The Coach</div>
+      <h1 class="pl-2">I've been doing this<br>since I was <em>7.</em><br>Here's what that<br>means for you.</h1>
+      <p class="pl-3">15+ years of competitive gymnastics. 3x Ontario Champion. Now I coach people who want to move like gymnasts — no prior experience required.</p>
+    </div>
+    <div class="hero-right">
+      <img src="photo-pommel-comp.jpeg" alt="Liam Vanounou competing">
+    </div>
+  </section>
+
+  <section class="section story-section">
+    <div class="section-label reveal">Liam's Journey</div>
+    <h2 class="section-heading reveal reveal-d1">What 15 years<br>looks like.</h2>
+    <div class="story-body">
+      <p class="reveal">Most people have never met someone who competed at the national level in gymnastics. Liam Vanounou is the rare exception — and he's been doing it since he was 7 years old.</p>
+      <p class="reveal">In junior competition, Liam didn't just win. He dominated. <strong>Three consecutive years as Ontario Champion</strong> — meaning three straight years as the best under-18 gymnast in the entire province. In a sport where the margin between first and third is measured in tenths of a point, that kind of consistency means something.</p>
+      <p class="reveal">Then came Elite Canada — the national championship where the country's best gymnasts compete for everything. <strong>Liam podiumed at 16. The next year, he won.</strong> To put that in perspective: at 17, he stood on top of a podium as the best in Canada.</p>
+      <p class="reveal">It didn't stop there. Liam has competed internationally — <strong>facing national teams from the USA, Mexico, and Iceland</strong>. He represented Canada at the Iceland invitational, where Canada took first place in the team finals.</p>
+      <p class="reveal">He's now competing as a senior — the adult elite category, the highest level the sport has. He trains <strong>20 hours a week</strong>. He knows not just how to perform at this level, but how to build toward it — step by step, skill by skill.</p>
+      <p class="reveal">That knowledge is now available to you. Not from a textbook. Not from a YouTube channel. <strong>From someone who lives it.</strong></p>
+    </div>
+  </section>
+
+  <section class="section achievements-section">
+    <div class="section-label reveal">The Highlights</div>
+    <div class="achievements-grid">
+      <div class="achievement-card reveal">
+        <h3>3x Ontario Champion</h3>
+        <p>Three consecutive years as the best under-18 gymnast in the entire province of Ontario. Not once — three times in a row.</p>
+        <div class="achievement-detail">Junior Category · 3 Consecutive Years</div>
+      </div>
+      <div class="achievement-card reveal reveal-d1">
+        <h3>Elite Canada Champion</h3>
+        <p>Won the national gymnastics championship — the biggest competition in Canada where the best gymnasts in the country compete head to head.</p>
+        <div class="achievement-detail">Elite Canada Championships · First Place</div>
+      </div>
+      <div class="achievement-card reveal">
+        <h3>Canadian Nationals Podium</h3>
+        <p>Stood on the podium at the Canadian National Championships competing against the best senior gymnasts in the country.</p>
+        <div class="achievement-detail">Canadian National Championships</div>
+      </div>
+      <div class="achievement-card reveal reveal-d1">
+        <h3>Competed Against USA &amp; Mexico</h3>
+        <p>Represented Canada at the Grizzly Classic — an international competition against national teams from the United States and Mexico.</p>
+        <div class="achievement-detail">Grizzly Classic · International Competition</div>
+      </div>
+      <div class="achievement-card reveal">
+        <h3>Canada Wins in Iceland</h3>
+        <p>Travelled to Iceland to compete against their national team. Canada took first place in the team finals.</p>
+        <div class="achievement-detail">Iceland · International Team Finals · Canada 1st Place</div>
+      </div>
+      <div class="achievement-card reveal reveal-d1">
+        <h3>Senior Elite Competitor</h3>
+        <p>Now competing in the 18+ senior elite category — the highest level of gymnastics in Canada. Training 20 hours every week.</p>
+        <div class="achievement-detail">Senior Elite · 2026 Season</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta-section">
+    <h2 class="reveal">This experience is what you get access to.</h2>
+    <p class="reveal reveal-d1">Every program and coaching session is built on 15+ years of elite level training and competition.</p>
+    <div class="cta-buttons reveal reveal-d2">
+      <a class="btn-primary" href="coaching.html">Apply for Coaching</a>
+      <a class="btn-outline" href="programs.html">Browse Programs</a>
+    </div>
+  </section>
+
+  <section class="section helps-section">
+    <div class="section-label reveal">What's Available</div>
+    <h2 class="section-heading reveal reveal-d1">Training methods from inside elite gymnastics. Now open to you.</h2>
+    <div class="story-body" style="margin-bottom: 48px;">
+      <p class="reveal">Elite gymnastics training has never been available to regular people. The drills, the progressions, the specific cuing that builds extraordinary body control — it's been locked behind gym doors and passed from coach to athlete through years of competitive training. That changes here.</p>
+      <p class="reveal">Liam offers two ways in: <strong>digital programs starting at $19</strong> — structured, step-by-step systems for specific skills — and <strong>1-on-1 online coaching</strong> for those who want a national gymnast building and refining their program every single month. Whether you're working toward a handstand, ring strength, gymnast-level fitness, or your first competition, the methodology behind all of it comes from the same place: 15+ years of elite training.</p>
+    </div>
+    <div class="helps-grid">
+      <div class="help-item reveal">Handstand progressions (wall to freestanding)</div>
+      <div class="help-item reveal reveal-d1">Ring strength and straight-arm work</div>
+      <div class="help-item reveal">Bodyweight strength and muscle up</div>
+      <div class="help-item reveal reveal-d1">Flexibility — splits, bridge, shoulder mobility</div>
+      <div class="help-item reveal">Pull up and bar mechanics</div>
+      <div class="help-item reveal reveal-d1">Core control and hollow body</div>
+      <div class="help-item reveal">Beginner gymnastics skills from scratch</div>
+      <div class="help-item reveal reveal-d1">Competition-ready conditioning</div>
+      <div class="help-item reveal">Injury prevention and prehab</div>
+      <div class="help-item reveal reveal-d1">General athletic movement quality</div>
+    </div>
+  </section>
+
+  <section class="section cta-section">
+    <h2 class="reveal">Ready to work <em>together?</em></h2>
+    <p class="reveal reveal-d1">5 founding spots. $197 first month. Apply now and I'll be in touch within 48 hours.</p>
+    <a class="btn-primary reveal reveal-d2" href="coaching.html">Apply for Coaching</a>
+  </section>
+
+  <footer>
+    <div class="footer-logo">Liam <span>Vanounou</span></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="coaching.html">Coaching</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-copy">© 2026 Liam Vanounou</div>
+  </footer>
+
+  <script>
+    function openMenu() { document.getElementById('sidemenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+    function closeMenu() { document.getElementById('sidemenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      document.getElementById('progress').style.width = pct + '%';
+    });
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+  <script src="ui.js" defer></script>
+</body>
+</html>

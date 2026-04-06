@@ -1,0 +1,446 @@
+/* ================================================================
+   LIAM VANOUNOU — GLOBAL UI LAYER
+   Loaded after per-page inline styles on every page.
+   ================================================================ */
+
+/* SMOOTH SCROLL */
+html { scroll-behavior: smooth; }
+
+/* ----------------------------------------------------------------
+   NAV — ACTIVE PAGE INDICATOR
+   ---------------------------------------------------------------- */
+.topnav-links a.active-link {
+  color: #e63946 !important;
+  font-weight: 700 !important;
+  position: relative;
+}
+.topnav-links a.active-link::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #e63946;
+  border-radius: 1px;
+}
+/* coaching link already red — just add the underline */
+.topnav-links a.coaching-link.active-link { color: #e63946 !important; }
+
+.sidemenu nav a.active-link {
+  color: #f0ede8 !important;
+  position: relative;
+}
+.sidemenu nav a.active-link::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #e63946;
+  border-radius: 50%;
+  margin-right: 12px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ----------------------------------------------------------------
+   NAV — SCROLL EFFECT
+   ---------------------------------------------------------------- */
+.topnav {
+  transition: background 0.35s ease, backdrop-filter 0.35s ease, box-shadow 0.35s ease !important;
+}
+.topnav.scrolled {
+  background: rgba(8,8,8,0.99) !important;
+  backdrop-filter: blur(32px) saturate(180%) !important;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.04), 0 4px 32px rgba(0,0,0,0.55) !important;
+}
+
+/* ----------------------------------------------------------------
+   PRIMARY BUTTONS
+   ---------------------------------------------------------------- */
+.btn-primary,
+a.btn-primary,
+.pricing-btn,
+.apply-submit,
+.email-form button,
+.coaching-banner a,
+.btn-red,
+a.btn-red,
+.buy-btn,
+a.buy-btn,
+button.apply-submit {
+  border-radius: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+.btn-primary:hover,
+a.btn-primary:hover,
+.pricing-btn:hover,
+.apply-submit:hover,
+.email-form button:hover,
+.coaching-banner a:hover,
+.btn-red:hover,
+a.btn-red:hover,
+.buy-btn:hover,
+a.buy-btn:hover {
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 6px 24px rgba(230,57,70,0.4) !important;
+}
+
+/* ----------------------------------------------------------------
+   SECONDARY / OUTLINED BUTTONS
+   ---------------------------------------------------------------- */
+.btn-outline,
+a.btn-outline {
+  border: 1.5px solid #e63946 !important;
+  color: #e63946 !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.25s ease, color 0.25s ease, border-color 0.25s ease,
+              transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+.btn-outline:hover,
+a.btn-outline:hover {
+  background: #e63946 !important;
+  color: #fff !important;
+  transform: translateY(-2px) scale(1.03) !important;
+  box-shadow: 0 6px 24px rgba(230,57,70,0.4) !important;
+}
+
+/* ----------------------------------------------------------------
+   RIPPLE
+   ---------------------------------------------------------------- */
+@keyframes _rpl { to { transform: scale(5.5); opacity: 0; } }
+._rpl {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.22);
+  width: 80px;
+  height: 80px;
+  margin: -40px 0 0 -40px;
+  transform: scale(0);
+  animation: _rpl 0.55s linear;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* ----------------------------------------------------------------
+   PAGE LOAD ANIMATIONS  (hero content, fires on page load)
+   ---------------------------------------------------------------- */
+@keyframes _plu {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.pl-1 { animation: _plu 0.75s cubic-bezier(.22,1,.36,1) 0.05s both; }
+.pl-2 { animation: _plu 0.75s cubic-bezier(.22,1,.36,1) 0.22s both; }
+.pl-3 { animation: _plu 0.75s cubic-bezier(.22,1,.36,1) 0.39s both; }
+.pl-4 { animation: _plu 0.75s cubic-bezier(.22,1,.36,1) 0.56s both; }
+
+/* ----------------------------------------------------------------
+   SCROLL REVEAL  (enhances existing .reveal system)
+   ---------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s cubic-bezier(.22,1,.36,1),
+              transform 0.65s cubic-bezier(.22,1,.36,1) !important;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ----------------------------------------------------------------
+   CARD TITLE TYPOGRAPHY
+   ---------------------------------------------------------------- */
+.achievement-card h3,
+.service-card h3,
+.include-item h3,
+.start-card h3,
+.fit-card h3 {
+  font-weight: 800 !important;
+  letter-spacing: -0.5px !important;
+  line-height: 1.1 !important;
+}
+
+/* ----------------------------------------------------------------
+   HERO IMAGE HOVER ZOOM
+   ---------------------------------------------------------------- */
+.hero-right { overflow: hidden; }
+.hero-right img {
+  transition: transform 0.5s ease;
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.hero-right:hover img { transform: scale(1.04); }
+
+/* ----------------------------------------------------------------
+   PROG CARD  (Gymondo-style, already has its own bg transition;
+   ensure reveal works correctly with display:block)
+   ---------------------------------------------------------------- */
+.prog-card.visible { opacity: 1 !important; transform: translateY(0) !important; }
+
+/* ----------------------------------------------------------------
+   MOBILE POLISH
+   ---------------------------------------------------------------- */
+@media (max-width: 768px) {
+  /* minimum tap target */
+  .btn-primary, a.btn-primary,
+  .btn-outline, a.btn-outline,
+  .apply-submit, .pricing-btn,
+  .email-form button,
+  .btn-red, a.btn-red,
+  .buy-btn, a.buy-btn,
+  .coaching-banner a {
+    min-height: 44px;
+  }
+
+  /* disable image zoom on touch — feels jittery */
+  .hero-right:hover img { transform: none; }
+
+  /* lighter reveal translate on mobile */
+  .reveal { transform: translateY(16px); }
+}
+
+/* respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pl-1, .pl-2, .pl-3, .pl-4 { animation: none; opacity: 1; transform: none; }
+  .reveal { transition: opacity 0.3s ease !important; transform: none !important; }
+}
+
+/* ================================================================
+   READABILITY & CONTRAST PASS
+   Every dim colour value in the codebase boosted to legible levels.
+   ================================================================ */
+
+/* ---- SECTION LABELS & EYEBROWS — too small at 11px ---- */
+.section-label,
+.hero-eyebrow,
+.program-card-tag,
+.start-level,
+.prog-badge,
+.timeline-label,
+.hp-stage-days,
+.stage-days,
+.price-founding-label,
+.card-level-label,
+.fit-card-label {
+  font-size: 12px !important;
+  letter-spacing: 2px !important;
+}
+
+/* ---- BODY COPY — #555 on dark bg fails contrast (~3.6:1) ----
+   Boosted to #999 which passes AA at all sizes (~6.8:1)         */
+.hero-left p,
+.hero-sub,
+.page-hero p,
+.section-sub,
+.for-text,
+.story-body p,
+.email-section > p,
+.hp-timeline-header p,
+.hp-stage-body,
+.split-sub,
+.cta-section p,
+.about-cta-section p,
+.coaching-banner p {
+  color: #aaa !important;
+  line-height: 1.85 !important;
+}
+
+/* ---- CARD BODY TEXT ---- */
+.program-card > p,
+.service-card p,
+.include-item p,
+.achievement-card p,
+.start-card p,
+.cred-card p,
+.timeline-content p,
+.hp-stage-body,
+.fit-item,
+.form-success p {
+  color: #999 !important;
+  font-size: 15px !important;
+  line-height: 1.75 !important;
+}
+
+/* ---- PRICING & TRUST COPY ---- */
+.price-text,
+.price-renewal,
+.spots-line,
+.pricing-includes li,
+.trust-item,
+.apply-note,
+.email-note,
+.card-level-value,
+.card-level {
+  color: #777 !important;
+  font-size: 14px !important;
+}
+
+/* ---- FOOTER & NAV SECONDARY LINKS ---- */
+.footer-links a  { color: #555 !important; }
+.footer-links a:hover { color: #f0ede8 !important; }
+.footer-copy     { color: #333 !important; }
+.quote-section cite { color: #555 !important; }
+
+/* ---- "NOT FOR YOU" COLUMN — was nearly invisible #333 ---- */
+.fit-card.no .fit-card-label { color: #555 !important; }
+.fit-card.no .fit-item        { color: #555 !important; }
+
+/* ---- CREDENTIALS BAR ---- */
+.cred-item { color: #888 !important; }
+
+/* ---- SIDEMENU NAV LINKS ---- */
+.sidemenu nav a { color: #666 !important; }
+.sidemenu nav a:hover { color: #f0ede8 !important; }
+
+/* ---- INCLUDES GRID — items were bleeding together at 2px gap ---- */
+.includes-grid {
+  gap: 2px !important;
+  background: #222 !important;
+  border: 1px solid #222 !important;
+}
+.include-item {
+  background: #161616 !important;
+  padding: 40px 36px !important;
+}
+.include-item h3 { color: #f0ede8 !important; }
+.include-item p  { color: #999 !important; }
+
+/* ================================================================
+   FORMS — COMPLETE UPGRADE
+   Old: bg #111, border #1e1e1e, placeholder #333 — all near-invisible
+   New: visible background, legible borders, readable placeholder
+   ================================================================ */
+
+/* Base field style */
+.apply-form input,
+.apply-form select,
+.apply-form textarea,
+.email-form input {
+  background: #1c1c1c !important;
+  border: 1px solid #333 !important;
+  color: #f0ede8 !important;
+  border-radius: 10px !important;
+  padding: 16px 20px !important;
+  font-size: 15px !important;
+  font-family: 'Inter', sans-serif;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease !important;
+  width: 100%;
+}
+
+/* Placeholder — was #333 (nearly invisible) */
+.apply-form input::placeholder,
+.apply-form textarea::placeholder,
+.email-form input::placeholder {
+  color: #666 !important;
+}
+
+/* Select — ensure text is white, not system-grey */
+.apply-form select {
+  color: #f0ede8 !important;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 18px center !important;
+  padding-right: 44px !important;
+}
+.apply-form select option {
+  background: #1c1c1c !important;
+  color: #f0ede8 !important;
+}
+
+/* Focus state — clear, premium red ring */
+.apply-form input:focus,
+.apply-form select:focus,
+.apply-form textarea:focus,
+.email-form input:focus {
+  border-color: #e63946 !important;
+  background: #222 !important;
+  box-shadow: 0 0 0 3px rgba(230,57,70,0.14) !important;
+  outline: none !important;
+}
+
+/* Textarea minimum height */
+.apply-form textarea { min-height: 112px !important; resize: vertical; }
+
+/* Submit button — ensure it inherits the premium button styles */
+.apply-submit {
+  width: 100%;
+  font-size: 16px !important;
+  padding: 18px !important;
+  margin-top: 4px;
+}
+
+/* Email capture form on homepage */
+.email-form input {
+  background: #1c1c1c !important;
+  border: 1px solid #333 !important;
+}
+.email-form input:focus {
+  border-color: #e63946 !important;
+  box-shadow: 0 0 0 3px rgba(230,57,70,0.14) !important;
+  outline: none !important;
+}
+
+/* ================================================================
+   VISUAL INTEREST — section backgrounds, spacing, contrast boosts
+   ================================================================ */
+
+/* Pricing box — bump from #161616 to something richer */
+.pricing-box {
+  background: #181818 !important;
+  border: 1px solid #2a2a2a !important;
+}
+.price-amount { color: white !important; }
+.price-amount span { color: #666 !important; }
+
+/* Achievement cards — tiny bit more contrast */
+.achievement-card {
+  background: #141414 !important;
+  border-color: #252525 !important;
+}
+.achievement-detail { color: #555 !important; font-size: 12px !important; }
+
+/* Creds bar items */
+.cred-item strong { color: #f0ede8 !important; }
+
+/* Form success message */
+.form-success {
+  background: #181818 !important;
+  border-color: #2a2a2a !important;
+}
+.form-success h3 { color: white !important; }
+
+/* Nav links in topnav — slightly brighter rest state */
+.topnav-links a {
+  color: #888 !important;
+}
+.topnav-links a:hover { color: #f0ede8 !important; }
+
+/* Quote cite */
+.quote-section blockquote { color: white !important; }
+
+/* Coaching banner body text */
+.coaching-banner p { color: #999 !important; }
+.coaching-banner strong { color: #f0ede8 !important; }
+
+/* Mobile: all text stays readable at small sizes */
+@media (max-width: 768px) {
+  .section-label,
+  .hero-eyebrow { font-size: 11px !important; }
+  .card-body p,
+  .include-item p,
+  .achievement-card p { font-size: 14px !important; }
+}

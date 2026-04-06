@@ -78,11 +78,13 @@
       footer{text-align:center;padding:32px;color:#444;font-size:13px;border-top:1px solid #222;}
       @media(max-width:900px){nav{padding:16px 24px;}.hero{grid-template-columns:1fr;padding:120px 24px 60px;gap:40px;}.hero h1{font-size:40px;letter-spacing:-2px;}.hero-stats{flex-wrap:wrap;}.stat{min-width:50%;}.section{padding:60px 24px;}.outcomes-grid{grid-template-columns:1fr;}.about-grid{grid-template-columns:1fr;}.cta-section{padding:60px 24px;}.cta-section h2{font-size:32px;}}
     </style>
-  </head>
+    <link rel="stylesheet" href="program-pages.css">
+  <link rel="stylesheet" href="ui.css">
+</head>
   <body>
     <nav>
       <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
-      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">Coaching</a><a href="index.html#contact">Contact</a></div>
+      <div class="nav-links"><a href="index.html">Home</a><a href="programs.html">Programs</a><a href="coaching.html" style="color:#e63946;font-weight:700;">1-on-1 Coaching</a><a href="about.html">About</a></div>
     </nav>
 
     <div class="hero">
@@ -455,7 +457,9 @@
       function toggleEx(h){const b=h.nextElementSibling;const t=h.querySelector('.ex-toggle');b.classList.toggle('open');t.classList.toggle('open');}
       window.addEventListener('scroll',()=>{const n=document.querySelector('nav');n.style.padding=window.scrollY>50?'12px 48px':'20px 48px';});
     </script>
-    <script src="visuals.js"></script>
+
     </script>
-  </body>
+    <script src="program-pages.js" defer></script>
+  <script src="ui.js" defer></script>
+</body>
 </html>
