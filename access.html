@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>You're In — VANFORM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #f0ede8; min-height: 100vh; display: flex; flex-direction: column; }
+
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
+
+    /* NAV */
+    .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; background: rgba(15,15,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #1a1a1a; }
+    .topnav .logo { text-decoration: none; }
+
+    /* MAIN */
+    main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 120px 24px 80px; }
+    .card { max-width: 600px; width: 100%; }
+
+    /* SUCCESS BADGE */
+    .success-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(76,175,80,0.1); border: 1px solid rgba(76,175,80,0.25); border-radius: 100px; padding: 10px 20px; margin-bottom: 36px; }
+    .success-dot { width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: pulse 1.5s ease-in-out infinite; }
+    .success-badge span { font-size: 12px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #4caf50; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* HEADING */
+    .heading { font-size: 64px; font-weight: 900; letter-spacing: -3px; line-height: 1.0; color: white; margin-bottom: 16px; }
+    .heading em { font-style: normal; color: #e63946; }
+    .subheading { font-size: 17px; color: #555; line-height: 1.8; margin-bottom: 48px; max-width: 480px; }
+
+    /* PROGRAM CARD */
+    .program-card { background: #111; border: 1px solid #222; border-radius: 20px; padding: 40px; margin-bottom: 24px; }
+    .program-label { font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #e63946; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+    .program-label::before { content: ''; display: block; width: 14px; height: 2px; background: #e63946; }
+    .program-name { font-size: 28px; font-weight: 900; letter-spacing: -1px; color: white; margin-bottom: 10px; }
+    .program-desc { font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 32px; }
+    .access-btn { display: block; background: #e63946; color: white; text-align: center; padding: 18px; border-radius: 10px; font-size: 16px; font-weight: 700; text-decoration: none; transition: background 0.2s, transform 0.15s; letter-spacing: 0.2px; }
+    .access-btn:hover { background: #c1121f; transform: translateY(-2px); }
+
+    /* TIPS */
+    .tips { display: flex; flex-direction: column; gap: 12px; }
+    .tip { display: flex; align-items: flex-start; gap: 14px; font-size: 13px; color: #444; line-height: 1.6; }
+    .tip-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    /* ERROR STATE */
+    .error-state { text-align: center; }
+    .error-state .heading { font-size: 48px; }
+
+    /* FOOTER */
+    footer { padding: 28px 52px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { color: #2a2a2a; font-size: 13px; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: #333; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-links a:hover { color: #f0ede8; }
+
+    @media (max-width: 640px) {
+      .topnav { padding: 18px 24px; }
+      .heading { font-size: 44px; letter-spacing: -2px; }
+      .program-card { padding: 28px 24px; }
+      footer { flex-direction: column; gap: 16px; text-align: center; padding: 24px; }
+    }
+  </style>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2257815');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body>
+
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#noise)" opacity="0.025"/>
+  </svg>
+
+  <header class="topnav">
+    <a class="logo" href="index.html">
+      <img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:100px;width:auto;display:block;filter:invert(1);">
+    </a>
+  </header>
+
+  <main>
+    <div class="card" id="content">
+      <!-- Populated by JS -->
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-copy">© 2026 Liam Vanounou</div>
+    <div class="footer-links">
+      <a href="programs.html">Programs</a>
+      <a href="coaching.html">Coaching</a>
+      <a href="about.html">About</a>
+    </div>
+  </footer>
+
+  <script>
+    const programs = {
+      bodyweight: {
+        name: 'Beginner Bodyweight Strength',
+        desc: '8 weeks of progressive bodyweight training built on gymnastic movement patterns. No equipment needed — just show up.',
+        url: 'program-bodyweight-access.html'
+      },
+      core: {
+        name: 'Core & Hollow Body',
+        desc: '8 weeks of dedicated core training using the same hollow body, arch, and L-sit progressions used in elite gymnastics.',
+        url: 'program-core-access.html'
+      },
+      flexibility: {
+        name: 'Flexibility & Mobility',
+        desc: '8 weeks of structured flexibility work — splits, bridge, shoulder mobility, and pancake. Built to actually make progress.',
+        url: 'program-flexibility-access.html'
+      },
+      prehab: {
+        name: 'Prehab & Injury Prevention',
+        desc: '8 weeks of targeted prehab work for the joints and tendons that gymnastics and strength training put under the most load.',
+        url: 'program-prehab-access.html'
+      },
+      bar: {
+        name: 'Built for the Bars',
+        desc: '8 weeks of bar-specific training — pull strength, scapular control, and the foundations of bar gymnastics skills.',
+        url: 'program-bar-access.html'
+      },
+      pullup: {
+        name: 'Pull-Up Mastery',
+        desc: '8 weeks from zero to strict pull ups — and beyond. Built on gymnastic pulling mechanics that transfer to everything.',
+        url: 'program-pullup-access.html'
+      },
+      handstand: {
+        name: 'Handstand Mastery',
+        desc: '8 weeks toward a freestanding handstand. Wrist prep, shoulder strength, kick-up practice, and balance training — step by step.',
+        url: 'program-handstand-access.html'
+      },
+      muscleup: {
+        name: 'Muscle Up Program',
+        desc: '8 weeks to your first strict muscle up. False grip, transition mechanics, and the pressing strength to finish it — all trained in sequence.',
+        url: 'program-muscleup-access.html'
+      },
+      rings: {
+        name: 'Ring Strength',
+        desc: '8 weeks on the rings — support holds, ring dips, rows, and the straight-arm strength that defines gymnastic upper body development.',
+        url: 'program-rings-access.html'
+      },
+      parallettes: {
+        name: 'Parallettes Strength',
+        desc: '8 weeks of parallette training — L-sits, push up variations, dips, and planche progressions on the most versatile piece of gymnastics equipment.',
+        url: 'program-parallettes-access.html'
+      }
+    };
+
+    const params = new URLSearchParams(window.location.search);
+    const key = params.get('program');
+    const prog = programs[key];
+    const el = document.getElementById('content');
+
+    if (prog) {
+      el.innerHTML = `
+        <div class="success-badge">
+          <div class="success-dot"></div>
+          <span>Payment confirmed</span>
+        </div>
+        <h1 class="heading">Welcome.<br>You're <em>in.</em></h1>
+        <p class="subheading">Your program is ready. Bookmark the page below — it's yours forever.</p>
+        <div class="program-card">
+          <div class="program-label">Your Program</div>
+          <div class="program-name">${prog.name}</div>
+          <div class="program-desc">${prog.desc}</div>
+          <a class="access-btn" href="${prog.url}">Open Your Program →</a>
+        </div>
+        <div class="tips">
+          <div class="tip"><span class="tip-icon">📌</span>Bookmark the program page — that link is your permanent access.</div>
+          <div class="tip"><span class="tip-icon">📧</span>A confirmation with this link has been sent to your email via Stripe.</div>
+          <div class="tip"><span class="tip-icon">💬</span>Questions? Email liam@liamvanounou.ca — he responds personally.</div>
+        </div>
+      `;
+    } else {
+      el.innerHTML = `
+        <div class="error-state">
+          <h1 class="heading">Hmm.<br>Something's <em>off.</em></h1>
+          <p class="subheading" style="margin: 0 auto;">We couldn't find your program. Check your Stripe confirmation email for your access link, or email liam@liamvanounou.ca and we'll sort it out immediately.</p>
+        </div>
+      `;
+    }
+  </script>
+
+</body>
+</html>

@@ -23,7 +23,7 @@
     .sidemenu.open { right: 0; }
     .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #444; font-size: 22px; transition: color 0.2s; }
     .sidemenu-close:hover { color: white; }
-    .sidemenu-logo { font-size: 16px; font-weight: 700; color: white; margin-bottom: 48px; letter-spacing: -0.5px; }
+    .sidemenu-logo { margin-bottom: 48px; display: flex; align-items: center; }
     .sidemenu-logo span { color: #e63946; }
     .sidemenu nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
     .sidemenu nav a { color: #444; text-decoration: none; font-size: 34px; font-weight: 800; padding: 12px 0; transition: color 0.2s; border-bottom: 1px solid #1a1a1a; letter-spacing: -1.5px; }
@@ -33,7 +33,7 @@
 
     /* TOP NAV */
     .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; background: rgba(15,15,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #1a1a1a; }
-    .topnav .logo { font-size: 17px; font-weight: 800; color: white; text-decoration: none; letter-spacing: -0.5px; }
+    .topnav .logo { text-decoration: none; display: flex; align-items: center; }
     .topnav .logo span { color: #e63946; }
     .topnav-links { display: flex; align-items: center; gap: 36px; }
     .topnav-links a { color: #555; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; letter-spacing: -0.2px; }
@@ -109,7 +109,7 @@
 
     /* FOOTER */
     footer { padding: 32px 52px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
-    .footer-logo { font-size: 16px; font-weight: 800; color: #f0ede8; letter-spacing: -0.5px; }
+    .footer-logo { display: flex; align-items: center; }
     .footer-logo span { color: #e63946; }
     .footer-links { display: flex; gap: 28px; }
     .footer-links a { color: #333; text-decoration: none; font-size: 13px; transition: color 0.2s; }
@@ -210,6 +210,15 @@
     }
   </style>
   <link rel="stylesheet" href="ui.css">
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2257815');
+</script>
+<!-- End MailerLite Universal -->
 </head>
 <body>
 
@@ -223,7 +232,7 @@
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
   <div class="sidemenu" id="sidemenu">
     <button class="sidemenu-close" onclick="closeMenu()">✕</button>
-    <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+    <div class="sidemenu-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:84px;width:auto;display:block;filter:invert(1);"></div>
     <nav>
       <a href="index.html" class="active-link" onclick="closeMenu()">Home</a>
       <a href="programs.html" onclick="closeMenu()">Programs</a>
@@ -234,7 +243,7 @@
   </div>
 
   <header class="topnav">
-    <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+    <a class="logo" href="index.html"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:140px;width:auto;display:block;filter:invert(1);"></a>
     <div class="topnav-links">
       <a href="index.html" class="hide-mobile active-link">Home</a>
       <a href="programs.html" class="hide-mobile">Programs</a>
@@ -253,7 +262,7 @@
       </h1>
       <p class="pl-2" style="font-size:16px; color:#888; line-height:1.85; max-width:460px; margin-bottom:44px; font-weight:400;">Gymnastics is not just for gymnasts. It is the most effective way to build real strength, real flexibility, and real body control — at any age, any level, any background. I will show you how.</p>
       <div class="hero-cta pl-3">
-        <a class="btn-primary" href="coaching.html">Apply for Coaching</a>
+        <a class="btn-primary" href="coaching.html">Start 1-on-1 Coaching</a>
         <a class="btn-outline" href="programs.html">Browse Programs</a>
       </div>
     </div>
@@ -264,36 +273,46 @@
 
   <section class="services-hook">
     <div class="services-grid">
-      <a class="service-card reveal" href="programs.html">
-        <div class="service-num">10</div>
+
+      <!-- Programs -->
+      <a class="service-card reveal" href="programs.html" style="border-top: 3px solid #e63946;">
+        <div style="position:absolute;right:-16px;top:-16px;font-size:120px;font-weight:900;color:rgba(230,57,70,0.06);line-height:1;pointer-events:none;">10</div>
         <div class="service-card-label">Digital Programs</div>
-        <h3>Train on your own schedule.</h3>
-        <p>10 structured programs built around gymnastic movement — strength, flexibility, handstands, rings, and more. Download and start today.</p>
+        <div style="font-size:48px;font-weight:900;letter-spacing:-2px;color:white;line-height:1;margin-bottom:4px;">From <span style="color:#e63946;">$19</span></div>
+        <div style="font-size:12px;color:#333;font-weight:600;margin-bottom:20px;">10 programs available</div>
+        <p style="color:#888;font-size:15px;line-height:1.7;flex:1;margin-bottom:32px;">Strength, flexibility, handstands, rings and more. Structured by a national gymnast. Download and start today.</p>
         <div class="service-arrow">
-          <span class="service-arrow-text">Explore Programs</span>
+          <span class="service-arrow-text">Browse All Programs</span>
           <span class="service-arrow-icon">→</span>
         </div>
       </a>
-      <a class="service-card reveal reveal-d1" href="coaching.html">
-        <div class="service-num">1:1</div>
-        <div class="service-card-label">Personal Coaching</div>
-        <h3>Get coached by a national gymnast.</h3>
-        <p>Custom programming, weekly video feedback, and direct access to Liam. Limited spots open. Apply to find out if you qualify.</p>
+
+      <!-- Coaching — red hero card -->
+      <a class="reveal reveal-d1" href="coaching.html" style="background:#e63946;border-radius:16px;padding:44px 36px;text-decoration:none;color:white;display:flex;flex-direction:column;position:relative;overflow:hidden;transition:transform 0.3s ease,box-shadow 0.3s ease,filter 0.3s ease;" onmouseover="this.style.transform='translateY(-8px)';this.style.boxShadow='0 28px 64px rgba(230,57,70,0.4)';this.style.filter='brightness(1.08)';" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.filter='';">
+        <div style="position:absolute;right:-16px;top:-16px;font-size:120px;font-weight:900;color:rgba(0,0,0,0.1);line-height:1;pointer-events:none;">1:1</div>
+        <div style="font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:20px;">1-on-1 Coaching</div>
+        <div style="font-size:48px;font-weight:900;letter-spacing:-2px;color:white;line-height:1;margin-bottom:4px;">Train with<br>Liam.</div>
+        <div style="font-size:12px;color:rgba(255,255,255,0.6);font-weight:600;margin-bottom:20px;">Limited spots available</div>
+        <p style="color:rgba(255,255,255,0.8);font-size:15px;line-height:1.7;flex:1;margin-bottom:32px;">Custom programming, weekly video feedback, and direct access to a national gymnast. Built around you specifically.</p>
+        <div style="display:flex;align-items:center;justify-content:space-between;padding-top:24px;border-top:1px solid rgba(255,255,255,0.2);">
+          <span style="font-size:14px;font-weight:700;">See If You Qualify</span>
+          <span style="width:40px;height:40px;border-radius:50%;background:rgba(0,0,0,0.2);display:flex;align-items:center;justify-content:center;font-size:16px;">→</span>
+        </div>
+      </a>
+
+      <!-- Credentials -->
+      <a class="service-card reveal reveal-d2" href="about.html" style="border-top: 3px solid #e63946;">
+        <div style="position:absolute;right:-16px;top:-16px;font-size:120px;font-weight:900;color:rgba(230,57,70,0.06);line-height:1;pointer-events:none;">15</div>
+        <div class="service-card-label">Who Is Liam?</div>
+        <div style="font-size:48px;font-weight:900;letter-spacing:-2px;color:white;line-height:1;margin-bottom:4px;">The guy<br>behind it.</div>
+        <div style="font-size:12px;color:#333;font-weight:600;margin-bottom:20px;">National gymnast · Elite Canada Champion</div>
+        <p style="color:#888;font-size:15px;line-height:1.7;flex:1;margin-bottom:32px;">Before you buy anything, you should know who built it. 10+ years. 3× Ontario Champion. National podium. Read the story.</p>
         <div class="service-arrow">
-          <span class="service-arrow-text">Apply for Coaching</span>
+          <span class="service-arrow-text">Read About Liam</span>
           <span class="service-arrow-icon">→</span>
         </div>
       </a>
-      <a class="service-card reveal reveal-d2" href="about.html">
-        <div class="service-num">15+</div>
-        <div class="service-card-label">Elite Background</div>
-        <h3>Coached by someone who has done it.</h3>
-        <p>3× Ontario Champion. Elite Canada Champion. International competitor. Every program comes from 15+ years of competitive gymnastics.</p>
-        <div class="service-arrow">
-          <span class="service-arrow-text">See Achievements</span>
-          <span class="service-arrow-icon">→</span>
-        </div>
-      </a>
+
     </div>
   </section>
 
@@ -304,6 +323,40 @@
     <div class="cred-item"><strong>International Competitor</strong></div>
     <div class="cred-item"><strong>Canada Team</strong></div>
   </div>
+
+  <section class="panels-section">
+    <div class="panels-header reveal">
+      <h2>What Actually Changes</h2>
+      <p>Most people train for years and stay stuck. Here is what happens when you do it right.</p>
+    </div>
+    <div class="panels-wrap">
+      <div class="panel reveal">
+        <div class="panel-icon">🧱</div>
+        <div class="panel-num">01</div>
+        <div class="panel-title">You build strength that transfers.</div>
+        <p class="panel-body">Not gym strength. Gymnastic strength — the kind that shows up in everything you do. Pulling, pushing, controlling your body in space. Real and functional.</p>
+        <div class="panel-watermark">1</div>
+      </div>
+      <div class="panel reveal reveal-d1">
+        <div class="panel-icon">🎯</div>
+        <div class="panel-num">02</div>
+        <div class="panel-title">You develop body control you never had.</div>
+        <p class="panel-body">Gymnastics teaches your nervous system how to move. Coordination, balance, spatial awareness — things no weight class or cardio program ever teaches.</p>
+        <div class="panel-watermark">2</div>
+      </div>
+      <div class="panel reveal reveal-d2">
+        <div class="panel-icon">🔥</div>
+        <div class="panel-num">03</div>
+        <div class="panel-title">You feel athletic again — or for the first time.</div>
+        <p class="panel-body">The goal is not just to look good. It is to feel capable. To walk into any room and know your body can handle whatever comes. That is what gymnastic training does.</p>
+        <div class="panel-watermark">3</div>
+      </div>
+    </div>
+    <div class="panels-cta reveal">
+      <p>Ready to see what your body is capable of?</p>
+      <a class="btn-primary" href="coaching.html">Start 1-on-1 Coaching</a>
+    </div>
+  </section>
 
   <section class="section">
     <div class="programs-header">
@@ -369,46 +422,12 @@
         <div class="feat-icon">🎯</div>
         <div class="feat-tag">1-on-1</div>
         <h3>Not sure where to start?</h3>
-        <p>Apply for coaching and Liam will tell you exactly which program is right for you — and build around it.</p>
+        <p>Not sure where to start? Get 1-on-1 coaching and Liam will build your program around you specifically.</p>
         <div class="feat-card-footer">
           <span class="feat-price" style="font-size:18px; color:#e63946;">Limited Spots</span>
-          <span class="feat-cta">Apply Now →</span>
+          <span class="feat-cta">Start 1-on-1 Coaching →</span>
         </div>
       </a>
-    </div>
-  </section>
-
-  <section class="panels-section">
-    <div class="panels-header reveal">
-      <h2>What Actually Changes</h2>
-      <p>Most people train for years and stay stuck. Here is what happens when you do it right.</p>
-    </div>
-    <div class="panels-wrap">
-      <div class="panel reveal">
-        <div class="panel-icon">🧱</div>
-        <div class="panel-num">01</div>
-        <div class="panel-title">You build strength that transfers.</div>
-        <p class="panel-body">Not gym strength. Gymnastic strength — the kind that shows up in everything you do. Pulling, pushing, controlling your body in space. Real and functional.</p>
-        <div class="panel-watermark">1</div>
-      </div>
-      <div class="panel reveal reveal-d1">
-        <div class="panel-icon">🎯</div>
-        <div class="panel-num">02</div>
-        <div class="panel-title">You develop body control you never had.</div>
-        <p class="panel-body">Gymnastics teaches your nervous system how to move. Coordination, balance, spatial awareness — things no weight class or cardio program ever teaches.</p>
-        <div class="panel-watermark">2</div>
-      </div>
-      <div class="panel reveal reveal-d2">
-        <div class="panel-icon">🔥</div>
-        <div class="panel-num">03</div>
-        <div class="panel-title">You feel athletic again — or for the first time.</div>
-        <p class="panel-body">The goal is not just to look good. It is to feel capable. To walk into any room and know your body can handle whatever comes. That is what gymnastic training does.</p>
-        <div class="panel-watermark">3</div>
-      </div>
-    </div>
-    <div class="panels-cta reveal">
-      <p>Ready to see what your body is capable of?</p>
-      <a class="btn-primary" href="coaching.html">Apply for Coaching</a>
     </div>
   </section>
 
@@ -417,8 +436,42 @@
     <cite class="reveal reveal-d1">— Liam Vanounou</cite>
   </div>
 
+  <section style="padding: 100px 52px; background: #0f0f0f; border-top: 1px solid #1a1a1a;">
+    <div style="text-align: center; margin-bottom: 64px;">
+      <div class="section-label reveal" style="justify-content: center;">Get Started</div>
+      <h2 class="section-heading reveal reveal-d1" style="font-size: 52px; max-width: 600px; margin: 0 auto;">Two ways to train with Liam.</h2>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 960px; margin: 0 auto;">
+
+      <!-- Programs Card -->
+      <a href="programs.html" class="reveal" style="background: #111; border: 1px solid #1e1e1e; border-radius: 24px; padding: 52px 44px; display: flex; flex-direction: column; text-decoration: none; color: #f0ede8; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 24px 64px rgba(0,0,0,0.5)';this.style.borderColor='#2a2a2a';" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.borderColor='#1e1e1e';">
+        <div style="position: absolute; right: -20px; top: -20px; font-size: 140px; font-weight: 900; color: rgba(255,255,255,0.02); line-height: 1; pointer-events: none;">10</div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #e63946; margin-bottom: 20px;">Digital Programs</div>
+        <div style="font-size: 44px; font-weight: 900; letter-spacing: -2px; color: white; line-height: 1.0; margin-bottom: 16px;">From<br><span style="color:#e63946;">$19.</span></div>
+        <p style="color: #555; font-size: 15px; line-height: 1.75; flex: 1; margin-bottom: 40px;">10 structured programs — strength, flexibility, handstands, rings, and more. Download and start today. No gym required.</p>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid #1a1a1a;">
+          <span style="font-size: 14px; font-weight: 700; color: #e63946;">Browse All Programs</span>
+          <span style="width: 40px; height: 40px; border-radius: 50%; background: rgba(230,57,70,0.12); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #e63946;">→</span>
+        </div>
+      </a>
+
+      <!-- Coaching Card -->
+      <a href="coaching.html" class="reveal reveal-d1" style="background: #e63946; border-radius: 24px; padding: 52px 44px; display: flex; flex-direction: column; text-decoration: none; color: white; position: relative; overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;" onmouseover="this.style.transform='translateY(-6px)';this.style.boxShadow='0 24px 64px rgba(230,57,70,0.35)';this.style.filter='brightness(1.08)';" onmouseout="this.style.transform='';this.style.boxShadow='';this.style.filter='';">
+        <div style="position: absolute; right: -20px; top: -20px; font-size: 140px; font-weight: 900; color: rgba(0,0,0,0.1); line-height: 1; pointer-events: none;">1:1</div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: rgba(255,255,255,0.7); margin-bottom: 20px;">1-on-1 Coaching</div>
+        <div style="font-size: 44px; font-weight: 900; letter-spacing: -2px; color: white; line-height: 1.0; margin-bottom: 16px;">CA$250<br><span style="font-size: 22px; font-weight: 600; letter-spacing: -0.5px; opacity: 0.8;">/month</span></div>
+        <p style="color: rgba(255,255,255,0.75); font-size: 15px; line-height: 1.75; flex: 1; margin-bottom: 40px;">Custom programming, weekly video feedback, and direct access to Liam. Built around you. Limited spots available.</p>
+        <div style="display: flex; align-items: center; justify-content: space-between; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.2);">
+          <span style="font-size: 14px; font-weight: 700; color: white;">Start 1-on-1 Coaching</span>
+          <span style="width: 40px; height: 40px; border-radius: 50%; background: rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: center; font-size: 18px; color: white;">→</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
   <footer>
-    <div class="footer-logo">Liam <span>Vanounou</span></div>
+    <div class="footer-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:64px;width:auto;display:block;filter:invert(1);"></div>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="programs.html">Programs</a>

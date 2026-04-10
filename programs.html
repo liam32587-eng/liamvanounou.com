@@ -369,6 +369,15 @@
     }
   </style>
   <link rel="stylesheet" href="ui.css">
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2257815');
+</script>
+<!-- End MailerLite Universal -->
 </head>
 <body>
 
@@ -382,7 +391,7 @@
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
   <div class="sidemenu" id="sidemenu">
     <button class="sidemenu-close" onclick="closeMenu()">✕</button>
-    <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+    <div class="sidemenu-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:84px;width:auto;display:block;filter:invert(1);"></div>
     <nav>
       <a href="index.html" onclick="closeMenu()">Home</a>
       <a href="programs.html" class="active-link" onclick="closeMenu()">Programs</a>
@@ -393,7 +402,7 @@
   </div>
 
   <header class="topnav">
-    <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+    <a class="logo" href="index.html"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:140px;width:auto;display:block;filter:invert(1);"></a>
     <div class="topnav-links">
       <a href="index.html" class="hide-mobile">Home</a>
       <a href="programs.html" class="hide-mobile active-link">Programs</a>
@@ -480,7 +489,7 @@
             </div>
           </div>
           <div class="prc-right">
-            <div class="prc-price">$15</div>
+            <div class="prc-price">$19</div>
             <div class="prc-cta">View Program →</div>
           </div>
         </a>
@@ -560,7 +569,7 @@
             </div>
           </div>
           <div class="prc-right">
-            <div class="prc-price">$25</div>
+            <div class="prc-price">$47</div>
             <div class="prc-cta">View Program →</div>
           </div>
         </a>
@@ -652,7 +661,7 @@
             </div>
           </div>
           <div class="prc-right">
-            <div class="prc-price">$25</div>
+            <div class="prc-price">$29</div>
             <div class="prc-cta">View Program →</div>
           </div>
         </a>
@@ -675,7 +684,7 @@
             </div>
           </div>
           <div class="prc-right">
-            <div class="prc-price">$25</div>
+            <div class="prc-price">$29</div>
             <div class="prc-cta">View Program →</div>
           </div>
         </a>
@@ -735,11 +744,11 @@
       <h2>Want <em>personal</em> coaching instead?</h2>
       <p>Skip the guesswork. Work directly with Liam — custom programming built around you, with weekly check-ins and video form review.</p>
     </div>
-    <a class="btn-red" href="coaching.html">Apply for Coaching</a>
+    <a class="btn-red" href="coaching.html">Start 1-on-1 Coaching</a>
   </div>
 
   <footer>
-    <div class="footer-logo">Liam <span>Vanounou</span></div>
+    <div class="footer-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:64px;width:auto;display:block;filter:invert(1);"></div>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="programs.html">Programs</a>
@@ -820,15 +829,15 @@
 
     const programs = {
       bodyweight:   { name: 'Beginner Bodyweight Strength', price: '$19', url: 'program-bodyweight.html', desc: 'No gym, no experience needed. The perfect starting point — gymnastic movement patterns that build real strength from zero.' },
-      core:         { name: 'Core & Conditioning',          price: '$15', url: 'program-core.html',       desc: 'Gymnastic core training goes way beyond crunches. This is the system that builds real midline strength fast.' },
+      core:         { name: 'Core & Conditioning',          price: '$19', url: 'program-core.html',       desc: 'Gymnastic core training goes way beyond crunches. This is the system that builds real midline strength fast.' },
       flexibility:  { name: 'Flexibility & Mobility',       price: '$19', url: 'program-flexibility.html', desc: 'The gymnast approach to mobility — progressive, active, and actually effective. Not just static stretching.' },
       prehab:       { name: 'Gymnast Injury Prevention',    price: '$19', url: 'program-prehab.html',     desc: 'Built around keeping athletes healthy — prehab exercises that address the most common weak points before they become problems.' },
       pullup:       { name: 'Pull Up Progression',          price: '$19', url: 'program-pullup.html',     desc: 'Zero to strong overhead pulling — structured the way gymnasts build it, from dead hang to full pull-up and beyond.' },
       handstand:    { name: 'Handstand Progression',        price: '$29', url: 'program-handstand.html',  desc: 'Wall handstand to freestanding — the exact progressions gymnasts use, broken down for anyone.' },
       muscleup:     { name: 'Muscle Up Progression',        price: '$29', url: 'program-muscleup.html',   desc: 'One of the most satisfying skills you can earn. This program breaks it down start to finish.' },
-      rings:        { name: 'Rings Strength Foundation',    price: '$25', url: 'program-rings.html',      desc: 'Rings expose every weakness. This program builds the raw upper-body strength gymnasts are known for.' },
-      parallettes:  { name: 'Parallette Skills',            price: '$25', url: 'program-parallettes.html', desc: 'Body control, pressing strength, and L-sit foundations — all built on parallettes.' },
-      bar:          { name: 'Bar Basics',                   price: '$25', url: 'program-bar.html',        desc: 'The introduction to bar work — grip, kipping, connecting movements. Where pull-up strength becomes bar strength.' },
+      rings:        { name: 'Rings Strength Foundation',    price: '$29', url: 'program-rings.html',      desc: 'Rings expose every weakness. This program builds the raw upper-body strength gymnasts are known for.' },
+      parallettes:  { name: 'Parallette Skills',            price: '$29', url: 'program-parallettes.html', desc: 'Body control, pressing strength, and L-sit foundations — all built on parallettes.' },
+      bar:          { name: 'Bar Basics',                   price: '$47', url: 'program-bar.html',        desc: 'The introduction to bar work — grip, kipping, connecting movements. Where pull-up strength becomes bar strength.' },
     };
 
     function getRecommendation() {

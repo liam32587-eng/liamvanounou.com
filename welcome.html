@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Welcome to VANFORM</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Welcome to VANFORM. Fill out your intake form so Liam can build your program around you.">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: #0f0f0f; color: #f0ede8; overflow-x: hidden; }
+
+    #progress { position: fixed; top: 0; left: 0; height: 2px; background: #e63946; z-index: 9999; width: 0; transition: width 0.08s linear; }
+    .grain { position: fixed; inset: 0; pointer-events: none; z-index: 9998; }
+
+    /* OVERLAY + SIDE MENU */
+    .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
+    .overlay.open { opacity: 1; pointer-events: all; }
+    .sidemenu { position: fixed; top: 0; right: -360px; bottom: 0; width: 320px; background: #111; z-index: 300; padding: 60px 40px; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; border-left: 1px solid #1a1a1a; }
+    .sidemenu.open { right: 0; }
+    .sidemenu-close { position: absolute; top: 24px; right: 24px; background: none; border: none; cursor: pointer; color: #444; font-size: 22px; transition: color 0.2s; }
+    .sidemenu-close:hover { color: white; }
+    .sidemenu-logo { margin-bottom: 48px; display: flex; align-items: center; }
+    .sidemenu nav { display: flex; flex-direction: column; gap: 0; flex: 1; }
+    .sidemenu nav a { color: #444; text-decoration: none; font-size: 34px; font-weight: 800; padding: 12px 0; transition: color 0.2s; border-bottom: 1px solid #1a1a1a; letter-spacing: -1.5px; }
+    .sidemenu nav a:hover { color: white; }
+    .sidemenu nav a.coaching-link { color: #e63946; }
+    .sidemenu-footer { color: #2a2a2a; font-size: 13px; margin-top: 40px; }
+
+    /* TOP NAV */
+    .topnav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 22px 52px; background: rgba(15,15,15,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid #1a1a1a; }
+    .topnav .logo { text-decoration: none; display: flex; align-items: center; }
+    .topnav-links { display: flex; align-items: center; gap: 36px; }
+    .topnav-links a { color: #555; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+    .topnav-links a:hover { color: #f0ede8; }
+    .topnav-links a.coaching-link { color: #e63946; font-weight: 700; }
+    .menu-btn { background: none; border: 1px solid #222; border-radius: 6px; cursor: pointer; display: flex; flex-direction: column; gap: 4px; padding: 9px 11px; transition: border-color 0.2s; }
+    .menu-btn:hover { border-color: #444; }
+    .menu-btn span { width: 18px; height: 1.5px; background: #888; border-radius: 2px; display: block; }
+
+    /* HERO */
+    .hero { min-height: 52vh; display: flex; align-items: center; padding: 160px 52px 80px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; top: -200px; right: -100px; width: 800px; height: 800px; background: radial-gradient(circle, rgba(230,57,70,0.08) 0%, transparent 60%); pointer-events: none; }
+    .hero-inner { max-width: 760px; position: relative; z-index: 1; }
+    .hero-eyebrow { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: #e63946; margin-bottom: 28px; }
+    .hero-eyebrow::before { content: ''; display: block; width: 20px; height: 2px; background: #e63946; }
+    .hero-inner h1 { font-size: 80px; font-weight: 900; line-height: 0.95; letter-spacing: -4px; margin-bottom: 28px; color: white; }
+    .hero-sub { font-size: 18px; color: #555; line-height: 1.8; max-width: 560px; }
+
+    /* FORM SECTION */
+    .form-section { padding: 0 52px 120px; }
+    .apply-form-card { max-width: 680px; background: #111; border: 1px solid #222; border-radius: 20px; padding: 52px; }
+    .apply-form { display: flex; flex-direction: column; gap: 14px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field-group { display: flex; flex-direction: column; gap: 8px; }
+    .field-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: #e63946; }
+    .apply-form input,
+    .apply-form select,
+    .apply-form textarea { background: #111; border: 1px solid #1e1e1e; border-radius: 8px; padding: 15px 18px; font-size: 14px; font-family: 'Inter', sans-serif; color: #f0ede8; transition: border-color 0.2s; width: 100%; }
+    .apply-form input:focus,
+    .apply-form select:focus,
+    .apply-form textarea:focus { outline: none; border-color: #e63946; }
+    .apply-form input::placeholder,
+    .apply-form textarea::placeholder { color: #333; }
+    .apply-form select { appearance: none; cursor: pointer; color: #f0ede8; }
+    .apply-form select option { background: #111; }
+    .apply-form textarea { resize: vertical; min-height: 100px; }
+    .apply-submit { background: #e63946; color: white; border: none; padding: 18px; border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer; font-family: 'Inter', sans-serif; transition: background 0.2s, transform 0.15s; margin-top: 8px; width: 100%; }
+    .apply-submit:hover { background: #c1121f; transform: translateY(-2px); }
+    .form-success { display: none; background: #111; border: 1px solid #1e1e1e; border-radius: 12px; padding: 36px 32px; margin-top: 16px; }
+    .form-success h3 { font-size: 20px; font-weight: 800; color: white; margin-bottom: 10px; letter-spacing: -0.5px; }
+    .form-success p { color: #555; font-size: 15px; line-height: 1.7; }
+
+    /* FOOTER */
+    footer { padding: 32px 52px; border-top: 1px solid #1a1a1a; display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { display: flex; align-items: center; }
+    .footer-links { display: flex; gap: 28px; }
+    .footer-links a { color: #333; text-decoration: none; font-size: 13px; transition: color 0.2s; }
+    .footer-links a:hover { color: #f0ede8; }
+    .footer-copy { color: #2a2a2a; font-size: 13px; }
+
+    .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-d1 { transition-delay: 0.1s; }
+    .reveal-d2 { transition-delay: 0.2s; }
+    .reveal-d3 { transition-delay: 0.3s; }
+
+    @media (max-width: 960px) {
+      .topnav { padding: 18px 24px; }
+      .topnav-links .hide-mobile { display: none; }
+      .hero { padding: 120px 24px 60px; min-height: auto; }
+      .hero-inner h1 { font-size: 52px; letter-spacing: -3px; }
+      .hero-sub { font-size: 16px; }
+      .form-section { padding: 0 24px 80px; }
+      .apply-form-card { padding: 32px 24px; }
+      .form-row { grid-template-columns: 1fr; }
+      footer { flex-direction: column; gap: 20px; text-align: center; padding: 28px 24px; }
+    }
+  </style>
+  <link rel="stylesheet" href="ui.css">
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2257815');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body>
+
+  <div id="progress"></div>
+
+  <svg class="grain" xmlns="http://www.w3.org/2000/svg">
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="4" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter>
+    <rect width="100%" height="100%" filter="url(#noise)" opacity="0.025"/>
+  </svg>
+
+  <div class="overlay" id="overlay" onclick="closeMenu()"></div>
+  <div class="sidemenu" id="sidemenu">
+    <button class="sidemenu-close" onclick="closeMenu()">✕</button>
+    <div class="sidemenu-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:84px;width:auto;display:block;filter:invert(1);"></div>
+    <nav>
+      <a href="index.html" onclick="closeMenu()">Home</a>
+      <a href="programs.html" onclick="closeMenu()">Programs</a>
+      <a href="coaching.html" class="coaching-link" onclick="closeMenu()">1-on-1 Coaching</a>
+      <a href="about.html" onclick="closeMenu()">About</a>
+    </nav>
+    <div class="sidemenu-footer">© 2026 Liam Vanounou</div>
+  </div>
+
+  <header class="topnav">
+    <a class="logo" href="index.html"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:140px;width:auto;display:block;filter:invert(1);"></a>
+    <div class="topnav-links">
+      <a href="index.html" class="hide-mobile">Home</a>
+      <a href="programs.html" class="hide-mobile">Programs</a>
+      <a href="coaching.html" class="coaching-link hide-mobile">1-on-1 Coaching</a>
+      <a href="about.html" class="hide-mobile">About</a>
+      <button class="menu-btn" onclick="openMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-eyebrow reveal">You're in.</div>
+      <h1 class="reveal reveal-d1">Welcome to VANFORM.</h1>
+      <p class="hero-sub reveal reveal-d2">Your spot is confirmed. Before we get started, fill out the form below so Liam can build your program around you specifically.</p>
+    </div>
+  </section>
+
+  <section class="form-section">
+    <div class="apply-form-card reveal">
+      <form class="apply-form" id="intakeForm" action="https://formspree.io/f/xlgonzrq" method="POST">
+        <input type="hidden" name="source" value="paid-client-intake">
+
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label" for="fullname">Full Name</label>
+            <input type="text" id="fullname" name="full_name" placeholder="Your full name" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="field-group">
+            <label class="field-label" for="age">Age</label>
+            <input type="number" id="age" name="age" placeholder="Your age" min="10" max="99" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="location">Location / City</label>
+            <input type="text" id="location" name="location" placeholder="City, Country" required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="level">Current Fitness Level</label>
+          <select id="level" name="fitness_level" required>
+            <option value="" disabled selected>Select your level</option>
+            <option value="Complete Beginner">Complete Beginner</option>
+            <option value="Some Experience">Some Experience</option>
+            <option value="Athletic Background">Athletic Background</option>
+            <option value="Competitive Athlete">Competitive Athlete</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="goal">Main Goal — What Do You Want to Achieve?</label>
+          <textarea id="goal" name="main_goal" placeholder="Be as specific as possible..." required></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="days">How Many Days Per Week Can You Train?</label>
+          <select id="days" name="training_days" required>
+            <option value="" disabled selected>Select days per week</option>
+            <option value="2">2 days</option>
+            <option value="3">3 days</option>
+            <option value="4">4 days</option>
+            <option value="5">5 days</option>
+            <option value="6">6 days</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="injuries">Injuries or Physical Limitations</label>
+          <textarea id="injuries" name="injuries" placeholder="Any past or current injuries, pain, or limitations Liam should know about..." required></textarea>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="equipment">Equipment Access</label>
+          <select id="equipment" name="equipment" required>
+            <option value="" disabled selected>Select your equipment</option>
+            <option value="No equipment">No equipment</option>
+            <option value="Pull up bar only">Pull up bar only</option>
+            <option value="Basic home gym">Basic home gym</option>
+            <option value="Full gym access">Full gym access</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="other">Anything Else Liam Should Know? <span style="color:#333;font-weight:500;letter-spacing:0;text-transform:none;">(optional)</span></label>
+          <textarea id="other" name="other_info" placeholder="Anything else..."></textarea>
+        </div>
+
+        <button type="submit" class="apply-submit">Submit My Intake Form</button>
+      </form>
+
+      <div class="form-success" id="formSuccess">
+        <h3>Got it.</h3>
+        <p>Liam will review your intake and be in touch within 24 hours with your first program.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:64px;width:auto;display:block;filter:invert(1);"></div>
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="programs.html">Programs</a>
+      <a href="coaching.html">Coaching</a>
+      <a href="about.html">About</a>
+    </div>
+    <div class="footer-copy">© 2026 Liam Vanounou</div>
+  </footer>
+
+  <script>
+    function openMenu() { document.getElementById('sidemenu').classList.add('open'); document.getElementById('overlay').classList.add('open'); }
+    function closeMenu() { document.getElementById('sidemenu').classList.remove('open'); document.getElementById('overlay').classList.remove('open'); }
+
+    window.addEventListener('scroll', () => {
+      const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+      document.getElementById('progress').style.width = pct + '%';
+    });
+
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    document.getElementById('intakeForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const form = this;
+      const btn = form.querySelector('.apply-submit');
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          document.getElementById('formSuccess').style.display = 'block';
+        } else {
+          btn.textContent = 'Something went wrong. Try again.';
+          btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Something went wrong. Try again.';
+        btn.disabled = false;
+      }
+    });
+  </script>
+  <script src="ui.js" defer></script>
+</body>
+</html>

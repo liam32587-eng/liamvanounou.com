@@ -4,7 +4,7 @@
   <title>About — Liam Vanounou</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Liam Vanounou — 3x Ontario Champion, Elite Canada Champion, National competitor. 15+ years of gymnastics. Now coaching.">
+  <meta name="description" content="Liam Vanounou — 3x Ontario Champion, Elite Canada Champion, National competitor. 10+ years of gymnastics. Now coaching.">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; }
@@ -115,6 +115,7 @@
     .footer-links a:hover { color: #f0ede8; }
     .footer-copy { color: #2a2a2a; font-size: 13px; }
 
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.65s ease, transform 0.65s ease; }
     .reveal.visible { opacity: 1; transform: none; }
     .reveal-d1 { transition-delay: 0.1s; }
@@ -141,6 +142,15 @@
     }
   </style>
   <link rel="stylesheet" href="ui.css">
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2257815');
+</script>
+<!-- End MailerLite Universal -->
 </head>
 <body>
 
@@ -154,7 +164,7 @@
   <div class="overlay" id="overlay" onclick="closeMenu()"></div>
   <div class="sidemenu" id="sidemenu">
     <button class="sidemenu-close" onclick="closeMenu()">✕</button>
-    <div class="sidemenu-logo">Liam <span>Vanounou</span></div>
+    <div class="sidemenu-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:84px;width:auto;display:block;filter:invert(1);"></div>
     <nav>
       <a href="index.html" onclick="closeMenu()">Home</a>
       <a href="programs.html" onclick="closeMenu()">Programs</a>
@@ -165,7 +175,7 @@
   </div>
 
   <header class="topnav">
-    <a class="logo" href="index.html">Liam <span>Vanounou</span></a>
+    <a class="logo" href="index.html"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:140px;width:auto;display:block;filter:invert(1);"></a>
     <div class="topnav-links">
       <a href="index.html" class="hide-mobile">Home</a>
       <a href="programs.html" class="hide-mobile">Programs</a>
@@ -181,7 +191,7 @@
     <div class="hero-left">
       <div class="hero-eyebrow pl-1">The Coach</div>
       <h1 class="pl-2">I've been doing this<br>since I was <em>7.</em><br>Here's what that<br>means for you.</h1>
-      <p class="pl-3">15+ years of competitive gymnastics. 3x Ontario Champion. Now I coach people who want to move like gymnasts — no prior experience required.</p>
+      <p class="pl-3">10+ years of competitive gymnastics. 3x Ontario Champion. Now I coach people who want to move like gymnasts — no prior experience required.</p>
     </div>
     <div class="hero-right">
       <img src="photo-pommel-comp.jpeg" alt="Liam Vanounou competing">
@@ -190,7 +200,7 @@
 
   <section class="section story-section">
     <div class="section-label reveal">Liam's Journey</div>
-    <h2 class="section-heading reveal reveal-d1">What 15 years<br>looks like.</h2>
+    <h2 class="section-heading reveal reveal-d1">What 10+ years<br>looks like.</h2>
     <div class="story-body">
       <p class="reveal">Most people have never met someone who competed at the national level in gymnastics. Liam Vanounou is the rare exception — and he's been doing it since he was 7 years old.</p>
       <p class="reveal">In junior competition, Liam didn't just win. He dominated. <strong>Three consecutive years as Ontario Champion</strong> — meaning three straight years as the best under-18 gymnast in the entire province. In a sport where the margin between first and third is measured in tenths of a point, that kind of consistency means something.</p>
@@ -237,11 +247,55 @@
     </div>
   </section>
 
+  <section class="section creds-section">
+    <div class="section-label reveal">Coaching Credentials</div>
+    <h2 class="section-heading reveal reveal-d1">NCCP Certified Coach.<br>Formally qualified.</h2>
+    <div class="story-body" style="margin-bottom: 48px;">
+      <p class="reveal">Competing at the national level is one thing. <strong>Liam is also a formally certified coach</strong> — holding active NCCP certification (National Coaching Certification Program), the standard coaching credential in Canada. That means the training methodology behind every program isn't just instinct from a great athlete. It's structured, certified, and built on the frameworks coaches use to develop gymnasts at every level.</p>
+    </div>
+    <div class="creds-grid reveal reveal-d2">
+      <div class="cred-card">
+        <div class="cred-num">01</div>
+        <h3>MAG &amp; WAG Comp Intro</h3>
+        <p>Trained in both Men's and Women's Artistic Gymnastics competition coaching. Certified Dec 2025.</p>
+      </div>
+      <div class="cred-card">
+        <div class="cred-num">02</div>
+        <h3>Trained GF — Artistic Coach</h3>
+        <p>Foundational gymnastics coaching methodology and progression systems. Certified Aug 2023.</p>
+      </div>
+      <div class="cred-card">
+        <div class="cred-num">03</div>
+        <h3>Safe Sport Training</h3>
+        <p>Athlete protection and wellbeing protocols — required for all certified NCCP coaches.</p>
+      </div>
+      <div class="cred-card">
+        <div class="cred-num">04</div>
+        <h3>Emergency Action Plan</h3>
+        <p>NCCP Emergency Action Plan eLearning — injury response and first aid protocols.</p>
+      </div>
+      <div class="cred-card">
+        <div class="cred-num">05</div>
+        <h3>Respect in Sport</h3>
+        <p>Activity Leaders certification — ethical coaching standards and athlete wellbeing. Jan 2026.</p>
+      </div>
+      <div class="cred-card">
+        <div class="cred-num">06</div>
+        <h3>Make Ethical Decisions</h3>
+        <p>NCCP ethics evaluation — principled decision-making in competitive and training environments. Jan 2026.</p>
+      </div>
+    </div>
+    <div style="margin-top: 32px; display: flex; align-items: center; gap: 12px;" class="reveal reveal-d3">
+      <div style="background: #161616; border: 1px solid #222; border-radius: 8px; padding: 12px 20px; font-size: 12px; color: #444; font-family: monospace; letter-spacing: 0.5px;"><strong style="color: #f0ede8;">NCCP# 6650485</strong></div>
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 12px; color: #e63946; font-weight: 600;"><span style="width:7px; height:7px; background:#e63946; border-radius:50%; display:inline-block; animation: pulse 1.5s ease-in-out infinite;"></span> Active Status</div>
+    </div>
+  </section>
+
   <section class="about-cta-section">
     <h2 class="reveal">This experience is what you get access to.</h2>
-    <p class="reveal reveal-d1">Every program and coaching session is built on 15+ years of elite level training and competition.</p>
+    <p class="reveal reveal-d1">Every program and coaching session is built on 10+ years of elite level training and competition.</p>
     <div class="cta-buttons reveal reveal-d2">
-      <a class="btn-primary" href="coaching.html">Apply for Coaching</a>
+      <a class="btn-primary" href="coaching.html">Start 1-on-1 Coaching</a>
       <a class="btn-outline" href="programs.html">Browse Programs</a>
     </div>
   </section>
@@ -251,7 +305,7 @@
     <h2 class="section-heading reveal reveal-d1">Training methods from inside elite gymnastics. Now open to you.</h2>
     <div class="story-body" style="margin-bottom: 48px;">
       <p class="reveal">Elite gymnastics training has never been available to regular people. The drills, the progressions, the specific cuing that builds extraordinary body control — it's been locked behind gym doors and passed from coach to athlete through years of competitive training. That changes here.</p>
-      <p class="reveal">Liam offers two ways in: <strong>digital programs starting at $19</strong> — structured, step-by-step systems for specific skills — and <strong>1-on-1 online coaching</strong> for those who want a national gymnast building and refining their program every single month. Whether you're working toward a handstand, ring strength, gymnast-level fitness, or your first competition, the methodology behind all of it comes from the same place: 15+ years of elite training.</p>
+      <p class="reveal">Liam offers two ways in: <strong>digital programs starting at $19</strong> — structured, step-by-step systems for specific skills — and <strong>1-on-1 online coaching</strong> for those who want a national gymnast building and refining their program every single month. Whether you're working toward a handstand, ring strength, gymnast-level fitness, or your first competition, the methodology behind all of it comes from the same place: 10+ years of elite training.</p>
     </div>
     <div class="helps-grid">
       <div class="help-item reveal">Handstand progressions (wall to freestanding)</div>
@@ -269,12 +323,12 @@
 
   <section class="section cta-section">
     <h2 class="reveal">Ready to work <em>together?</em></h2>
-    <p class="reveal reveal-d1">5 founding spots. $197 first month. Apply now and I'll be in touch within 48 hours.</p>
-    <a class="btn-primary reveal reveal-d2" href="coaching.html">Apply for Coaching</a>
+    <p class="reveal reveal-d1">CA$250/month. Cancel anytime. 5 spots available.</p>
+    <a class="btn-primary reveal reveal-d2" href="coaching.html">Start 1-on-1 Coaching</a>
   </section>
 
   <footer>
-    <div class="footer-logo">Liam <span>Vanounou</span></div>
+    <div class="footer-logo"><img src="vanform-logo-black-removebg-preview.png" alt="VANFORM" style="height:64px;width:auto;display:block;filter:invert(1);"></div>
     <div class="footer-links">
       <a href="index.html">Home</a>
       <a href="programs.html">Programs</a>
